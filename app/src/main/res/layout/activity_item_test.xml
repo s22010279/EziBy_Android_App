@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TestScreens.ItemTest">
+
+    <android.widget.HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="412dp"
+        android:layout_height="732dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <include
+            android:id="@+id/includedLayout1"
+            layout="@layout/component_item"
+            android:layout_width="180dp"
+            android:layout_height="400dp" />
+
+        <include
+            android:id="@+id/includedLayout2"
+            layout="@layout/component_item"
+            android:layout_width="180dp"
+            android:layout_height="400dp" />
+
+        <include
+            android:id="@+id/includedLayout3"
+            layout="@layout/component_item"
+            android:layout_width="180dp"
+            android:layout_height="400dp" />
+
+        <include
+            android:id="@+id/includedLayout4"
+            layout="@layout/component_item"
+            android:layout_width="180dp"
+            android:layout_height="400dp" />
+
+    </LinearLayout>
+    </android.widget.HorizontalScrollView>
+
+    <android.widget.HorizontalScrollView
+        android:layout_marginTop="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="412dp"
+            android:layout_height="732dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <include
+                android:id="@+id/includedLayout11"
+                layout="@layout/component_item"
+                android:layout_width="180dp"
+                android:layout_height="400dp" />
+
+            <include
+                android:id="@+id/includedLayout22"
+                layout="@layout/component_item"
+                android:layout_width="180dp"
+                android:layout_height="400dp" />
+
+            <include
+                android:id="@+id/includedLayout33"
+                layout="@layout/component_item"
+                android:layout_width="180dp"
+                android:layout_height="400dp" />
+
+            <include
+                android:id="@+id/includedLayout44"
+                layout="@layout/component_item"
+                android:layout_width="180dp"
+                android:layout_height="400dp" />
+
+        </LinearLayout>
+    </android.widget.HorizontalScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
