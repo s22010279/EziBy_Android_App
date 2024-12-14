@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "282193155104",
+    "firebase_url": "https://android-4369-project-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "android-4369-project",
+    "storage_bucket": "android-4369-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282193155104:android:282efed7b932890e219845",
+        "android_client_info": {
+          "package_name": "com.eziby.eziby_android_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282193155104-rpiid1tpka06qa65qmghdh53am3eosom.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eziby.eziby_android_app",
+            "certificate_hash": "276156e21c70f6b9745929cd5f1b228372d5ee31"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyELhnf_1MIIxL0-JwaWQg7DNjeWHFhtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282193155104-1ft5voamq83uilbqu7epehf6ltrg8sd5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
