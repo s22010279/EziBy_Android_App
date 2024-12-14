@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.eziby.eziby_android_app.Classes.MySharedPreferences;
-import com.eziby.eziby_android_app.MainActivity;
+import com.eziby.eziby_android_app.screens.MainActivity;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.R;

@@ -50,7 +50,7 @@
             android:justificationMode="none"
             android:scrollbars="vertical"
             android:scrollHorizontally="true"
-            android:text="@string/aboutus"
+            android:text="@string/about_us"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/white" />
 

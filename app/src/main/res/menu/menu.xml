@@ -4,21 +4,26 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/vector_dashboard_24"
-        android:title="Home" />
+        android:title="@string/bottom_navigation_icon_home" />
 
     <item
-        android:id="@+id/myspots"
-        android:icon="@drawable/vector_myspot_24"
-        android:title="My Spots" />
+        android:id="@+id/search"
+        android:icon="@drawable/baseline_search_24"
+        android:title="@string/bottom_navigation_icon_search" />
 
     <item
         android:id="@+id/profile"
         android:icon="@drawable/vector_user_24"
-        android:title="Profile" />
+        android:title="@string/bottom_navigation_icon_profile" />
 
     <item
-        android:id="@+id/aboutUs"
-        android:icon="@drawable/vector_baseline_info_24"
-        android:title="About Us" />
+        android:id="@+id/wishlist"
+        android:icon="@drawable/baseline_article_24"
+        android:title="@string/bottom_navigation_icon_wish_list" />
+
+    <item
+        android:id="@+id/shopping_cart"
+        android:icon="@drawable/baseline_add_shopping_cart_24"
+        android:title="@string/bottom_navigation_icon_cart" />
 
 </menu>

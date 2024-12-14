@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/image_background_flash_activity"
+    android:background="@drawable/background_flashscreen_2"
     tools:context=".screens.FlashActivity">
 
     <TextView
@@ -12,25 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/aladin"
-        android:text="@string/for_your_travel_thurst"
+        android:textSize="30sp"
+        android:text="@string/for_your_daily_shopping"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoView"
-        app:layout_constraintVertical_bias="0.088" />
-
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="406dp"
-        android:layout_height="254dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewWanderLust"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.727" />
 
     <TextView
         android:id="@+id/textViewWelcome"
@@ -40,11 +31,13 @@
         android:text="@string/welcome"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/white"
+        android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.159" />
+        app:layout_constraintVertical_bias="0.15" />
 
     <TextView
         android:id="@+id/textViewTo"
@@ -55,25 +48,29 @@
         android:text="@string/to"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/white"
+        android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintVertical_bias="0.296" />
 
     <TextView
         android:id="@+id/textViewWanderLust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/aladin"
-        android:text="@string/wanderlust"
+        android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/white"
+        android:textSize="80sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.286" />
+        app:layout_constraintVertical_bias="0.428" />
 
     <Button
         android:id="@+id/btn_skip"
@@ -87,6 +84,6 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.891" />
+        app:layout_constraintVertical_bias="0.947" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

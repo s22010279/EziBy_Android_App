@@ -1,4 +1,4 @@
-package com.eziby.eziby_android_app;
+package com.eziby.eziby_android_app.screens;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -10,12 +10,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.eziby.eziby_android_app.Classes.MySharedPreferences;
+import com.eziby.eziby_android_app.Fragments.SearchFragment;
+import com.eziby.eziby_android_app.Fragments.ShoppingCartFragment;
+import com.eziby.eziby_android_app.Fragments.WishListFragment;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Database.DbHelper;
+import com.eziby.eziby_android_app.R;
 import com.eziby.eziby_android_app.databinding.ActivityMainBinding;
-import com.eziby.eziby_android_app.Fragments.AboutUsFragment;
 import com.eziby.eziby_android_app.Fragments.HomeFragment;
-import com.eziby.eziby_android_app.Fragments.MySpotFragment;
 import com.eziby.eziby_android_app.Fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,14 +43,17 @@ public class MainActivity extends AppCompatActivity {
             if (menuItemId == R.id.home) {
                 replaceFragment(new HomeFragment());
                 return true;
-            } else if (menuItemId == R.id.myspots) {
-                replaceFragment(new MySpotFragment());
+            } else if (menuItemId == R.id.search) {
+                replaceFragment(new SearchFragment());
                 return true;
             } else if (menuItemId == R.id.profile) {
                 replaceFragment(new ProfileFragment());
                 return true;
-            } else if (menuItemId == R.id.aboutUs) {
-                replaceFragment(new AboutUsFragment());
+            } else if (menuItemId == R.id.wishlist) {
+                replaceFragment(new WishListFragment());
+                return true;
+            } else if (menuItemId == R.id.shopping_cart) {
+                replaceFragment(new ShoppingCartFragment());
                 return true;
             }
             return true;

@@ -1,23 +1,18 @@
 <resources>
-    <string name="app_name">Wander Lust</string>
+    <string name="app_name">EziBy</string>
     <string name="my_api_key">AIzaSyB_GHe90zmgCOst2JoDq_MZNzAPaREBLUE</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="aboutus">Welcome to WanderLust, Where adventure begins with a tap.\nAt WanderLust, we\'re passionate about making your travel dreams a reality. Whether you\'re a seasoned globetrotter or embarking on your first journey, our app is designed to be your trusted companion every step of the way.\nOur mission is simple: to inspire and empower travelers like you to explore the world with confidence and ease. From discovering hidden gems and planning unforgettable itineraries to booking flights, accommodations, and activities, we\'re here to streamline your travel experience and help you create memories that last a lifetime.
-        \n
-           \n
-    Welcome to WanderLust, Where adventure begins with a tap.\nAt WanderLust, we\'re passionate about making your travel dreams a reality. Whether you\'re a seasoned globetrotter or embarking on your first journey, our app is designed to be your trusted companion every step of the way.\nOur mission is simple: to inspire and empower travelers like you to explore the world with confidence and ease. From discovering hidden gems and planning unforgettable itineraries to booking flights, accommodations, and activities, we\'re here to streamline your travel experience and help you create memories that last a lifetime.
-    </string>
-    <string name="location_message">Please allow location services to automatically update your weather information on the go. We do not utilize provided information in any way.</string>
+    <string name="about_us">Welcome to EziBy</string>
+    <string name="location_message">Please allow location services to automatically update your location information. We do not utilize provided information in any way.</string>
     <string name="sign_in">Sign in</string>
     <string name="GoogleClientID">282193155104-1ft5voamq83uilbqu7epehf6ltrg8sd5.apps.googleusercontent.com</string>
     <string name="loginText">Login</string>
-    <string name="sample_details">A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials. A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.A series of fortifications made of stone, brick, tamped earth, wood, and other materials.</string>
+    <string name="sample_details">A series of fortifications made of stone, brick, tamped earth.</string>
     <string name="scroll_view_of_all_available_places">Scroll view of all available places</string>
-    <string name="for_your_travel_thurst">For your travel thurst....</string>
+    <string name="for_your_daily_shopping">For your daily shopping.</string>
     <string name="welcome">Welcome</string>
     <string name="to">To</string>
-    <string name="wanderlust">WanderLust</string>
     <string name="next">Next</string>
     <string name="image_of_location">Image of Location</string>
     <string name="i_agree_to_share_my_location">I Agree to Share My Location</string>
@@ -48,4 +43,9 @@
     <string name="no_shared_places">No Shared Places!</string>
     <string name="please_share_places">Please share places</string>
     <string name="sign_out">Sign Out</string>
+    <string name="bottom_navigation_icon_home">Home</string>
+    <string name="bottom_navigation_icon_search">Search</string>
+    <string name="bottom_navigation_icon_profile">Profile</string>
+    <string name="bottom_navigation_icon_wish_list">Wish List</string>
+    <string name="bottom_navigation_icon_cart">Cart</string>
 </resources>

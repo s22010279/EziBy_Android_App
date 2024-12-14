@@ -26,7 +26,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.eziby.eziby_android_app.Classes.MySharedPreferences;
-import com.eziby.eziby_android_app.MainActivity;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.R;
