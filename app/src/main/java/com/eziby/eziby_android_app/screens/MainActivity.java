@@ -9,21 +9,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.eziby.eziby_android_app.databinding.ActivityMainBinding;
+import com.eziby.eziby_android_app.R;
 import com.eziby.eziby_android_app.Classes.MySharedPreferences;
-import com.eziby.eziby_android_app.Fragments.SearchFragment;
-import com.eziby.eziby_android_app.Fragments.ShoppingCartFragment;
-import com.eziby.eziby_android_app.Fragments.WishListFragment;
+
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Database.DbHelper;
-import com.eziby.eziby_android_app.R;
-import com.eziby.eziby_android_app.databinding.ActivityMainBinding;
+
 import com.eziby.eziby_android_app.Fragments.HomeFragment;
+import com.eziby.eziby_android_app.Fragments.SearchFragment;
 import com.eziby.eziby_android_app.Fragments.ProfileFragment;
+import com.eziby.eziby_android_app.Fragments.WishListFragment;
+import com.eziby.eziby_android_app.Fragments.ShoppingCartFragment;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     public static MediaPlayer mediaPlayer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
