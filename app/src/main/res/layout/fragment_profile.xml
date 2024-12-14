@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image_background_profile"
+    tools:context=".fragments.ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="468dp"
+            android:background="@drawable/shape_rounded_corner"
+            android:paddingHorizontal="20dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.543">
+
+            <TableRow
+                android:layout_width="340dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.582"
+                app:shapeAppearanceOverlay="@style/roundedImageView">
+
+                <TextView
+                    android:id="@+id/textViewNameKey"
+                    android:layout_width="106dp"
+                    android:text="Name"
+                    android:textColor="#C6BDBD" />
+
+                <TextView
+                    android:id="@+id/textViewNameValue"
+                    android:text="Mohamed Anushath"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="340dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.582"
+                app:shapeAppearanceOverlay="@style/roundedImageView">
+
+                <TextView
+                    android:id="@+id/textViewEmailKey"
+                    android:layout_width="106dp"
+                    android:text="Email"
+                    android:textColor="#C6BDBD" />
+
+                <TextView
+                    android:id="@+id/textViewEmailValue"
+                    android:text="s22010279@ousl.lk"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="340dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.582"
+                app:shapeAppearanceOverlay="@style/roundedImageView">
+
+                <TextView
+                    android:id="@+id/textViewContributionKey"
+                    android:layout_width="106dp"
+                    android:text="Contributions"
+                    android:textColor="#C6BDBD" />
+
+                <TextView
+                    android:id="@+id/textViewContributionValue"
+                    android:text="138"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="340dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.582"
+                app:shapeAppearanceOverlay="@style/roundedImageView">
+
+                <TextView
+                    android:id="@+id/textViewMemberSinceKey"
+                    android:layout_width="106dp"
+                    android:text="Member Since"
+                    android:textColor="#C6BDBD" />
+
+                <TextView
+                    android:id="@+id/textViewMemberSinceValue"
+                    android:text="2002"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="340dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.582"
+                app:shapeAppearanceOverlay="@style/roundedImageView">
+
+                <TextView
+                    android:id="@+id/textViewRatingKey"
+                    android:layout_width="106dp"
+                    android:text="Ratings"
+                    android:textColor="#C6BDBD" />
+
+                <TextView
+                    android:id="@+id/textViewRatingValue"
+                    android:text="4 Star"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="340dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.582"
+                app:shapeAppearanceOverlay="@style/roundedImageView">
+
+                <TextView
+                    android:id="@+id/textViewNewsLetterKey"
+                    android:layout_width="106dp"
+                    android:text="Subscribe to Newsletter"
+                    android:textColor="#C6BDBD" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_newsletter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:trackTint="#3585E6"
+                    tools:layout_editor_absoluteX="180dp"
+                    tools:layout_editor_absoluteY="611dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="340dp"
+                android:layout_height="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.582"
+                app:shapeAppearanceOverlay="@style/roundedImageView">
+
+                <TextView
+                    android:id="@+id/textViewMusicKey"
+                    android:layout_width="106dp"
+                    android:text="Background music"
+                    android:textColor="#C6BDBD" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_Music"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:trackTint="#3585E6"
+                    tools:layout_editor_absoluteX="180dp"
+                    tools:layout_editor_absoluteY="611dp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="50dp">
+
+                <ProgressBar
+                    android:id="@+id/progressBar_signOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_signOut"
+                    style="@style/MyGreenButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:stateListAnimator="@null"
+                    app:icon="@drawable/baseline_exit_to_app_24"
+                    app:iconSize="30dp"
+                    app:iconGravity="textEnd"
+                    android:text="@string/sign_out"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.33"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.16" />
+            </TableRow>
+        </TableLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_change_image"
+            style="@style/MyGreenButton"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            app:icon="@drawable/outline_camera_enhance_24"
+            app:iconGravity="top"
+            app:iconSize="30dp"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.13" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_profile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/outline_account_circle_24"
+            android:background="@color/white"
+            android:thicknessRatio="2.0"
+            android:useLevel="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.093"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
+            app:strokeWidth="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

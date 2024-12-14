@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="roundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="semiRoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5%</item>
+    </style>
+
+    <style name="roundedButton">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20%</item>
+    </style>
+
+    <style name="roundedFloatingButton">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="MyGreenRoundedButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/green</item>
+        <item name="shapeAppearanceOverlay">@style/roundedImageView</item>
+    </style>
+
+    <style name="MyGreenButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/green</item>
+        <item name="shapeAppearanceOverlay">@style/roundedButton</item>
+    </style>
+
+    <style name="MyRedButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/red</item>
+        <item name="shapeAppearanceOverlay">@style/roundedButton</item>
+    </style>
+
+    <style name="MyFloatingButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/green</item>
+        <item name="shapeAppearanceOverlay">@style/roundedFloatingButton</item>
+    </style>
+
+    <style name="border_image_view">
+        <item name="strokeColor">@color/green</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:radius">20dp</item>
+        <item name="android:padding">1dp</item>
+
+    </style>
+</resources>

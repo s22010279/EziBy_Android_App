@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="15dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/place_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_insert_comment_24"
+                android:tint="@android:color/holo_orange_dark"
+                app:shapeAppearanceOverlay="@style/semiRoundedImageView" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="5dp"
+                android:justificationMode="inter_word"
+                android:maxLines="5"
+                android:text="@string/sample_details"
+                android:textSize="12sp" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeleteComment"
+                style="@style/MyRedButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                app:icon="@drawable/outline_delete_outline_24"
+                app:iconGravity="top"
+                app:iconSize="30dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_user_and_date"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="60dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_comment"
+                android:layout_alignParentEnd="true"
+                android:text="@string/header_text"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="11sp" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

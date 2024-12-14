@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_places2"
+    android:contentDescription="@string/scroll_view_of_all_available_places"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    tools:context=".fragments.HomeFragment">
+
+    <LinearLayout
+        android:id="@+id/containerFragmentHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--        <com.google.android.material.imageview.ShapeableImageView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:padding="20dp"-->
+        <!--            android:scaleType="centerInside"-->
+        <!--            android:src="@drawable/empty_box" />-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_marginTop="100dp"
+            android:layout_height="40dp"
+            android:text="@string/no_shared_places"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/please_share_places"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textStyle="italic|bold" />
+
+    </LinearLayout>
+</ScrollView>
