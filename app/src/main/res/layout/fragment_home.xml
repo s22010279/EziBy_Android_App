@@ -48,52 +48,69 @@
         <include
             android:id="@+id/includedLayout111111"
             layout="@layout/component_header" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <include
-                android:id="@+id/includedLayout11"
-                layout="@layout/component_item"/>
+        <HorizontalScrollView
+            android:id="@+id/horizontal_scroll_view_carousel1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <include
-                android:id="@+id/includedLayout22"
-                layout="@layout/component_item" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <include
-                android:id="@+id/includedLayout33"
-                layout="@layout/component_item" />
+                <include
+                    android:id="@+id/includedLayout11"
+                    layout="@layout/component_category" />
 
-            <include
-                android:id="@+id/includedLayout44"
-                layout="@layout/component_item" />
-        </LinearLayout>
+                <include
+                    android:id="@+id/includedLayout22"
+                    layout="@layout/component_category" />
+
+                <include
+                    android:id="@+id/includedLayout33"
+                    layout="@layout/component_category" />
+
+                <include
+                    android:id="@+id/includedLayout44"
+                    layout="@layout/component_category" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <!-- Brands -->
         <include
             android:id="@+id/includedLayout111112"
             layout="@layout/component_header" />
+
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/includedLayout111"
-                layout="@layout/component_item" />
+                layout="@layout/component_brand" />
 
             <include
                 android:id="@+id/includedLayout222"
-                layout="@layout/component_item" />
+                layout="@layout/component_brand" />
 
             <include
                 android:id="@+id/includedLayout333"
-                layout="@layout/component_item" />
+                layout="@layout/component_brand" />
 
             <include
                 android:id="@+id/includedLayout444"
-                layout="@layout/component_item" />
+                layout="@layout/component_brand" />
+
+            <include
+                android:id="@+id/includedLayout777"
+                layout="@layout/component_brand" />
+
+            <include
+                android:id="@+id/includedLayout555"
+                layout="@layout/component_brand" />
 
         </LinearLayout>
 
@@ -133,4 +150,5 @@
         </HorizontalScrollView>
 
     </LinearLayout>
+
 </ScrollView>

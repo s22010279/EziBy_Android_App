@@ -55,4 +55,5 @@
     <string name="label_out_of_stock">OUT OF STOCK</string>
     <string name="description_image_of_an_item">Image of an item</string>
     <string name="icon_favorite">Favorite Icon</string>
+    <string name="text_grains">Grains</string>
 </resources>
