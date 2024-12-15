@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home,
                 container, false);
 
-        layout = view.findViewById(R.id.containerFragmentHome);
+        layout = view.findViewById(R.id.linear_layout_fragment_home);
 
         loadPlaces();
 

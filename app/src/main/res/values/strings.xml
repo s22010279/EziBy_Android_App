@@ -48,4 +48,9 @@
     <string name="bottom_navigation_icon_profile">Profile</string>
     <string name="bottom_navigation_icon_wish_list">Wish List</string>
     <string name="bottom_navigation_icon_cart">Cart</string>
+    <string name="carousel_image_description">Carousel Image</string>
+    <string name="header_image_description">Header Image</string>
+    <string name="category_text">Category</string>
+    <string name="label_add_to_cart">ADD TO CART</string>
+    <string name="label_out_of_stock">OUT OF STOCK</string>
 </resources>

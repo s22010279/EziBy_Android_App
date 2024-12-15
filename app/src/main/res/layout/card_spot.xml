@@ -52,7 +52,7 @@
                 android:minHeight="300dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/mountain1"
-                app:shapeAppearanceOverlay="@style/semiRoundedImageView" />
+                app:shapeAppearanceOverlay="@style/cornerSize_5_percent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeletePlace"
