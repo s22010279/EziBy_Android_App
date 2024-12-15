@@ -28,7 +28,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/baseline_insert_comment_24"
                 android:tint="@android:color/holo_orange_dark"
-                app:shapeAppearanceOverlay="@style/semiRoundedImageView" />
+                app:shapeAppearanceOverlay="@style/cornerSize_5_percent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_comment"

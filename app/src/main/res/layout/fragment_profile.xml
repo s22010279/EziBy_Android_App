@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/image_background_profile"
-    tools:context=".fragments.ProfileFragment">
+    tools:context=".Fragments.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewNameKey"
@@ -61,7 +61,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewEmailKey"
@@ -85,7 +85,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewContributionKey"
@@ -109,7 +109,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewMemberSinceKey"
@@ -133,7 +133,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewRatingKey"
@@ -157,7 +157,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewNewsLetterKey"
@@ -182,7 +182,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewMusicKey"
@@ -257,7 +257,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.093"
-            app:shapeAppearanceOverlay="@style/roundedImageView"
+            app:shapeAppearanceOverlay="@style/cornerSize_50_percent"
             app:strokeWidth="0dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

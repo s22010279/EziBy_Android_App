@@ -52,7 +52,7 @@
                 android:layout_marginBottom="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/mountain1"
-                app:shapeAppearanceOverlay="@style/semiRoundedImageView" />
+                app:shapeAppearanceOverlay="@style/cornerSize_5_percent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtCreatedBy"
