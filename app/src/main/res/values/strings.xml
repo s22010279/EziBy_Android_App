@@ -56,4 +56,21 @@
     <string name="description_image_of_an_item">Image of an item</string>
     <string name="icon_favorite">Favorite Icon</string>
     <string name="text_grains">Grains</string>
+    <string name="description_clap_image">Clap Image</string>
+    <string name="text_thank_you_for_shopping_with_us">THANK YOU FOR SHOPPING WITH US</string>
+    <string name="text_a_copy_of_receipt_has_been_sent_to_your_email">A copy of receipt has been sent to your email</string>
+    <string name="text_email">hamzaanushath@gmail.com</string>
+    <string name="text_continue_shopping">CONTINUE SHOPPING</string>
+    <string name="text_45_seconds">45 Seconds</string>
+    <string name="text_place_order">PLACE ORDER</string>
+    <string name="text_choose_available_payment_method">CHOOSE AVAILABLE PAYMENT METHOD</string>
+    <string name="text_grand_total">Grand Total</string>
+    <string name="text_delivery_charges">Delivery charges (Akkaraipattu)</string>
+    <string name="text_subtotal">Subtotal</string>
+    <string name="text_tick_image">Tick Image</string>
+    <string name="text_delivery">Delivery</string>
+    <string name="text_review">Review</string>
+    <string name="text_payment">Payment</string>
+    <string name="text_cash_on_delivery">Cash On Delivery</string>
+    <string name="description_image_of_cash_on_delivery">Image of cash on delivery</string>
 </resources>
