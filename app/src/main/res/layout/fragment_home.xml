@@ -55,7 +55,7 @@
 
             <include
                 android:id="@+id/includedLayout11"
-                layout="@layout/component_item" />
+                layout="@layout/component_item"/>
 
             <include
                 android:id="@+id/includedLayout22"

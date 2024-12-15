@@ -53,4 +53,6 @@
     <string name="category_text">Category</string>
     <string name="label_add_to_cart">ADD TO CART</string>
     <string name="label_out_of_stock">OUT OF STOCK</string>
+    <string name="description_image_of_an_item">Image of an item</string>
+    <string name="icon_favorite">Favorite Icon</string>
 </resources>
