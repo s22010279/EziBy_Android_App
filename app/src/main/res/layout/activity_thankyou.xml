@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".screens.ThankYou">
+
+    <!-- Image -->
+    <ImageView
+        android:id="@+id/image_thank_you"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:contentDescription="@string/description_clap_image"
+        android:src="@drawable/icons8_clap_64" />
+
+    <!-- Thank You Message -->
+    <TextView
+        android:id="@+id/tv_thank_you"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/text_thank_you_for_shopping_with_us"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Email Info -->
+    <TextView
+        android:id="@+id/tv_email_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/text_a_copy_of_receipt_has_been_sent_to_your_email"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_email"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <!-- Timer Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_timer"
+        style="@style/add_to_cart_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:enabled="true"
+        android:text="@string/text_45_seconds"
+        app:icon="@drawable/icons8_timer_96"
+        app:iconTintMode="multiply" />
+
+    <!-- Continue Shopping -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_continue_shopping"
+        style="@style/add_to_cart_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/text_continue_shopping"
+        android:textColor="#FFFFFF" />
+</LinearLayout>
+
