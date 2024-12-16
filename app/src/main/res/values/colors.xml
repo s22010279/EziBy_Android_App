@@ -8,4 +8,5 @@
     <color name="darkGreen">#044910</color>
     <color name="red">#AC1F20</color>
     <color name="button_color">#009688</color>
+    <color name="line_color">#CCCCCC</color>
 </resources>

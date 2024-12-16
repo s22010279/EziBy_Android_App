@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.Order_2_Review">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Progress Bar Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/text_tick_image"
+                android:src="@drawable/icons8_tick_100" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:background="@color/black" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/text_tick_image"
+                android:src="@drawable/icons8_tick_filled_100"
+                app:tint="@color/green" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:background="@color/black" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/text_tick_image"
+                android:src="@drawable/icons8_tick_100" />
+        </LinearLayout>
+
+        <!-- Steps Titles -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/text_delivery"
+                android:textAlignment="textStart"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/text_review"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/text_payment"
+                android:textAlignment="textEnd"
+                android:textSize="14sp"
+
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Delivery Details Section -->
+        <TextView
+            android:id="@+id/tvDeliveryDetailsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="@string/text_delivery_details"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nawas boss"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nintavur 18"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvPickupType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Self Pickup at Store"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0773201706"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="shabrin36@gmail.com"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="8dp"
+            android:background="@color/line_color" />
+        <!-- Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp" />
+
+        <!-- Estimated Delivery Date Section -->
+        <TextView
+            android:id="@+id/tvEstimatedDateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="@string/text_estimated_delivery_date"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvEstimatedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(On or before) 17-Dec-2024 19:24:22 PM"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="8dp"
+            android:background="@color/line_color" />
+
+        <!-- Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp" />
+
+        <!-- Order Includes Section -->
+        <TextView
+            android:id="@+id/tvOrderIncludesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="@string/text_order_includes"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Progress Bar Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/shopping_cart_item1"
+                layout="@layout/component_order_review_item" />
+
+            <include
+                android:id="@+id/shopping_cart_item2"
+                layout="@layout/component_order_review_item" />
+
+            <include
+                android:id="@+id/shopping_cart_item3"
+                layout="@layout/component_order_review_item" />
+
+            <include
+                android:id="@+id/shopping_cart_item4"
+                layout="@layout/component_order_review_item" />
+
+            <include
+                android:id="@+id/shopping_cart_item5"
+                layout="@layout/component_order_review_item" />
+
+            <include
+                android:id="@+id/shopping_cart_item6"
+                layout="@layout/component_order_review_item" />
+
+        </LinearLayout>
+
+        <!-- Place Order Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_place_order"
+            style="@style/add_to_cart_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/text_proceed_to_payment" />
+
+    </LinearLayout>
+</ScrollView>

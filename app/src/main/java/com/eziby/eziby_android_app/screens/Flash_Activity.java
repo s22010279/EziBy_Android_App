@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -14,7 +13,7 @@ import androidx.core.content.ContextCompat;
 import com.eziby.eziby_android_app.R;
 import com.eziby.eziby_android_app.TestScreens.ItemTest;
 
-public class FlashActivity extends AppCompatActivity {
+public class Flash_Activity extends AppCompatActivity {
     public static final String TAG = "PermissionValues";
 //    VideoView videoView;
 
@@ -38,7 +37,7 @@ public class FlashActivity extends AppCompatActivity {
         Intent i;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.e(TAG, "ACCESS_FINE_LOCATION is Disabled");
-            i = new Intent(this, LocationActivity.class);
+            i = new Intent(this, Location_Activity.class);
         } else {
             Log.e(TAG, "ACCESS_FINE_LOCATION is Enabled");
             //i = new Intent(this, LoginActivity.class);

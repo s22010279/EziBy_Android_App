@@ -32,7 +32,7 @@ import com.eziby.eziby_android_app.R;
 
 import java.util.Objects;
 
-public class LoginActivity extends AppCompatActivity {
+public class Login_Activity extends AppCompatActivity {
     private SignInClient oneTapClient;
     private BeginSignInRequest signInRequest;
     private static final int REQ_ONE_TAP = 200;
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
-                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent i = new Intent(getApplicationContext(), Main_Activity.class);
                             startActivity(i);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -160,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d(TAG, "Email - " + emailAddress + ", ID token - " + idToken);
                 }
                 Toast.makeText(this, emailAddress + " Logged-In.", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(this, MainActivity.class);
+                Intent i = new Intent(this, Main_Activity.class);
                 startActivity(i);
             } catch (ApiException e) {
                 Toast.makeText(this, "Not Logged-In.", Toast.LENGTH_SHORT).show();
