@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.eziby.eziby_android_app.R;
 
-public class LocationActivity extends AppCompatActivity {
+public class Location_Activity extends AppCompatActivity {
     public static final String PERMISSION = "PermissionValues";
 
     @Override
@@ -24,7 +24,7 @@ public class LocationActivity extends AppCompatActivity {
 
     public void btn_onclick(View view) {
 
-        ActivityCompat.requestPermissions(LocationActivity.this, new String[]{
+        ActivityCompat.requestPermissions(Location_Activity.this, new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION
         }, 100);
     }
@@ -33,7 +33,7 @@ public class LocationActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             Log.e(PERMISSION, "ACCESS FINE LOCATION is Enabled");
         //Intent i = new Intent(this, LoginActivity.class);
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, Main_Activity.class);
         startActivity(i);
     }
 }

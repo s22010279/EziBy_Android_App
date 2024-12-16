@@ -30,10 +30,38 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- New Arrivals -->
-            <include
-                android:id="@+id/includedLayout111113"
-                layout="@layout/component_header" />
+            <!-- Recently Viewed -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp">
+
+                <!-- ImageView as the background -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/header_image_description"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/header_background_images9"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/cornerSize_10_percent" />
+
+                <!-- TextView on top of the ImageView -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/text_recently_viewed"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+            </FrameLayout>
 
             <HorizontalScrollView
                 android:id="@+id/HorizontalScrollView133"

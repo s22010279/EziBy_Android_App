@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.PaymentMethod">
+    tools:context=".screens.Order_3_PaymentMethod">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,30 +24,30 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="@string/text_tick_image"
+                android:src="@drawable/icons8_tick_100" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:background="@color/black" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/text_tick_image"
+                android:src="@drawable/icons8_tick_100" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:background="@color/black" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/text_tick_image"
                 android:src="@drawable/icons8_tick_filled_100"
                 app:tint="@color/green" />
-
-            <View
-                android:layout_width="80dp"
-                android:layout_height="2dp"
-                android:background="@color/black" />
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:contentDescription="@string/text_tick_image"
-                android:src="@drawable/icons8_tick_100" />
-
-            <View
-                android:layout_width="80dp"
-                android:layout_height="2dp"
-                android:background="@color/black" />
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:contentDescription="@string/text_tick_image"
-                android:src="@drawable/icons8_tick_100" />
         </LinearLayout>
 
         <!-- Steps Titles -->
@@ -62,26 +62,26 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="@string/text_delivery"
+                android:textAlignment="textStart"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:textAlignment="textStart"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="@string/text_review"
+                android:textAlignment="center"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:textAlignment="center" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="@string/text_payment"
+                android:textAlignment="textEnd"
                 android:textSize="14sp"
-                android:textStyle="bold"
 
-                android:textAlignment="textEnd"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -145,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginVertical="8dp"
-                    android:background="#CCCCCC" />
+                    android:background="@color/line_color" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

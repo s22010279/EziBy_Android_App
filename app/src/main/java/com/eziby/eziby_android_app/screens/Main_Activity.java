@@ -22,7 +22,7 @@ import com.eziby.eziby_android_app.Fragments.ProfileFragment;
 import com.eziby.eziby_android_app.Fragments.WishListFragment;
 import com.eziby.eziby_android_app.Fragments.ShoppingCartFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class Main_Activity extends AppCompatActivity {
     ActivityMainBinding binding;
     public static MediaPlayer mediaPlayer;
 
@@ -68,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void playMediaPlayer( Context mContext) {
-        if (MainActivity.mediaPlayer == null)
-            MainActivity.mediaPlayer = MediaPlayer.create(mContext,
+        if (Main_Activity.mediaPlayer == null)
+            Main_Activity.mediaPlayer = MediaPlayer.create(mContext,
                     R.raw.profile_background_music);
         mediaPlayer.setLooping(true);
-        if (MainActivity.mediaPlayer != null) MainActivity.mediaPlayer.start();
+        if (Main_Activity.mediaPlayer != null) Main_Activity.mediaPlayer.start();
     }
 
     private void replaceFragment(Fragment fragment) {

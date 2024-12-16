@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/image_background_welcome"
-    tools:context=".screens.LocationActivity">
+    tools:context=".screens.Location_Activity">
 
     <TextView
         android:id="@+id/textViewParagraph"

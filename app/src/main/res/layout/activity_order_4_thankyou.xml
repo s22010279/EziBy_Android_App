@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="20dp"
-    tools:context=".screens.ThankYou">
+    android:padding="8dp"
+    tools:context=".screens.Order_4_ThankYou">
 
     <!-- Image -->
     <ImageView
@@ -41,7 +41,7 @@
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_email"
+        android:text="@string/label_email"
         android:textSize="14sp"
         android:textStyle="bold" />
 
