@@ -23,6 +23,15 @@
         android:theme="@style/Theme.EziBy_Android_App"
         tools:targetApi="31">
         <activity
+            android:name=".screens.Order_History"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".screens.Main_Activity"
             android:exported="true">
             <intent-filter>
@@ -31,7 +40,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".screens.PlaceAddActivity"
             android:exported="false" />

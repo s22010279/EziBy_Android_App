@@ -9,4 +9,5 @@
     <color name="red">#AC1F20</color>
     <color name="button_color">#009688</color>
     <color name="line_color">#CCCCCC</color>
+    <color name="grey">#CAC7C7</color>
 </resources>
