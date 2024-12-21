@@ -31,7 +31,7 @@
                     android:layout_height="130dp"
                     android:contentDescription="@string/description_image_of_an_item"
                     android:scaleType="centerInside"
-                    android:src="@drawable/item10" />
+                    android:src="@drawable/error_image_30" />
 
                 <!-- "New" Badge -->
                 <TextView
