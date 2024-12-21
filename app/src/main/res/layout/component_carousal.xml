@@ -9,7 +9,7 @@
         android:id="@+id/carousel_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/home_carousel_image1"
+        android:src="@drawable/error_image_30"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

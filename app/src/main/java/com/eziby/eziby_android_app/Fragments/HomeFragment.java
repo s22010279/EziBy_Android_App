@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.eziby.eziby_android_app.Adapters.BrandAdapter;
 import com.eziby.eziby_android_app.Adapters.CategoryAdapter;
 import com.eziby.eziby_android_app.Database.DbHelper;
+import com.eziby.eziby_android_app.Models.Brand;
 import com.eziby.eziby_android_app.Models.Category;
 import com.eziby.eziby_android_app.R;
 
@@ -28,15 +30,21 @@ public class HomeFragment extends Fragment {
                 container, false);
 
         List<Category> categories;
-        try (DbHelper categoryNet = new DbHelper(view.getContext())) {
-            categories = categoryNet.getCategories();
+        List<Brand> brands;
+        try (DbHelper dbHelper = new DbHelper(view.getContext())) {
+            categories = dbHelper.getCategories();
+            brands = dbHelper.getBrands();
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_category);
+        // Set up RecyclerView - Category
+        RecyclerView recyclerViewCategory = view.findViewById(R.id.recycler_view_category);
+        recyclerViewCategory.setLayoutManager(new GridLayoutManager(this.getContext(), 3)); // 3 columns
+        recyclerViewCategory.setAdapter(new CategoryAdapter(this.getContext(), categories));
 
-        // Set up RecyclerView
-        recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3)); // 3 columns
-        recyclerView.setAdapter(new CategoryAdapter(this.getContext(), categories));
+        // Set up RecyclerView - Brand
+        RecyclerView recyclerViewBrand = view.findViewById(R.id.recycler_view_brand);
+        recyclerViewBrand.setLayoutManager(new GridLayoutManager(this.getContext(), 4)); // 4 columns
+        recyclerViewBrand.setAdapter(new BrandAdapter(this.getContext(), brands));
 
         return view;
     }
