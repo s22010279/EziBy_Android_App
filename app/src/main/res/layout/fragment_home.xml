@@ -15,34 +15,15 @@
         android:orientation="vertical">
 
         <!-- Carousel -->
-        <HorizontalScrollView
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerCarousel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/linear_layout_carousel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <include
-                    android:id="@+id/includedLayout1"
-                    layout="@layout/component_carousal" />
-
-                <include
-                    android:id="@+id/includedLayout2"
-                    layout="@layout/component_carousal" />
-
-                <include
-                    android:id="@+id/includedLayout3"
-                    layout="@layout/component_carousal" />
-
-                <include
-                    android:id="@+id/includedLayout4"
-                    layout="@layout/component_carousal" />
-            </LinearLayout>
-
-        </HorizontalScrollView>
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Category Header -->
         <FrameLayout

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.eziby.eziby_android_app.Models.Brand;
+import com.eziby.eziby_android_app.Models.CarouselImage;
 import com.eziby.eziby_android_app.Models.Category;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Models.Setup;
@@ -21,7 +22,7 @@ import java.util.Objects;
 
 public class DbHelper extends SQLiteOpenHelper {
     public DbHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2);
     }
 
     @Override
@@ -39,10 +40,12 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_USER);
         db.execSQL(CREATE_TABLE_CATEGORIES);
         db.execSQL(CREATE_TABLE_BRANDS);
+        db.execSQL(CREATE_TABLE_CAROUSEL_IMAGES);
 
         db.execSQL(DataScript.INSERT_DATA_SETUPS);
         db.execSQL(DataScript.INSERT_DATA_CATEGORIES);
         db.execSQL(DataScript.INSERT_DATA_BRANDS);
+        db.execSQL(DataScript.INSERT_DATA_CAROUSEL_IMAGES);
     }
 
     //region DB and Table Names
@@ -51,6 +54,33 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TABLE_USER = "user_table";
     public static final String TABLE_CATEGORIES = "Categories";
     public static final String TABLE_BRANDS = "Brands";
+    public static final String TABLE_CAROUSEL_IMAGES = "CarouselImages";
+    //endregion
+
+    //region Common Properties
+    public static final String COLUMN_DISPLAY_ORDER = "DisplayOrder";
+    public static final String COLUMN_DELETED = "Deleted";
+    public static final String COLUMN_ACTIVE = "Active";
+    public static final String COLUMN_UPDATED_DATE = "UpdatedDate";
+    //endregion Common Properties
+
+    //region CarouselImages table
+    public static final String COLUMN_CAROUSEL_ID = "carouselId";
+    public static final String COLUMN_CAROUSEL_DETAILS = "carouselDetails";
+    public static final String COLUMN_CAROUSEL_IMAGE_NAME = "carouselImageName";
+    public static final String COLUMN_CAROUSEL_LINK = "carouselLink";
+    public static final String COLUMN_CAROUSEL_TYPE = "carouselType";
+    public static final String CREATE_TABLE_CAROUSEL_IMAGES = "CREATE TABLE " + TABLE_CAROUSEL_IMAGES + " (" +
+            COLUMN_CAROUSEL_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_CAROUSEL_DETAILS + " TEXT NOT NULL, " +
+            COLUMN_CAROUSEL_IMAGE_NAME + " TEXT NOT NULL, " +
+            COLUMN_CAROUSEL_LINK + " TEXT NOT NULL, " +
+            COLUMN_CAROUSEL_TYPE + " TEXT NOT NULL, " +
+            COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL, " + // SQLite uses INTEGER for boolean values (0 = false, 1 = true)
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates can be stored as TEXT in ISO 8601 format (YYYY-MM-DD HH:MM:SS)
+            ");";
     //endregion
 
     //region Setup table
@@ -86,7 +116,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NEW_ORDER_REFRESH_INTERVAL = "NewOrderRefreshInterval";
     public static final String COLUMN_ALLOW_DISCOUNT_IN_POS = "AllowDiscountInPOS";
     public static final String COLUMN_CRYSTAL_REPORT_PATH = "CrystalReportPath";
-    public static final String COLUMN_ACTIVE = "Active";
+
     private static final String CREATE_TABLE_SETUP = "CREATE TABLE " + TABLE_SETUP + " (" +
             COLUMN_SETUP_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_BRANCH_NAME + " TEXT NOT NULL DEFAULT '', " +
@@ -149,18 +179,12 @@ public class DbHelper extends SQLiteOpenHelper {
             "); ";
     //endregion User table
 
-    //region Common Properties
-    public static final String COLUMN_DISPLAY_ORDER = "DisplayOrder";
-    public static final String COLUMN_MAX_DISCOUNT = "MaxDiscount";
-    public static final String COLUMN_DELETED = "Deleted";
-    public static final String COLUMN_UPDATED_DATE = "UpdatedDate";
-    //endregion Common Properties
-
     //region Category table
     public static final String COLUMN_CATEGORY_ID = "CategoryId";
     public static final String COLUMN_CATEGORY_NAME = "CategoryName";
     public static final String COLUMN_CATEGORY_IMAGE = "CategoryImage";
     public static final String COLUMN_CATEGORY_HEADER_IMAGE = "CategoryHeaderImage";
+    public static final String COLUMN_MAX_DISCOUNT = "MaxDiscount";
     public static final String CREATE_TABLE_CATEGORIES = "create table " + TABLE_CATEGORIES + " (" +
             COLUMN_CATEGORY_ID + " integer PRIMARY KEY, " +
             COLUMN_CATEGORY_NAME + " text, " +
@@ -192,6 +216,34 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //region New table
     //endregion
+
+    @SuppressLint("Range")
+    public List<CarouselImage> getCarouselImages() {
+        List<CarouselImage> carouselImages = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_CAROUSEL_IMAGES +
+                " WHERE " + COLUMN_DELETED + " = " + 0 +
+                " AND " + COLUMN_ACTIVE + " = " + 1 +
+                " ORDER BY " + COLUMN_DISPLAY_ORDER + " ASC";
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                CarouselImage carouselImage = new CarouselImage();
+                carouselImage.setCarouselId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_ID))));
+                carouselImage.setCarouselDetails(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_DETAILS)));
+                carouselImage.setCarouselImageName(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_IMAGE_NAME)));
+                carouselImage.setCarouselLink(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_LINK)));
+                carouselImage.setCarouselType(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_TYPE)));
+                carouselImage.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_DISPLAY_ORDER))));
+                carouselImage.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
+                carouselImage.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
+                carouselImage.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
+                carouselImages.add(carouselImage);
+            }
+        }
+        result.close();
+        return carouselImages;
+    }
 
     @SuppressLint("Range")
     public Setup getASetup() {

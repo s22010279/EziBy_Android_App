@@ -1,15 +1,16 @@
 package com.eziby.eziby_android_app.Models;
 
 public class MyComment {
+    // Default constructor
+    public MyComment() {
+
+    }
+
     private int commentId;
     private int placeId;
     private String emailAddress;
     private String comment;
     private String commentedDate;
-
-    public MyComment() {
-
-    }
 
     public int getCommentId() {
         return commentId;

@@ -1,22 +1,23 @@
 package com.eziby.eziby_android_app.Models;
 
 public class Setup {
+    // Default constructor
+    public Setup() {
+    }
+
     private int setupId;
     private String branchName = "";
     private String branchDescription = "";
     private String branchAddress = "";
     private String branchLandPhone = "";
     private String branchMobile = "";
-
     private String currencyMark = "";
     private int currencyDecimals;
     private int initialDeliveryDays;
     private int maximumDeliveryDays;
-
     private boolean androidOnGoingMaintenance;
     private boolean androidForceUpdate;
     private int androidBuildNumber;
-
     private String mainAPIUri = "";
     private String mainSlideShowImagesUri = "";
     private String categoryImagesUri = "";
@@ -37,6 +38,7 @@ public class Setup {
     private boolean allowDiscountInPOS;
     private String crystalReportPath = "";
     private boolean active;
+
 
     // Getters and Setters
     public int getSetupId() {
