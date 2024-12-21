@@ -19,7 +19,7 @@
             android:layout_height="130dp"
             android:contentDescription="Product Image"
             android:scaleType="centerCrop"
-            android:src="@drawable/error_image_30"
+            android:src="@drawable/loading_image_light_grey_100"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -34,12 +34,7 @@
         </activity>
         <activity
             android:name=".screens.Order_History"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
         <activity
             android:name=".screens.PlaceAddActivity"
@@ -49,10 +44,10 @@
             android:exported="false" />
         <activity
             android:name=".screens.Login_Activity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".screens.Location_Activity"
-            android:exported="true" />
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
