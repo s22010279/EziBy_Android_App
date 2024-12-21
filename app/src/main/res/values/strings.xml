@@ -91,4 +91,7 @@
     <string name="text_new_arrivals">New Arrivals</string>
     <string name="text_trending">Trending</string>
     <string name="text_recently_viewed">Recently Viewed</string>
+    <string name="description_image_of_a_category">Image of a Category</string>
+    <string name="text_category">Category</string>
+    <string name="description_image_of_category">Image of Category</string>
 </resources>
