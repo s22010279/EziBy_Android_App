@@ -25,7 +25,7 @@
                 android:id="@+id/image_view_brand_image"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:contentDescription="@string/description_image_of_category"
+                android:contentDescription="@string/description_image_of_a_brand"
                 android:scaleType="fitCenter"
                 android:src="@drawable/loading_image_light_grey_100" />
 
