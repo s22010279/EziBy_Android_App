@@ -20,6 +20,8 @@ import java.util.Objects;
 
 public class DbHelper extends SQLiteOpenHelper {
 
+
+
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -29,6 +31,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETUP);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BRANDS);
         onCreate(db);
     }
 
@@ -37,127 +40,18 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_SETUP);
         db.execSQL(CREATE_TABLE_USER);
         db.execSQL(CREATE_TABLE_CATEGORIES);
+        db.execSQL(CREATE_TABLE_BRANDS);
 
-        db.execSQL(INSERT_DATA_SETUPS);
-        db.execSQL(INSERT_DATA_CATEGORIES);
-//        db.execSQL(INSERT_DATA_BRANDS);
+        db.execSQL(DataScript.INSERT_DATA_SETUPS);
+        db.execSQL(DataScript.INSERT_DATA_CATEGORIES);
+        db.execSQL(DataScript.INSERT_DATA_BRANDS);
     }
 
-    private static final String INSERT_DATA_SETUPS = "INSERT INTO Setups(" +
-            " SetupId" +
-            ",BranchName" +
-            ",BranchDescription" +
-            ",BranchAddress" +
-            ",BranchLandPhone" +
-            ",BranchMobile" +
-            ",CurrencyMark" +
-            ",CurrencyDecimals" +
-            ",InitialDeliveryDays" +
-            ",MaximumDeliveryDays" +
-            ",Android_OnGoingMaintenance" +
-            ",Android_ForceUpdate" +
-            ",Android_BuildNumber" +
-            ",MainAPIUri" +
-            ",MainSlideShowImagesUri" +
-            ",CategoryImagesUri" +
-            ",CategoryHeaderUri" +
-            ",SubCategoryImagesUri" +
-            ",ItemsImageUri" +
-            ",BrandImageUri" +
-            ",SocialMediaUri" +
-            ",AdvertisementImageUri" +
-            ",OtherImageUri" +
-            ",TermsAndConditionsUri" +
-            ",PrivacyPolicyUri" +
-            ",OurServicesUri" +
-            ",ContactUsUri" +
-            ",AboutUsUri" +
-            ",ServerMappedImagePath" +
-            ",NewOrderRefreshInterval" +
-            ",AllowDiscountInPOS" +
-            ",Active" +
-            ",CrystalReportPath)" +
-            "VALUES (" +
-            "1" +
-            ",'Branch Name'" +
-            ",'Branch Description'" +
-            ",'Branch Address'" +
-            ",'0118956325'" +
-            ",'0777701979'" +
-            ",'Rs.'\t" +
-            ",2" +
-            ",2" +
-            ",7" +
-            ",0" +
-            ",0" +
-            ",1" +
-            ",'https://MobileApi.eziby.lk/'" +
-            ",'https://images.eziby.lk/EziBy_Images/MainSlideShowImage/'" +
-            ",'https://images.eziby.lk/EziBy_Images/Category/'" +
-            ",'https://images.eziby.lk/EziBy_Images/CategoryHeader/'" +
-            ",'https://images.eziby.lk/EziBy_Images/SubCategory/'" +
-            ",'https://images.eziby.lk/EziBy_Images/Item/'" +
-            ",'https://images.eziby.lk/EziBy_Images/Brand/'" +
-            ",'https://images.eziby.lk/EziBy_Images/SocialMedia/'" +
-            ",'https://images.eziby.lk/EziBy_Images/Advertisement/'" +
-            ",'https://images.eziby.lk/EziBy_Images/Other/'" +
-            ",'https://ousl.eziby.lk/Home/termsandconditions'" +
-            ",'https://ousl.eziby.lk/Home/privacypolicy'" +
-            ",'https://ousl.eziby.lk/Home/OurServices'" +
-            ",'https://ousl.eziby.lk/Home/contactus'" +
-            ",'https://ousl.eziby.lk/Home/AboutUs'" +
-            ",'C:/Inetpub/vhosts/eziby.lk/'" +
-            ",1" +
-            ",1" +
-            ",1" +
-            ",'C:\\EziBy_Reports\\');";
-
-    private static final String INSERT_DATA_CATEGORIES = "INSERT INTO Categories (" +
-            " CategoryId" +
-            ",CategoryName" +
-            ",CategoryImage" +
-            ",CategoryHeaderImage" +
-            ",DisplayOrder" +
-            ",MaxDiscount" +
-            ",Active" +
-            ",Deleted" +
-            ",UpdatedDate)" +
-            "VALUES " +
-            "(1 , 'FoodCooking & Grains', '0000001_1_3HIQIDEM2GG.jpg', '0000001_2_3HIQIDEM2GG.jpg',  1, 11, 1, 0, '2021-01-01')," +
-            "(2 , 'Oil & Ghee', '0000002_1_B10TCNEM2GG.jpg', '0000002_2_B10TCNEM2GG.jpg',  2, 12, 1, 0, '2022-01-01')," +
-            "(3 , 'Masala & Spices', '0000003_1_ENEGFDEM2GG.jpg', '0000003_2_ENEGFDEM2GG.jpg',  3, 13, 1, 1, '2023-01-01')," +
-            "(4 , 'Masala & Spices', '0000003_1_ENEGFDEM2GG.jpg', '0000004_2_F9KV0NAM2GG.jpg',  4, 13, 1, 1, '2023-01-01')," +
-            "(5 , 'Bath & Hygiene', '0000005_1_5OW87NAM2GG.jpg', '0000005_2_5OW87NAM2GG.jpg',  5, 14, 1, 0, '2024-01-01')," +
-            "(6 , 'Cleaning & House Kepping', '0000006_1_JT1Q4TAM2GG.jpg', '0000006_2_JT1Q4TAM2GG.jpg',  6, 15, 1, 0, '2025-01-01')," +
-            "(8 , 'Baby Care', '0000008_1_IAD6W9AM2GG.jpg', '0000008_2_OYBZ1TAM2GG.jpg',  7, 11, 1, 0, '2021-01-01')," +
-            "(11, 'Biscuits Snacks & Bakery Products', '0000011_1_THQKD9EM2GG.jpg', '0000011_2_THQKD9EM2GG.jpg',  8, 12, 1, 0, '2022-01-01')," +
-            "(12, 'Milk Products & Beverages', '0000012_1_R76SBNEM2GG.jpg', '0000012_2_R76SBNEM2GG.jpg',  9, 13, 1, 1, '2023-01-01')," +
-            "(13, 'Beauty cosmetic & personal care', '0000013_1_9UUUXDEM2GG.jpg', '0000013_2_9UUUXDEM2GG.jpg', 10, 14, 1, 0, '2024-01-01')," +
-            "(14, 'Ayurvedic and English Medicine', '0000014_1_F1CATNEM2GG.jpg', '0000014_2_LH4BTNEM2GG.jpg', 11, 15, 1, 0, '2025-01-01')," +
-            "(15, 'Egg Meat & Fish', '0000015_1_I298ODEM2GG.jpg', '0000015_2_I298ODEM2GG.jpg', 12, 14, 1, 0, '2024-01-01')," +
-            "(16, 'Stationeries', '0000016_1_ZULYLTEM2GG.jpg', '0000016_2_7RBZLTEM2GG.jpg', 13, 15, 1, 0, '2025-01-01');";
-
-    private static final String INSERT_DATA_BRANDS = "INSERT INTO Brands (" +
-            " BrandId" +
-            ",BrandName" +
-            ",BrandImage" +
-            ",DisplayOrder" +
-            ",Active" +
-            ",UpdatedDate)" +
-            "VALUES " +
-            "(14, 'Unilever','0000014_1_PSRAHE0M2GG.jpg', 1, 1, '2021-01-01')," +
-            "(15, 'Munchee','0000015_1_568PI9AM2GG.jpg', 2, 1, '2022-01-01')," +
-            "(16, 'Gal Oya','0000016_1_PLSBHDAM2GG.jpg', 3, 1, '2023-01-01')," +
-            "(17, 'Healthy','0000017_1_EK64FDAM2GG.jpg', 4, 1, '2024-01-01')," +
-            "(18, 'Hemas','0000018_1_2YLMDTAM2GG.jpg', 5, 1, '2025-01-01')," +
-            "(19, 'Agroturf','0000019_1_ROUDCDAM2GG.jpg', 6, 1, '2021-01-01')," +
-            "(20, 'Nestle','0000020_1_J55BA9AM2GG.jpg', 7, 1, '2022-01-01')," +
-            "(21, 'Maliban','0000021_1_AJE999WM2GG.jpg', 8, 1, '2023-01-01')," +
-            "(22, 'Atlas','0000022_1_XA3D59WM2GG.jpg', 9, 1, '2024-01-01');";
     public static final String DATABASE_NAME = "EziBy.db";
     public static final String TABLE_SETUP = "Setups";
     public static final String TABLE_USER = "user_table";
     public static final String TABLE_CATEGORIES = "Categories";
+    public static final String TABLE_BRANDS = "Brands";
 
     //columns for Setup table - start
     public static final String COLUMN_SETUP_ID = "SetupId";
@@ -276,6 +170,24 @@ public class DbHelper extends SQLiteOpenHelper {
             COLUMN_RATINGS + " text " +
             "); ";
     //columns for User table - end
+
+    //columns for Brand table - start
+    public static final String COLUMN_BRAND_ID = "BrandId";
+    public static final String COLUMN_BRAND_NAME = "BrandName";
+    public static final String COLUMN_BRAND_IMAGE = "BrandImage";
+
+    public static final String CREATE_TABLE_BRANDS =
+            "CREATE TABLE " + TABLE_BRANDS + " (" +
+                    COLUMN_BRAND_ID + " INTEGER PRIMARY KEY, " +
+                    COLUMN_BRAND_NAME + " TEXT NOT NULL, " +
+                    COLUMN_BRAND_IMAGE + " TEXT NOT NULL, " +
+                    COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
+                    COLUMN_ACTIVE + " INTEGER NOT NULL, " + // SQLite uses INTEGER for booleans (0 = false, 1 = true)
+                    COLUMN_DELETED + " INTEGER NOT NULL, " +
+                    COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates are typically stored as TEXT in ISO 8601 format
+                    ");";
+    //columns for Brand table - end
+
 
     @SuppressLint("Range")
     public Setup getASetup() {
