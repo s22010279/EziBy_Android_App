@@ -6,14 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.viewpager2.widget.ViewPager2;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eziby.eziby_android_app.Adapters.BrandAdapter;
+import com.eziby.eziby_android_app.Adapters.CarouselImagesAdapter;
 import com.eziby.eziby_android_app.Adapters.CategoryAdapter;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.Models.Brand;
+import com.eziby.eziby_android_app.Models.CarouselImage;
 import com.eziby.eziby_android_app.Models.Category;
 import com.eziby.eziby_android_app.R;
 
@@ -28,13 +32,19 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,
                 container, false);
+        ViewPager2 viewPagerCarousel = view.findViewById(R.id.viewPagerCarousel);
 
+        List<CarouselImage> carouselImages;
         List<Category> categories;
         List<Brand> brands;
         try (DbHelper dbHelper = new DbHelper(view.getContext())) {
+            carouselImages = dbHelper.getCarouselImages();
             categories = dbHelper.getCategories();
             brands = dbHelper.getBrands();
         }
+
+        CarouselImagesAdapter adapter = new CarouselImagesAdapter(this.getContext(),  carouselImages);
+        viewPagerCarousel.setAdapter(adapter);
 
         // Set up RecyclerView - Category
         RecyclerView recyclerViewCategory = view.findViewById(R.id.recycler_view_category);

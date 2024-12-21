@@ -1,7 +1,10 @@
 package com.eziby.eziby_android_app.Models;
 
 public class MyUser {
-    private int userId;
+    // Default constructor
+    public MyUser() {
+
+    }private int userId;
     private String token;
     private String emailAddress;
     private String displayName;
@@ -12,9 +15,6 @@ public class MyUser {
     private String memberSince;
     private String ratings;
 
-    public MyUser() {
-
-    }
 
     public int getUserId() {
         return userId;

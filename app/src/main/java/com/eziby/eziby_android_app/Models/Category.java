@@ -1,6 +1,10 @@
 package com.eziby.eziby_android_app.Models;
 
 public class Category {
+    // Default constructor
+    public Category() {
+    }
+
     private int categoryId;
     private String categoryName = "";
     private String categoryImage = "";
@@ -11,18 +15,6 @@ public class Category {
     private boolean deleted;
     private String updatedDate;
 
-//    public Category(int categoryId, String categoryName, String categoryImage, String categoryHeaderImage,
-//                    int displayOrder, BigDecimal maxDiscount, boolean active, boolean deleted, Date updatedDate) {
-//        this.categoryId = categoryId;
-//        this.categoryName = categoryName;
-//        this.categoryImage = categoryImage;
-//        this.categoryHeaderImage = categoryHeaderImage;
-//        this.displayOrder = displayOrder;
-//        this.maxDiscount = maxDiscount;
-//        this.active = active;
-//        this.deleted = deleted;
-//        this.updatedDate = updatedDate;
-//    }
 
     // Getters and Setters
     public int getCategoryId() {

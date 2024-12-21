@@ -113,4 +113,21 @@ public class DataScript {
             "(20, 'Nestle',  '0000020_1_J55BA9AM2GG.jpg', 7, 1, 0, '2022-01-01')," +
             "(21, 'Maliban', '0000021_1_AJE999WM2GG.jpg', 8, 1, 0, '2023-01-01')," +
             "(22, 'Atlas',   '0000022_1_XA3D59WM2GG.jpg', 9, 1, 0, '2024-01-01');";
+
+    public static final String INSERT_DATA_CAROUSEL_IMAGES = "INSERT INTO CarouselImages(" +
+            " CarouselId" +
+            ",CarouselDetails" +
+            ",CarouselImageName" +
+            ",CarouselLink" +
+            ",CarouselType" +
+            ",DisplayOrder" +
+            ",Active" +
+            ",Deleted" +
+            ",UpdatedDate)" +
+            "VALUES " +
+            "( 5, 'Every day'                       , '0000005_1_ARWMGTAM2GG.jpg', 'No Link', 'HomeCarousel',  5, 1, 0, '2021-01-01')," +
+            "( 7, 'Every day more products on eziby', '0000007_1_K0CXINAM2GG.jpg', 'No Link', 'HomeCarousel',  7, 1, 0, '2022-01-01')," +
+            "( 8, 'Daily fresh',                      '0000008_1_FFZUJDAM2GG.jpg', 'No Link', 'HomeCarousel',  8, 0, 0, '2023-01-01')," +
+            "( 9, 'Free Delivery Ramazan 2023',       '0000009_1_SEUZBQ8O2WG.jpg', 'No Link', 'HomeCarousel',  9, 0, 0, '2024-01-01')," +
+            "(10, '2024 Ram',                         '0000010_1_EVZUAV1A3AG.jpg', 'No Link', 'HomeCarousel', 10, 1, 0, '2025-01-01');";
 }

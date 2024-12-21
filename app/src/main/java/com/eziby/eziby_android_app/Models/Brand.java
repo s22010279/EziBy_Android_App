@@ -1,6 +1,10 @@
 package com.eziby.eziby_android_app.Models;
 
 public class Brand {
+    // Default constructor
+    public Brand() {
+    }
+
     private int brandId;
     private String brandName = "";
     private String brandImage = "";
@@ -8,6 +12,7 @@ public class Brand {
     private boolean active;
     private boolean deleted;
     private String updatedDate;
+
 
     // Getter and Setter methods
     public int getBrandId() {
