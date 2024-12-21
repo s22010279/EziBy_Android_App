@@ -11,7 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.eziby.eziby_android_app.Adapters.CategoryAdapter;
 import com.eziby.eziby_android_app.Models.MyPlace;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.R;
@@ -19,6 +22,7 @@ import com.eziby.eziby_android_app.screens.PlaceViewActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -31,9 +35,46 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home,
                 container, false);
 
-        layout = view.findViewById(R.id.linear_layout_fragment_home);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView11);
 
-        loadPlaces();
+        // Sample images (replace with your drawable resources)
+        List<String> images_path = Arrays.asList(
+                "https://images.eziby.lk/EziBy_Images/Category/0000001_1_3HIQIDEM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000002_1_B10TCNEM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000003_1_ENEGFDEM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000005_1_5OW87NAM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000006_1_JT1Q4TAM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000008_1_IAD6W9AM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000011_1_THQKD9EM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000012_1_R76SBNEM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000013_1_9UUUXDEM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000014_1_F1CATNEM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000015_1_I298ODEM2GG.jpg",
+                "https://images.eziby.lk/EziBy_Images/Category/0000016_1_ZULYLTEM2GG.jpg"
+        );
+
+        List<String> categoryNames = Arrays.asList(
+                "Food,Cooking & Grains",
+                "Oil & Ghee",
+                "Masala & Spices",
+                "Bath & Hygiene",
+                "Cleaning & House Keeping",
+                "Baby Care",
+                "Biscuits, Snacks & Bakery Products",
+                "Milk Products & Beverages",
+                "Beauty, cosmetic & personal care",
+                "Ayurvedic and English Medicine",
+                "Egg, Meat & Fish",
+                "Stationer"
+        );
+
+        // Set up RecyclerView
+        recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3)); // 3 columns
+        recyclerView.setAdapter(new CategoryAdapter(this.getContext(), images_path, categoryNames));
+
+//        layout = view.findViewById(R.id.linear_layout_fragment_home);
+//
+//        loadPlaces();
 
         return view;
     }
