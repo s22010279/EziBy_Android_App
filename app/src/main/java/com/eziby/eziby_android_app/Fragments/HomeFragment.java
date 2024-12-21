@@ -7,16 +7,19 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.eziby.eziby_android_app.Adapters.BrandAdapter;
 import com.eziby.eziby_android_app.Adapters.CarouselImagesAdapter;
 import com.eziby.eziby_android_app.Adapters.CategoryAdapter;
+import com.eziby.eziby_android_app.Adapters.ItemAdapter;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.Models.Brand;
 import com.eziby.eziby_android_app.Models.CarouselImage;
 import com.eziby.eziby_android_app.Models.Category;
+import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.R;
 
 import java.util.List;
@@ -33,10 +36,13 @@ public class HomeFragment extends Fragment {
         List<CarouselImage> carouselImages;
         List<Category> categories;
         List<Brand> brands;
+        List<Item> items;
+
         try (DbHelper dbHelper = new DbHelper(view.getContext())) {
             carouselImages = dbHelper.getCarouselImages();
             categories = dbHelper.getCategories();
             brands = dbHelper.getBrands();
+            items = dbHelper.getItems();
         }
 
         CarouselImagesAdapter adapter = new CarouselImagesAdapter(this.getContext(),  carouselImages);
@@ -55,6 +61,12 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerViewBrand = view.findViewById(R.id.recycler_view_brand);
         recyclerViewBrand.setLayoutManager(new GridLayoutManager(this.getContext(), 4)); // 4 columns
         recyclerViewBrand.setAdapter(new BrandAdapter(this.getContext(), brands));
+
+        // Set up RecyclerView - Items
+        RecyclerView recyclerViewItem = view.findViewById(R.id.recycler_view_new_arrivals);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewItem.setLayoutManager(layoutManager);
+        recyclerViewItem.setAdapter(new ItemAdapter(this.getContext(), items));
 
         return view;
     }

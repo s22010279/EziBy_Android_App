@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.eziby.eziby_android_app.Models.Brand;
 import com.eziby.eziby_android_app.Models.CarouselImage;
 import com.eziby.eziby_android_app.Models.Category;
+import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Models.Setup;
 
@@ -22,7 +23,7 @@ import java.util.Objects;
 
 public class DbHelper extends SQLiteOpenHelper {
     public DbHelper(Context context) {
-        super(context, DATABASE_NAME, null, 2);
+        super(context, DATABASE_NAME, null, 3);
     }
 
     @Override
@@ -31,6 +32,8 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BRANDS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAROUSEL_IMAGES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMS);
         onCreate(db);
     }
 
@@ -41,11 +44,13 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CATEGORIES);
         db.execSQL(CREATE_TABLE_BRANDS);
         db.execSQL(CREATE_TABLE_CAROUSEL_IMAGES);
+        db.execSQL(CREATE_TABLE_ITEMS);
 
         db.execSQL(DataScript.INSERT_DATA_SETUPS);
         db.execSQL(DataScript.INSERT_DATA_CATEGORIES);
         db.execSQL(DataScript.INSERT_DATA_BRANDS);
         db.execSQL(DataScript.INSERT_DATA_CAROUSEL_IMAGES);
+        db.execSQL(DataScript.INSERT_DATA_ITEMS);
     }
 
     //region DB and Table Names
@@ -55,6 +60,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TABLE_CATEGORIES = "Categories";
     public static final String TABLE_BRANDS = "Brands";
     public static final String TABLE_CAROUSEL_IMAGES = "CarouselImages";
+    public static final String TABLE_ITEMS = "Items";
     //endregion
 
     //region Common Properties
@@ -214,6 +220,72 @@ public class DbHelper extends SQLiteOpenHelper {
                     ");";
     //endregion Brand table
 
+    //region Item table
+    public static final String COLUMN_ITEM_ID = "ItemId";
+    public static final String COLUMN_ITEM_NAME = "ItemName";
+    public static final String COLUMN_SPECIFICATION = "Specification";
+    public static final String COLUMN_SKU_BARCODE = "SKUBarcode";
+    public static final String COLUMN_DIMENSION = "Dimension";
+    public static final String COLUMN_ITEM_IMAGE_1 = "ItemImage1";
+    public static final String COLUMN_ITEM_IMAGE_2 = "ItemImage2";
+    public static final String COLUMN_ITEM_IMAGE_3 = "ItemImage3";
+
+    public static final String COLUMN_SUB_CATEGORY_ID = "SubCategoryId";
+    public static final String COLUMN_DELIVERY_TIME_ID = "DeliveryTimeId";
+    public static final String COLUMN_UOM_ID = "UOMId";
+
+    public static final String COLUMN_STOP_REORDER = "StopReOrder";
+    public static final String COLUMN_REORDER_LEVEL = "ReOrderLevel";
+    public static final String COLUMN_REORDER_QTY = "ReOrderQty";
+
+    public static final String COLUMN_ALLOW_FRACTION_IN_QTY = "AllowFractionInQty";
+    public static final String COLUMN_NON_EXCHANGABLE = "NonExchangable";
+    public static final String COLUMN_ONE_TIME_PURCHASABLE_QTY = "OneTimePurchasableQty";
+
+    public static final String COLUMN_IS_AVAILABLE_IN_MOBILE_APP = "IsAvailableInMobileApp";
+    public static final String COLUMN_IS_AVAILABLE_IN_POS = "IsAvailableInPOS";
+    public static final String COLUMN_IS_NEW_ARRIVAL = "IsNewArrival";
+    public static final String COLUMN_IS_TRENDING = "IsTrending";
+    public static final String COLUMN_IS_EXPRESS = "IsExpress";
+
+    public static final String COLUMN_TOTAL_SOLD = "TotalSold";
+    public static final String COLUMN_TOTAL_CLICKED = "TotalClicked";
+    public static final String COLUMN_AVERAGE_RATING = "AverageRating";
+
+    public static final String CREATE_TABLE_ITEMS = "CREATE TABLE " + TABLE_ITEMS + " (" +
+            COLUMN_ITEM_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_ITEM_NAME + " TEXT NOT NULL, " +
+            COLUMN_SPECIFICATION + " TEXT, " +
+            COLUMN_SKU_BARCODE + " TEXT, " +
+            COLUMN_DIMENSION + " TEXT, " +
+            COLUMN_ITEM_IMAGE_1 + " TEXT, " +
+            COLUMN_ITEM_IMAGE_2 + " TEXT, " +
+            COLUMN_ITEM_IMAGE_3 + " TEXT, " +
+            COLUMN_BRAND_ID + " INTEGER NOT NULL, " +
+            COLUMN_CATEGORY_ID + " INTEGER NOT NULL, " +
+            COLUMN_SUB_CATEGORY_ID + " INTEGER NOT NULL, " +
+            COLUMN_DELIVERY_TIME_ID + " INTEGER NOT NULL, " +
+            COLUMN_UOM_ID + " INTEGER NOT NULL, " +
+            COLUMN_STOP_REORDER + " INTEGER NOT NULL, " + // Boolean as INTEGER (0 = false, 1 = true)
+            COLUMN_REORDER_LEVEL + " INTEGER NOT NULL, " +
+            COLUMN_REORDER_QTY + " INTEGER NOT NULL, " +
+            COLUMN_ALLOW_FRACTION_IN_QTY + " INTEGER NOT NULL, " +
+            COLUMN_NON_EXCHANGABLE + " INTEGER NOT NULL, " +
+            COLUMN_ONE_TIME_PURCHASABLE_QTY + " INTEGER NOT NULL, " +
+            COLUMN_IS_AVAILABLE_IN_MOBILE_APP + " INTEGER NOT NULL, " +
+            COLUMN_IS_AVAILABLE_IN_POS + " INTEGER NOT NULL, " +
+            COLUMN_IS_NEW_ARRIVAL + " INTEGER NOT NULL, " +
+            COLUMN_IS_TRENDING + " INTEGER NOT NULL, " +
+            COLUMN_IS_EXPRESS + " INTEGER NOT NULL, " +
+            COLUMN_TOTAL_SOLD + " INTEGER NOT NULL, " +
+            COLUMN_TOTAL_CLICKED + " INTEGER NOT NULL, " +
+            COLUMN_AVERAGE_RATING + " REAL NOT NULL, " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL, " +
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Date stored as TEXT (ISO 8601 format)
+            ");";
+    //endregion
+
     //region New table
     //endregion
 
@@ -318,6 +390,30 @@ public class DbHelper extends SQLiteOpenHelper {
         }
         result.close();
         return categories;
+    }
+
+    @SuppressLint("Range")
+    public List<Item> getItems() {
+        List<Item> items = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_ITEMS +
+                " WHERE " + COLUMN_DELETED + " = " + 0 +
+                " AND " + COLUMN_ACTIVE + " = " + 1;
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                Item item = new Item();
+                item.setItemId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_ITEM_ID))));
+                item.setItemImage1(result.getString(result.getColumnIndex(COLUMN_ITEM_IMAGE_1)));
+                item.setItemName(result.getString(result.getColumnIndex(COLUMN_ITEM_NAME)));
+                item.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
+                item.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
+                item.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
+                items.add(item);
+            }
+        }
+        result.close();
+        return items;
     }
 
     @SuppressLint("Range")

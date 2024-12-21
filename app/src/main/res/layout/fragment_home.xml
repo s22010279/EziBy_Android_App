@@ -137,34 +137,11 @@
                 android:textSize="24sp" />
         </FrameLayout>
         <!-- New Arrivals -->
-        <HorizontalScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_new_arrivals"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <include
-                    android:id="@+id/includedLayout1111"
-                    layout="@layout/component_item" />
-
-                <include
-                    android:id="@+id/includedLayout2222"
-                    layout="@layout/component_item" />
-
-                <include
-                    android:id="@+id/includedLayout3333"
-                    layout="@layout/component_item" />
-
-                <include
-                    android:id="@+id/includedLayout4444"
-                    layout="@layout/component_item" />
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal" />
 
         <!-- Trending Header -->
         <FrameLayout
