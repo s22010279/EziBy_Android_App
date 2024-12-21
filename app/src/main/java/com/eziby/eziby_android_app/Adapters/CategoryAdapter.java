@@ -12,10 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.eziby.eziby_android_app.Models.Category;
 import com.eziby.eziby_android_app.R;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +27,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ImageV
     private final List<String> imageList;
     private final List<String> categoryNames;
 
-    public CategoryAdapter(Context context, List<String> imageList, List<String> categoryNames) {
+    public CategoryAdapter(Context context, List<Category> categories) {
+        List<String> categoryImages = new ArrayList<>();
+        List<String> categoryNames = new ArrayList<>();
+
+        for (Category category : categories) {
+            categoryImages.add(category.getCategoryImage());
+            categoryNames.add(category.getCategoryName());
+        }
+
         this.context = context;
-        this.imageList = imageList;
+        this.imageList = categoryImages;
         this.categoryNames = categoryNames;
     }
 
@@ -42,7 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ImageV
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         Picasso.get()
                 .load(imageList.get(position)) // Image URL
-                .placeholder(R.drawable.loading_image_ligh_grey_100) // Placeholder image while loading
+                .placeholder(R.drawable.loading_image_light_grey_100) // Placeholder image while loading
 //                .error(R.drawable.error_image_30) // Error image if the URL fails to load
                 .into(holder.imageView); // Target ImageView
 
@@ -60,8 +70,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ImageV
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView);
-            textView = itemView.findViewById(R.id.category_name_text_view);
+            imageView = itemView.findViewById(R.id.image_view_category_image);
+            textView = itemView.findViewById(R.id.text_view_category_name);
         }
     }
 }
