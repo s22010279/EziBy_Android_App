@@ -20,14 +20,40 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class DbHelper extends SQLiteOpenHelper {
+    public DbHelper(Context context) {
+        super(context, DATABASE_NAME, null, 1);
+    }
 
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETUP);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BRANDS);
+        onCreate(db);
+    }
 
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_TABLE_SETUP);
+        db.execSQL(CREATE_TABLE_USER);
+        db.execSQL(CREATE_TABLE_CATEGORIES);
+        db.execSQL(CREATE_TABLE_BRANDS);
+
+        db.execSQL(DataScript.INSERT_DATA_SETUPS);
+        db.execSQL(DataScript.INSERT_DATA_CATEGORIES);
+        db.execSQL(DataScript.INSERT_DATA_BRANDS);
+    }
+
+    //region DB and Table Names
     public static final String DATABASE_NAME = "EziBy.db";
     public static final String TABLE_SETUP = "Setups";
     public static final String TABLE_USER = "user_table";
     public static final String TABLE_CATEGORIES = "Categories";
     public static final String TABLE_BRANDS = "Brands";
-    //columns for Setup table - start
+    //endregion
+
+    //region Setup table
     public static final String COLUMN_SETUP_ID = "SetupId";
     public static final String COLUMN_BRANCH_NAME = "BranchName";
     public static final String COLUMN_BRANCH_DESCRIPTION = "BranchDescription";
@@ -61,53 +87,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ALLOW_DISCOUNT_IN_POS = "AllowDiscountInPOS";
     public static final String COLUMN_CRYSTAL_REPORT_PATH = "CrystalReportPath";
     public static final String COLUMN_ACTIVE = "Active";
-    //columns for Category table - start
-    public static final String COLUMN_CATEGORY_ID = "CategoryId";
-    public static final String COLUMN_CATEGORY_NAME = "CategoryName";
-    public static final String COLUMN_CATEGORY_IMAGE = "CategoryImage";
-    public static final String COLUMN_CATEGORY_HEADER_IMAGE = "CategoryHeaderImage";
-    //columns for Setup table - end
-    public static final String COLUMN_DISPLAY_ORDER = "DisplayOrder";
-    public static final String COLUMN_MAX_DISCOUNT = "MaxDiscount";
-    public static final String COLUMN_DELETED = "Deleted";
-    public static final String COLUMN_UPDATED_DATE = "UpdatedDate";
-    public static final String CREATE_TABLE_CATEGORIES = "create table " + TABLE_CATEGORIES + " (" +
-            COLUMN_CATEGORY_ID + " integer PRIMARY KEY, " +
-            COLUMN_CATEGORY_NAME + " text, " +
-            COLUMN_CATEGORY_IMAGE + " text, " +
-            COLUMN_CATEGORY_HEADER_IMAGE + " text, " +
-            COLUMN_DISPLAY_ORDER + " integer, " +
-            COLUMN_MAX_DISCOUNT + " text, " +
-            COLUMN_ACTIVE + " integer, " +
-            COLUMN_DELETED + " integer, " +
-            COLUMN_UPDATED_DATE + " text " +
-            "); ";
-    //columns for User table - start
-    public static final String COLUMN_BACKGROUND_MUSIC = "backgroundMusic";
-    public static final String COLUMN_CONTRIBUTION = "contribution";
-    public static final String COLUMN_DISPLAY_NAME = "displayName";
-    public static final String COLUMN_EMAIL_ADDRESS = "emailAddress";
-    //columns for Category table - end
-    public static final String COLUMN_MEMBER_SINCE = "memberSince";
-    public static final String COLUMN_PROFILE_PICTURE_URI = "profilePictureUri";
-    public static final String COLUMN_RATINGS = "ratings";
-    public static final String COLUMN_SUBSCRIBED_TO_NEWS_LETTER = "subscribedToNewsLetter";
-    public static final String COLUMN_TOKEN = "token";
-    public static final String COLUMN_USER_ID = "userId";
-    //columns for Brand table - start
-    public static final String COLUMN_BRAND_ID = "BrandId";
-    public static final String COLUMN_BRAND_NAME = "BrandName";
-    public static final String COLUMN_BRAND_IMAGE = "BrandImage";
-    public static final String CREATE_TABLE_BRANDS =
-            "CREATE TABLE " + TABLE_BRANDS + " (" +
-                    COLUMN_BRAND_ID + " INTEGER PRIMARY KEY, " +
-                    COLUMN_BRAND_NAME + " TEXT NOT NULL, " +
-                    COLUMN_BRAND_IMAGE + " TEXT NOT NULL, " +
-                    COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
-                    COLUMN_ACTIVE + " INTEGER NOT NULL, " + // SQLite uses INTEGER for booleans (0 = false, 1 = true)
-                    COLUMN_DELETED + " INTEGER NOT NULL, " +
-                    COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates are typically stored as TEXT in ISO 8601 format
-                    ");";
     private static final String CREATE_TABLE_SETUP = "CREATE TABLE " + TABLE_SETUP + " (" +
             COLUMN_SETUP_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_BRANCH_NAME + " TEXT NOT NULL DEFAULT '', " +
@@ -143,7 +122,19 @@ public class DbHelper extends SQLiteOpenHelper {
             COLUMN_CRYSTAL_REPORT_PATH + " TEXT NOT NULL DEFAULT '', " +
             COLUMN_ACTIVE + " INTEGER NOT NULL DEFAULT 0" +
             ");";
-    //columns for User table - end
+    //endregion Setup table
+
+    //region User table
+    public static final String COLUMN_BACKGROUND_MUSIC = "backgroundMusic";
+    public static final String COLUMN_CONTRIBUTION = "contribution";
+    public static final String COLUMN_DISPLAY_NAME = "displayName";
+    public static final String COLUMN_EMAIL_ADDRESS = "emailAddress";
+    public static final String COLUMN_MEMBER_SINCE = "memberSince";
+    public static final String COLUMN_PROFILE_PICTURE_URI = "profilePictureUri";
+    public static final String COLUMN_RATINGS = "ratings";
+    public static final String COLUMN_SUBSCRIBED_TO_NEWS_LETTER = "subscribedToNewsLetter";
+    public static final String COLUMN_TOKEN = "token";
+    public static final String COLUMN_USER_ID = "userId";
     private static final String CREATE_TABLE_USER = "create table " + TABLE_USER + " (" +
             COLUMN_USER_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_EMAIL_ADDRESS + " text, " +
@@ -156,31 +147,51 @@ public class DbHelper extends SQLiteOpenHelper {
             COLUMN_MEMBER_SINCE + " text, " +
             COLUMN_RATINGS + " text " +
             "); ";
-    public DbHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
-    }
+    //endregion User table
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETUP);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BRANDS);
-        onCreate(db);
-    }
+    //region Common Properties
+    public static final String COLUMN_DISPLAY_ORDER = "DisplayOrder";
+    public static final String COLUMN_MAX_DISCOUNT = "MaxDiscount";
+    public static final String COLUMN_DELETED = "Deleted";
+    public static final String COLUMN_UPDATED_DATE = "UpdatedDate";
+    //endregion Common Properties
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_SETUP);
-        db.execSQL(CREATE_TABLE_USER);
-        db.execSQL(CREATE_TABLE_CATEGORIES);
-        db.execSQL(CREATE_TABLE_BRANDS);
+    //region Category table
+    public static final String COLUMN_CATEGORY_ID = "CategoryId";
+    public static final String COLUMN_CATEGORY_NAME = "CategoryName";
+    public static final String COLUMN_CATEGORY_IMAGE = "CategoryImage";
+    public static final String COLUMN_CATEGORY_HEADER_IMAGE = "CategoryHeaderImage";
+    public static final String CREATE_TABLE_CATEGORIES = "create table " + TABLE_CATEGORIES + " (" +
+            COLUMN_CATEGORY_ID + " integer PRIMARY KEY, " +
+            COLUMN_CATEGORY_NAME + " text, " +
+            COLUMN_CATEGORY_IMAGE + " text, " +
+            COLUMN_CATEGORY_HEADER_IMAGE + " text, " +
+            COLUMN_DISPLAY_ORDER + " integer, " +
+            COLUMN_MAX_DISCOUNT + " text, " +
+            COLUMN_ACTIVE + " integer, " +
+            COLUMN_DELETED + " integer, " +
+            COLUMN_UPDATED_DATE + " text " +
+            "); ";
+    //endregion Category table
 
-        db.execSQL(DataScript.INSERT_DATA_SETUPS);
-        db.execSQL(DataScript.INSERT_DATA_CATEGORIES);
-        db.execSQL(DataScript.INSERT_DATA_BRANDS);
-    }
-    //columns for Brand table - end
+    //region Brand table
+    public static final String COLUMN_BRAND_ID = "BrandId";
+    public static final String COLUMN_BRAND_NAME = "BrandName";
+    public static final String COLUMN_BRAND_IMAGE = "BrandImage";
+    public static final String CREATE_TABLE_BRANDS =
+            "CREATE TABLE " + TABLE_BRANDS + " (" +
+                    COLUMN_BRAND_ID + " INTEGER PRIMARY KEY, " +
+                    COLUMN_BRAND_NAME + " TEXT NOT NULL, " +
+                    COLUMN_BRAND_IMAGE + " TEXT NOT NULL, " +
+                    COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
+                    COLUMN_ACTIVE + " INTEGER NOT NULL, " + // SQLite uses INTEGER for booleans (0 = false, 1 = true)
+                    COLUMN_DELETED + " INTEGER NOT NULL, " +
+                    COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates are typically stored as TEXT in ISO 8601 format
+                    ");";
+    //endregion Brand table
+
+    //region New table
+    //endregion
 
     @SuppressLint("Range")
     public Setup getASetup() {
@@ -306,7 +317,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
         return result != -1;
     }
-
 
     public boolean hasUser(String emailAddress) {
         SQLiteDatabase db = this.getWritableDatabase();
