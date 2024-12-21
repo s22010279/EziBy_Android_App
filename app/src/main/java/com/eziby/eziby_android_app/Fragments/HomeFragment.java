@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import androidx.viewpager2.widget.ViewPager2;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.eziby.eziby_android_app.Adapters.BrandAdapter;
 import com.eziby.eziby_android_app.Adapters.CarouselImagesAdapter;
@@ -25,8 +23,6 @@ import java.util.List;
 
 
 public class HomeFragment extends Fragment {
-    LinearLayout layout;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +41,10 @@ public class HomeFragment extends Fragment {
 
         CarouselImagesAdapter adapter = new CarouselImagesAdapter(this.getContext(),  carouselImages);
         viewPagerCarousel.setAdapter(adapter);
+        int padding = getResources().getDimensionPixelSize(R.dimen.carousel_padding);
+        viewPagerCarousel.setPadding(padding, 0, padding, 0);
+
+        viewPagerCarousel.setOffscreenPageLimit(2);
 
         // Set up RecyclerView - Category
         RecyclerView recyclerViewCategory = view.findViewById(R.id.recycler_view_category);
