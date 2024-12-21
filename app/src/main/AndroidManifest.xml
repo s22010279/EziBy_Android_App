@@ -33,20 +33,37 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".screens.Order_History"
-            android:exported="false">
-        </activity>
-        <activity
-            android:name=".screens.PlaceAddActivity"
+            android:name=".screens.Flash_Activity"
             android:exported="false" />
         <activity
-            android:name=".screens.PlaceViewActivity"
+            android:name=".screens.Item_List"
+            android:exported="false" />
+        <activity
+            android:name=".screens.Location_Activity"
             android:exported="false" />
         <activity
             android:name=".screens.Login_Activity"
             android:exported="false" />
         <activity
-            android:name=".screens.Location_Activity"
+            android:name=".screens.Order_1_DeliveryAddress"
+            android:exported="false" />
+        <activity
+            android:name=".screens.Order_2_Review"
+            android:exported="false" />
+        <activity
+            android:name=".screens.Order_3_PaymentMethod"
+            android:exported="false" />
+        <activity
+            android:name=".screens.Order_4_ThankYou"
+            android:exported="false" />
+        <activity
+            android:name=".screens.Order_History"
+            android:exported="false" />
+        <activity
+            android:name=".screens.PlaceAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.PlaceViewActivity"
             android:exported="false" />
 
         <meta-data

@@ -1,11 +1,13 @@
 package com.eziby.eziby_android_app.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.R;
+import com.eziby.eziby_android_app.screens.Order_2_Review;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -64,21 +67,35 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ImageViewHolde
                 .into(holder.imageView); // Target ImageView
 
         holder.textView.setText(Optional.ofNullable(nameList.get(position)).orElse(""));
+
+        holder.btn_add_to_cart.setOnClickListener(v -> {
+            // Create an Intent to navigate to SecondActivity
+            Intent intent = new Intent(context, Order_2_Review.class);
+            // You can pass data with the intent if necessary
+            // intent.putExtra("item", item);
+            context.startActivity(intent);
+        });
     }
+
 
     @Override
     public int getItemCount() {
         return imageList.size();
     }
 
+
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
+        Button btn_add_to_cart;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.product_image);
             textView = itemView.findViewById(R.id.product_name);
+            btn_add_to_cart = itemView.findViewById(R.id.add_to_cart_button);
         }
+
+
     }
 }
