@@ -9,22 +9,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.eziby.eziby_android_app.Classes.MySharedPreferences;
 import com.eziby.eziby_android_app.Models.MyPlace;
-import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.R;
 import com.eziby.eziby_android_app.screens.PlaceAddActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.util.List;
 
 public class MySpotFragment extends Fragment {
     LinearLayout layout;
@@ -36,7 +32,7 @@ public class MySpotFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 2) {
-            loadPlaces();
+//            loadPlaces();
         }
     }
 
@@ -51,7 +47,7 @@ public class MySpotFragment extends Fragment {
         emptyViewLayout1 = view.findViewById(R.id.emptyViewLayout1);
         emptyViewLayout2 = view.findViewById(R.id.emptyViewLayout2);
         layout = view.findViewById(R.id.containerViewLayout);
-        loadPlaces();
+//        loadPlaces();
 
         btnAddPlace.setOnClickListener(v -> {
 
@@ -61,20 +57,20 @@ public class MySpotFragment extends Fragment {
         return view;
     }
 
-    private void loadPlaces() {
-        String email = new MySharedPreferences(this.getContext()).getEmail();
-        try (DbHelper dbHelper = new DbHelper(this.getContext())) {
-            List<MyPlace> places = dbHelper.getPlaces(email);
-            layout.removeAllViews();
-            if (places.size() > 0) {
-                for (int i = 0; i < places.size(); i++)
-                    addCard(places.get(i));
-            } else {
-                layout.addView(emptyViewLayout1);
-                layout.addView(emptyViewLayout2);
-            }
-        }
-    }
+//    private void loadPlaces() {
+//        String email = new MySharedPreferences(this.getContext()).getEmail();
+//        try (DbHelper dbHelper = new DbHelper(this.getContext())) {
+//            List<MyPlace> places = dbHelper.getPlaces(email);
+//            layout.removeAllViews();
+//            if (places.size() > 0) {
+//                for (int i = 0; i < places.size(); i++)
+//                    addCard(places.get(i));
+//            } else {
+//                layout.addView(emptyViewLayout1);
+//                layout.addView(emptyViewLayout2);
+//            }
+//        }
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,16 +100,16 @@ public class MySpotFragment extends Fragment {
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> {
                         Integer recordDeleted = 0;
-                        try (DbHelper dbHelper = new DbHelper(this.getContext())) {
-                            dbHelper.deleteComments(myPlace.getPlaceId());
-                            recordDeleted = dbHelper.deleteAPlace(myPlace.getPlaceId());
-                        }
-                        if (recordDeleted > 0) {
-                            loadPlaces();
-                            Toast.makeText(getActivity(), "Place Deleted", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity(), "Not Deleted!", Toast.LENGTH_SHORT).show();
-                        }
+//                        try (DbHelper dbHelper = new DbHelper(this.getContext())) {
+//                            dbHelper.deleteComments(myPlace.getPlaceId());
+//                            recordDeleted = dbHelper.deleteAPlace(myPlace.getPlaceId());
+//                        }
+//                        if (recordDeleted > 0) {
+//                            loadPlaces();
+//                            Toast.makeText(getActivity(), "Place Deleted", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(getActivity(), "Not Deleted!", Toast.LENGTH_SHORT).show();
+//                        }
                     })
                     .setNegativeButton(android.R.string.no, null).show();
         });

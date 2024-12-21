@@ -22,28 +22,27 @@
 
             <!-- Category Image -->
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/image_view_category_image"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/icons8_image_100"
-                android:contentDescription="@string/description_image_of_category" />
+                android:contentDescription="@string/description_image_of_category"
+                android:scaleType="fitCenter"
+                android:src="@drawable/loading_image_light_grey_100" />
 
             <!-- Category Name -->
             <TextView
-                android:id="@+id/category_name_text_view"
+                android:id="@+id/text_view_category_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:text="@string/text_category"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:autoSizeMinTextSize="12sp"
                 android:autoSizeMaxTextSize="16sp"
+                android:autoSizeMinTextSize="12sp"
                 android:autoSizeStepGranularity="1sp"
                 android:autoSizeTextType="uniform"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/text_category"
+                android:textAlignment="center"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
         </LinearLayout>

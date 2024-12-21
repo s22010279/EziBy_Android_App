@@ -20,21 +20,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.eziby.eziby_android_app.Classes.MyGeoLocation;
+import com.eziby.eziby_android_app.Classes.MySharedPreferences;
+import com.eziby.eziby_android_app.Database.DbHelper;
+import com.eziby.eziby_android_app.Models.MyComment;
+import com.eziby.eziby_android_app.Models.MyPlace;
+import com.eziby.eziby_android_app.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.eziby.eziby_android_app.Classes.MyGeoLocation;
-import com.eziby.eziby_android_app.Classes.MySharedPreferences;
-import com.eziby.eziby_android_app.Models.MyComment;
-import com.eziby.eziby_android_app.Models.MyPlace;
-import com.eziby.eziby_android_app.Database.DbHelper;
-import com.eziby.eziby_android_app.R;
-import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.util.List;
 import java.util.Objects;
 
 public class PlaceViewActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -76,29 +73,29 @@ public class PlaceViewActivity extends AppCompatActivity implements OnMapReadyCa
             placeId = bundle.getInt("placeId");
         Log.e("PassedValue", String.valueOf(placeId));
 
-        if (placeId != 0) {
-            myPlace = dbHelper.getAPlace(placeId);
+//        if (placeId != 0) {
+//            myPlace = dbHelper.getAPlace(placeId);
+//
+//            place_header_text.setText(myPlace.getHeader());
+//            place_details_text.setText(myPlace.getDetail());
+//            File imageFileName = new File(myPlace.getImage());
+//            Picasso.get().load(imageFileName).into(place_image);
+//
+//            registerButtonListeners();
+//        }
 
-            place_header_text.setText(myPlace.getHeader());
-            place_details_text.setText(myPlace.getDetail());
-            File imageFileName = new File(myPlace.getImage());
-            Picasso.get().load(imageFileName).into(place_image);
-
-            registerButtonListeners();
-        }
-
-        addCommentsCards();
+//        addCommentsCards();
     }
 
-    void addCommentsCards() {
-        layout = findViewById(R.id.containerPlaceView);
-        layout.removeAllViews();
-        layout.setScrollContainer(true);
-        List<MyComment> myComments = dbHelper.getComments(placeId);
-        if (myComments.size() > 0)
-            for (int i = 0; i < myComments.size(); i++)
-                addCardComment(myComments.get(i));
-    }
+//    void addCommentsCards() {
+//        layout = findViewById(R.id.containerPlaceView);
+//        layout.removeAllViews();
+//        layout.setScrollContainer(true);
+//        List<MyComment> myComments = dbHelper.getComments(placeId);
+//        if (myComments.size() > 0)
+//            for (int i = 0; i < myComments.size(); i++)
+//                addCardComment(myComments.get(i));
+//    }
 
     void registerButtonListeners() {
         btnGoogleMap.setOnClickListener(v -> toLocation(myPlace.getGoogleDirection(), false));
@@ -120,11 +117,11 @@ public class PlaceViewActivity extends AppCompatActivity implements OnMapReadyCa
                 myComment.setPlaceId(placeId);
                 myComment.setEmailAddress(email1);
                 myComment.setComment(txtComment.getText().toString());
-                if (dbHelper.insertComment(myComment)) {
-                    txtComment.setText("");
-                    addCommentsCards();
-                    Toast.makeText(this, "Comment Added.", Toast.LENGTH_SHORT).show();
-                }
+//                if (dbHelper.insertComment(myComment)) {
+//                    txtComment.setText("");
+//                    addCommentsCards();
+//                    Toast.makeText(this, "Comment Added.", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
     }
@@ -175,15 +172,15 @@ public class PlaceViewActivity extends AppCompatActivity implements OnMapReadyCa
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> {
                         Integer recordDeleted;
-                        try (DbHelper dbHelper = new DbHelper(this)) {
-                            recordDeleted = dbHelper.deleteComment(myComment.getCommentId());
-                        }
-                        if (recordDeleted > 0) {
-                            addCommentsCards();
-                            Toast.makeText(this, "Comment Deleted", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(this, "Not Deleted!", Toast.LENGTH_SHORT).show();
-                        }
+//                        try (DbHelper dbHelper = new DbHelper(this)) {
+//                            recordDeleted = dbHelper.deleteComment(myComment.getCommentId());
+//                        }
+//                        if (recordDeleted > 0) {
+//                            addCommentsCards();
+//                            Toast.makeText(this, "Comment Deleted", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(this, "Not Deleted!", Toast.LENGTH_SHORT).show();
+//                        }
                     })
                     .setNegativeButton(android.R.string.no, null).show());
         } else {

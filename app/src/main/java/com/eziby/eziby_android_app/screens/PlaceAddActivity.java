@@ -63,9 +63,9 @@ public class PlaceAddActivity extends AppCompatActivity implements LocationListe
         Log.e("PassedValue", String.valueOf(placeId));
 
         if (placeId != 0) {
-            try (DbHelper dbHelper = new DbHelper(this)) {
-                myPlace = dbHelper.getAPlace(placeId);
-            }
+//            try (DbHelper dbHelper = new DbHelper(this)) {
+//                myPlace = dbHelper.getAPlace(placeId);
+//            }
 
 
             txtHeader.setText(myPlace.getHeader());
@@ -185,23 +185,23 @@ public class PlaceAddActivity extends AppCompatActivity implements LocationListe
                 myPlace.setGoogleDirection(latLang);
                 myPlace.setDateCreated("will be set by function");
                 myPlace.setShared(shared);
-                if (placeId > 0) {
-                    if (dbHelper1.updatePlace(myPlace)) {
-                        showToastMessage("Place Updated");
-                        setResult(2);
-                        this.finish();
-                    } else {
-                        showToastMessage("Error Occurred");
-                    }
-                } else {
-                    if (dbHelper1.insertPlace(myPlace)) {
-                        showToastMessage("Place Added");
-                        setResult(2);
-                        this.finish();
-                    } else {
-                        showToastMessage("Error Occurred");
-                    }
-                }
+//                if (placeId > 0) {
+//                    if (dbHelper1.updatePlace(myPlace)) {
+//                        showToastMessage("Place Updated");
+//                        setResult(2);
+//                        this.finish();
+//                    } else {
+//                        showToastMessage("Error Occurred");
+//                    }
+//                } else {
+//                    if (dbHelper1.insertPlace(myPlace)) {
+//                        showToastMessage("Place Added");
+//                        setResult(2);
+//                        this.finish();
+//                    } else {
+//                        showToastMessage("Error Occurred");
+//                    }
+//                }
 
             }
 
