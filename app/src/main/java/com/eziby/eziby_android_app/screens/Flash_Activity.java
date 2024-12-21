@@ -10,8 +10,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.eziby.eziby_android_app.Fragments.HomeFragment;
 import com.eziby.eziby_android_app.R;
-import com.eziby.eziby_android_app.TestScreens.ItemTest;
 
 public class Flash_Activity extends AppCompatActivity {
     public static final String TAG = "PermissionValues";
@@ -41,7 +41,7 @@ public class Flash_Activity extends AppCompatActivity {
         } else {
             Log.e(TAG, "ACCESS_FINE_LOCATION is Enabled");
             //i = new Intent(this, LoginActivity.class);
-            i = new Intent(this, ItemTest.class);
+            i = new Intent(this, HomeFragment.class);
         }
         startActivity(i);
     }

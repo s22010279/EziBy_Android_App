@@ -23,7 +23,7 @@ import java.util.Objects;
 
 public class DbHelper extends SQLiteOpenHelper {
     public DbHelper(Context context) {
-        super(context, DATABASE_NAME, null, 3);
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override

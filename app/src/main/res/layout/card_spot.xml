@@ -51,7 +51,7 @@
                 android:layout_below="@+id/txt_comment"
                 android:minHeight="300dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/error_image_30"
+                android:src="@drawable/loading_image_light_grey_100"
                 app:shapeAppearanceOverlay="@style/cornerSize_5_percent" />
 
             <com.google.android.material.button.MaterialButton

@@ -80,7 +80,7 @@
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/error_image_30"
+        android:src="@drawable/loading_image_light_grey_100"
         android:thicknessRatio="2.0"
         android:useLevel="false"
         app:layout_constraintBottom_toBottomOf="parent"

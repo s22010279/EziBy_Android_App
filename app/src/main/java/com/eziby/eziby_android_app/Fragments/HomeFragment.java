@@ -54,12 +54,12 @@ public class HomeFragment extends Fragment {
 
         // Set up RecyclerView - Category
         RecyclerView recyclerViewCategory = view.findViewById(R.id.recycler_view_category);
-        recyclerViewCategory.setLayoutManager(new GridLayoutManager(this.getContext(), 3)); // 3 columns
+        recyclerViewCategory.setLayoutManager(new GridLayoutManager(this.getContext(), 2)); // 3 columns
         recyclerViewCategory.setAdapter(new CategoryAdapter(this.getContext(), categories));
 
         // Set up RecyclerView - Brand
         RecyclerView recyclerViewBrand = view.findViewById(R.id.recycler_view_brand);
-        recyclerViewBrand.setLayoutManager(new GridLayoutManager(this.getContext(), 4)); // 4 columns
+        recyclerViewBrand.setLayoutManager(new GridLayoutManager(this.getContext(), 3)); // 4 columns
         recyclerViewBrand.setAdapter(new BrandAdapter(this.getContext(), brands));
 
         // Set up RecyclerView - Items
