@@ -15,12 +15,12 @@ import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Models.Setup;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class DbHelper extends SQLiteOpenHelper {
     public DbHelper(Context context) {
@@ -48,7 +48,6 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CAROUSEL_IMAGES);
         db.execSQL(CREATE_TABLE_ITEMS);
         db.execSQL(CREATE_TABLE_CLIENTS);
-
 
 
         db.execSQL(DataScript.INSERT_DATA_SETUPS);
@@ -245,6 +244,8 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ITEM_IMAGE_2 = "ItemImage2";
     public static final String COLUMN_ITEM_IMAGE_3 = "ItemImage3";
 
+    //    public static final String COLUMN_BRAND_ID = "BrandId";
+//    public static final String COLUMN_CATEGORY_ID = "CategoryId";
     public static final String COLUMN_SUB_CATEGORY_ID = "SubCategoryId";
     public static final String COLUMN_DELIVERY_TIME_ID = "DeliveryTimeId";
     public static final String COLUMN_UOM_ID = "UOMId";
@@ -257,6 +258,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NON_EXCHANGABLE = "NonExchangable";
     public static final String COLUMN_ONE_TIME_PURCHASABLE_QTY = "OneTimePurchasableQty";
 
+    public static final String COLUMN_QTY_ON_HAND = "QtyOnHand";
+    public static final String COLUMN_MRP = "MRP";
+    public static final String COLUMN_SELLING_PRICE = "SellingPrice";
+    public static final String COLUMN_MOB_DISCOUNT_PERCENTAGE = "MOB_DiscountPercentage";
+
     public static final String COLUMN_IS_AVAILABLE_IN_MOBILE_APP = "IsAvailableInMobileApp";
     public static final String COLUMN_IS_AVAILABLE_IN_POS = "IsAvailableInPOS";
     public static final String COLUMN_IS_NEW_ARRIVAL = "IsNewArrival";
@@ -266,6 +272,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_TOTAL_SOLD = "TotalSold";
     public static final String COLUMN_TOTAL_CLICKED = "TotalClicked";
     public static final String COLUMN_AVERAGE_RATING = "AverageRating";
+//    public static final String COLUMN_ACTIVE = "Active";
+//    public static final String COLUMN_DELETED = "Deleted";
+//    public static final String COLUMN_UPDATED_DATE = "UpdatedDate";
 
     public static final String CREATE_TABLE_ITEMS = "CREATE TABLE " + TABLE_ITEMS + " (" +
             COLUMN_ITEM_ID + " INTEGER PRIMARY KEY, " +
@@ -281,56 +290,60 @@ public class DbHelper extends SQLiteOpenHelper {
             COLUMN_SUB_CATEGORY_ID + " INTEGER NOT NULL, " +
             COLUMN_DELIVERY_TIME_ID + " INTEGER NOT NULL, " +
             COLUMN_UOM_ID + " INTEGER NOT NULL, " +
-            COLUMN_STOP_REORDER + " INTEGER NOT NULL, " + // Boolean as INTEGER (0 = false, 1 = true)
+            COLUMN_STOP_REORDER + " INTEGER NOT NULL, " +
             COLUMN_REORDER_LEVEL + " INTEGER NOT NULL, " +
             COLUMN_REORDER_QTY + " INTEGER NOT NULL, " +
             COLUMN_ALLOW_FRACTION_IN_QTY + " INTEGER NOT NULL, " +
             COLUMN_NON_EXCHANGABLE + " INTEGER NOT NULL, " +
             COLUMN_ONE_TIME_PURCHASABLE_QTY + " INTEGER NOT NULL, " +
+            COLUMN_QTY_ON_HAND + " INTEGER NOT NULL, " +
+            COLUMN_MRP + " REAL NOT NULL, " +
+            COLUMN_SELLING_PRICE + " REAL NOT NULL, " +
+            COLUMN_MOB_DISCOUNT_PERCENTAGE + " REAL, " +
             COLUMN_IS_AVAILABLE_IN_MOBILE_APP + " INTEGER NOT NULL, " +
             COLUMN_IS_AVAILABLE_IN_POS + " INTEGER NOT NULL, " +
             COLUMN_IS_NEW_ARRIVAL + " INTEGER NOT NULL, " +
             COLUMN_IS_TRENDING + " INTEGER NOT NULL, " +
             COLUMN_IS_EXPRESS + " INTEGER NOT NULL, " +
-            COLUMN_TOTAL_SOLD + " INTEGER NOT NULL, " +
-            COLUMN_TOTAL_CLICKED + " INTEGER NOT NULL, " +
-            COLUMN_AVERAGE_RATING + " REAL NOT NULL, " +
+            COLUMN_TOTAL_SOLD + " INTEGER, " +
+            COLUMN_TOTAL_CLICKED + " INTEGER, " +
+            COLUMN_AVERAGE_RATING + " REAL, " +
             COLUMN_ACTIVE + " INTEGER NOT NULL, " +
             COLUMN_DELETED + " INTEGER NOT NULL, " +
-            COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Date stored as TEXT (ISO 8601 format)
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
     //endregion
 
     //region Client table
-        public static final String COLUMN_CLIENT_ID = "ClientId";
-        public static final String COLUMN_IS_GUEST_MODE = "IsGuestMode";
-        public static final String COLUMN_GUEST_ID = "GuestId";
-        public static final String COLUMN_FULL_NAME = "FullName";
-        public static final String COLUMN_PHONE_NUMBER = "PhoneNumber";
-        public static final String COLUMN_PHONE_VERIFIED = "PhoneVerified";
-        public static final String COLUMN_EMAIL_VERIFIED = "EmailVerified";
-        public static final String COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS = "SubscribedForNewsLetters";
-        public static final String COLUMN_SUSPENDED = "Suspended";
-        public static final String COLUMN_SUSPENDED_REASON = "SuspendedReason";
-        public static final String COLUMN_DATE_CREATED = "DateCreated";
-        public static final String COLUMN_DATE_LAST_LOGGED = "DateLastLogged";
+    public static final String COLUMN_CLIENT_ID = "ClientId";
+    public static final String COLUMN_IS_GUEST_MODE = "IsGuestMode";
+    public static final String COLUMN_GUEST_ID = "GuestId";
+    public static final String COLUMN_FULL_NAME = "FullName";
+    public static final String COLUMN_PHONE_NUMBER = "PhoneNumber";
+    public static final String COLUMN_PHONE_VERIFIED = "PhoneVerified";
+    public static final String COLUMN_EMAIL_VERIFIED = "EmailVerified";
+    public static final String COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS = "SubscribedForNewsLetters";
+    public static final String COLUMN_SUSPENDED = "Suspended";
+    public static final String COLUMN_SUSPENDED_REASON = "SuspendedReason";
+    public static final String COLUMN_DATE_CREATED = "DateCreated";
+    public static final String COLUMN_DATE_LAST_LOGGED = "DateLastLogged";
 
-        public static final String CREATE_TABLE_CLIENTS = "CREATE TABLE " + TABLE_CLIENT + " (" +
-                        COLUMN_CLIENT_ID + " INTEGER PRIMARY KEY, " +
-                        COLUMN_IS_GUEST_MODE + " INTEGER NOT NULL, " +
-                        COLUMN_EMAIL_ADDRESS + " TEXT NOT NULL, " +
-                        COLUMN_GUEST_ID + " TEXT NOT NULL, " +
-                        COLUMN_FULL_NAME + " TEXT NOT NULL, " +
-                        COLUMN_PHONE_NUMBER + " TEXT NOT NULL, " +
-                        COLUMN_PHONE_VERIFIED + " INTEGER NOT NULL, " +
-                        COLUMN_EMAIL_VERIFIED + " INTEGER NOT NULL, " +
-                        COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS + " INTEGER NOT NULL, " +
-                        COLUMN_SUSPENDED + " INTEGER NOT NULL, " +
-                        COLUMN_SUSPENDED_REASON + " TEXT NOT NULL, " +
-                        COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
-                        COLUMN_DATE_LAST_LOGGED + " TEXT NOT NULL, " +
-                        COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
-                        ");";
+    public static final String CREATE_TABLE_CLIENTS = "CREATE TABLE " + TABLE_CLIENT + " (" +
+            COLUMN_CLIENT_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_IS_GUEST_MODE + " INTEGER NOT NULL, " +
+            COLUMN_EMAIL_ADDRESS + " TEXT NOT NULL, " +
+            COLUMN_GUEST_ID + " TEXT NOT NULL, " +
+            COLUMN_FULL_NAME + " TEXT NOT NULL, " +
+            COLUMN_PHONE_NUMBER + " TEXT NOT NULL, " +
+            COLUMN_PHONE_VERIFIED + " INTEGER NOT NULL, " +
+            COLUMN_EMAIL_VERIFIED + " INTEGER NOT NULL, " +
+            COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS + " INTEGER NOT NULL, " +
+            COLUMN_SUSPENDED + " INTEGER NOT NULL, " +
+            COLUMN_SUSPENDED_REASON + " TEXT NOT NULL, " +
+            COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
+            COLUMN_DATE_LAST_LOGGED + " TEXT NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            ");";
     //endregion
 
     //region New table
@@ -355,8 +368,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 carouselImage.setCarouselLink(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_LINK)));
                 carouselImage.setCarouselType(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_TYPE)));
                 carouselImage.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_DISPLAY_ORDER))));
-                carouselImage.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
-                carouselImage.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
+                carouselImage.setActive(result.getInt(result.getColumnIndex(COLUMN_ACTIVE)) == 1);
+                carouselImage.setDeleted(result.getInt(result.getColumnIndex(COLUMN_DELETED)) == 1);
                 carouselImage.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
                 carouselImages.add(carouselImage);
             }
@@ -383,8 +396,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 setup.setCurrencyDecimals(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_CURRENCY_DECIMALS))));
                 setup.setInitialDeliveryDays(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_INITIAL_DELIVERY_DAYS))));
                 setup.setMaximumDeliveryDays(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_MAXIMUM_DELIVERY_DAYS))));
-                setup.setAndroidOnGoingMaintenance(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ANDROID_ONGOING_MAINTENANCE))));
-                setup.setAndroidForceUpdate(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ANDROID_FORCE_UPDATE))));
+                setup.setAndroidOnGoingMaintenance(result.getInt(result.getColumnIndex(COLUMN_ANDROID_ONGOING_MAINTENANCE)) == 1);
+                setup.setAndroidForceUpdate(result.getInt(result.getColumnIndex(COLUMN_ANDROID_FORCE_UPDATE)) == 1);
                 setup.setAndroidBuildNumber(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_ANDROID_BUILD_NUMBER))));
                 setup.setMainAPIUri(result.getString(result.getColumnIndex(COLUMN_MAIN_API_URI)));
                 setup.setMainSlideShowImagesUri(result.getString(result.getColumnIndex(COLUMN_MAIN_SLIDESHOW_IMAGES_URI)));
@@ -404,8 +417,9 @@ public class DbHelper extends SQLiteOpenHelper {
                 setup.setServerMappedImagePath(result.getString(result.getColumnIndex(COLUMN_SERVER_MAPPED_IMAGE_PATH)));
                 setup.setCrystalReportPath(result.getString(result.getColumnIndex(COLUMN_CRYSTAL_REPORT_PATH)));
                 setup.setNewOrderRefreshInterval(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_NEW_ORDER_REFRESH_INTERVAL))));
-                setup.setAllowDiscountInPOS(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ALLOW_DISCOUNT_IN_POS))));
-                setup.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
+                setup.setAllowDiscountInPOS(result.getInt(result.getColumnIndex(COLUMN_ALLOW_DISCOUNT_IN_POS)) == 1);
+                setup.setActive(result.getInt(result.getColumnIndex(COLUMN_ACTIVE)) == 1);
+
             }
         }
         result.close();
@@ -430,8 +444,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 category.setCategoryHeaderImage(result.getString(result.getColumnIndex(COLUMN_CATEGORY_HEADER_IMAGE)));
                 category.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_DISPLAY_ORDER))));
                 category.setMaxDiscount(Long.parseLong(result.getString(result.getColumnIndex(COLUMN_MAX_DISCOUNT))));
-                category.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
-                category.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
+                category.setActive(result.getInt(result.getColumnIndex(COLUMN_ACTIVE)) == 1);
+                category.setDeleted(result.getInt(result.getColumnIndex(COLUMN_DELETED)) == 1);
                 category.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
                 categories.add(category);
             }
@@ -452,12 +466,44 @@ public class DbHelper extends SQLiteOpenHelper {
             while (result.moveToNext()) {
                 Item item = new Item();
                 item.setItemId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_ITEM_ID))));
-                item.setItemImage1(result.getString(result.getColumnIndex(COLUMN_ITEM_IMAGE_1)));
                 item.setItemName(result.getString(result.getColumnIndex(COLUMN_ITEM_NAME)));
+                item.setItemImage1(result.getString(result.getColumnIndex(COLUMN_ITEM_IMAGE_1)));
+                item.setItemImage2(result.getString(result.getColumnIndex(COLUMN_ITEM_IMAGE_2)));
+                item.setItemImage3(result.getString(result.getColumnIndex(COLUMN_ITEM_IMAGE_3)));
                 item.setSpecification(result.getString(result.getColumnIndex(COLUMN_SPECIFICATION)));
-                item.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
-                item.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
+                item.setSkuBarcode(result.getString(result.getColumnIndex(COLUMN_SKU_BARCODE)));
+                item.setDimension(result.getString(result.getColumnIndex(COLUMN_DIMENSION)));
+
+                item.setStopReOrder(result.getInt(result.getColumnIndex(COLUMN_STOP_REORDER)) == 1);
+                item.setTrending(result.getInt(result.getColumnIndex(COLUMN_IS_TRENDING)) == 1);
+                item.setNewArrival(result.getInt(result.getColumnIndex(COLUMN_IS_NEW_ARRIVAL)) == 1);
+                item.setExpress(result.getInt(result.getColumnIndex(COLUMN_IS_EXPRESS)) == 1);
+                item.setAllowFractionInQty(result.getInt(result.getColumnIndex(COLUMN_ALLOW_FRACTION_IN_QTY)) == 1);
+                item.setNonExchangable(result.getInt(result.getColumnIndex(COLUMN_NON_EXCHANGABLE)) == 1);
+                item.setAvailableInMobileApp(result.getInt(result.getColumnIndex(COLUMN_IS_AVAILABLE_IN_MOBILE_APP)) == 1);
+                item.setAvailableInPOS(result.getInt(result.getColumnIndex(COLUMN_IS_AVAILABLE_IN_POS)) == 1);
+                item.setActive(result.getInt(result.getColumnIndex(COLUMN_ACTIVE)) == 1);
+                item.setDeleted(result.getInt(result.getColumnIndex(COLUMN_DELETED)) == 1);
+
                 item.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
+
+                item.setQtyOnHand(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_QTY_ON_HAND))));
+                item.setBrandId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_BRAND_ID))));
+                item.setCategoryId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_CATEGORY_ID))));
+                item.setSubCategoryId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_SUB_CATEGORY_ID))));
+                item.setDeliveryTimeId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_DELIVERY_TIME_ID))));
+                item.setUomId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_UOM_ID))));
+                item.setReOrderLevel(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_REORDER_LEVEL))));
+                item.setReOrderQty(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_REORDER_QTY))));
+                item.setOneTimePurchasableQty(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_ONE_TIME_PURCHASABLE_QTY))));
+                item.setTotalSold(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_TOTAL_SOLD))));
+                item.setTotalClicked(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_TOTAL_CLICKED))));
+
+                item.setMrp(new BigDecimal(result.getString(result.getColumnIndex(COLUMN_MRP))));
+                item.setSellingPrice(new BigDecimal(result.getString(result.getColumnIndex(COLUMN_SELLING_PRICE))));
+                item.setMobDiscountPercentage(new BigDecimal(result.getString(result.getColumnIndex(COLUMN_MOB_DISCOUNT_PERCENTAGE))));
+                item.setAverageRating(new BigDecimal(result.getString(result.getColumnIndex(COLUMN_AVERAGE_RATING))));
+
                 items.add(item);
             }
         }
@@ -481,8 +527,10 @@ public class DbHelper extends SQLiteOpenHelper {
                 brand.setBrandName(result.getString(result.getColumnIndex(COLUMN_BRAND_NAME)));
                 brand.setBrandImage(result.getString(result.getColumnIndex(COLUMN_BRAND_IMAGE)));
                 brand.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_DISPLAY_ORDER))));
-                brand.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
-                brand.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
+
+                brand.setActive(result.getInt(result.getColumnIndex(COLUMN_ACTIVE)) == 1);
+                brand.setDeleted(result.getInt(result.getColumnIndex(COLUMN_DELETED)) == 1);
+
                 brand.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
                 brands.add(brand);
             }
@@ -501,14 +549,17 @@ public class DbHelper extends SQLiteOpenHelper {
             while (result.moveToNext()) {
                 Client client = new Client();
                 client.setClientId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_CLIENT_ID))));
-                client.setGuestMode(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_IS_GUEST_MODE))));
+
                 client.setEmailAddress(result.getString(result.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
                 client.setGuestId(result.getString(result.getColumnIndex(COLUMN_GUEST_ID)));
                 client.setFullName(result.getString(result.getColumnIndex(COLUMN_FULL_NAME)));
                 client.setPhoneNumber(result.getString(result.getColumnIndex(COLUMN_PHONE_NUMBER)));
-                client.setEmailVerified(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_EMAIL_VERIFIED))));
-                client.setSubscribedForNewsLetters(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS))));
-                client.setSuspended(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_SUSPENDED))));
+
+                client.setGuestMode(result.getInt(result.getColumnIndex(COLUMN_IS_GUEST_MODE)) == 1);
+                client.setEmailVerified(result.getInt(result.getColumnIndex(COLUMN_EMAIL_VERIFIED)) == 1);
+                client.setSubscribedForNewsLetters(result.getInt(result.getColumnIndex(COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS)) == 1);
+                client.setSuspended(result.getInt(result.getColumnIndex(COLUMN_SUSPENDED)) == 1);
+
                 client.setSuspendedReason(result.getString(result.getColumnIndex(COLUMN_SUSPENDED_REASON)));
                 client.setDateCreated(result.getString(result.getColumnIndex(COLUMN_DATE_CREATED)));
                 client.setDateLastLogged(result.getString(result.getColumnIndex(COLUMN_DATE_LAST_LOGGED)));
@@ -519,7 +570,6 @@ public class DbHelper extends SQLiteOpenHelper {
         result.close();
         return clients;
     }
-
 
 
     private String getCurrentDate() {
@@ -566,8 +616,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 myUser.setToken(result.getString(result.getColumnIndex(COLUMN_TOKEN)));
                 myUser.setDisplayName(result.getString(result.getColumnIndex(COLUMN_DISPLAY_NAME)));
                 myUser.setProfilePictureUri(result.getString(result.getColumnIndex(COLUMN_PROFILE_PICTURE_URI)));
-                myUser.setSubscribedToNewsLetter(Objects.equals(result.getString(result.getColumnIndex(COLUMN_SUBSCRIBED_TO_NEWS_LETTER)), "1"));
-                myUser.setBackgroundMusic(Objects.equals(result.getString(result.getColumnIndex(COLUMN_BACKGROUND_MUSIC)), "1"));
+                myUser.setSubscribedToNewsLetter(result.getInt(result.getColumnIndex(COLUMN_SUBSCRIBED_TO_NEWS_LETTER)) == 1);
+                myUser.setBackgroundMusic(result.getInt(result.getColumnIndex(COLUMN_BACKGROUND_MUSIC)) == 1);
                 myUser.setContribution(result.getString(result.getColumnIndex(COLUMN_CONTRIBUTION)));
                 myUser.setMemberSince(result.getString(result.getColumnIndex(COLUMN_MEMBER_SINCE)));
                 myUser.setRatings(result.getString(result.getColumnIndex(COLUMN_RATINGS)));

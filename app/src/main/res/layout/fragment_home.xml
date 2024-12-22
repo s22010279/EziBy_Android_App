@@ -179,34 +179,11 @@
         </FrameLayout>
 
         <!-- Trending -->
-        <HorizontalScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_trending"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <include
-                    android:id="@+id/includedLayout11113"
-                    layout="@layout/component_item" />
-
-                <include
-                    android:id="@+id/includedLayout22223"
-                    layout="@layout/component_item" />
-
-                <include
-                    android:id="@+id/includedLayout33333"
-                    layout="@layout/component_item" />
-
-                <include
-                    android:id="@+id/includedLayout44443"
-                    layout="@layout/component_item" />
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal" />
 
         <!-- Most Viewed Header -->
         <FrameLayout
@@ -240,8 +217,13 @@
                 android:textColor="@color/white"
                 android:textSize="24sp" />
         </FrameLayout>
-        <!-- Most Viewed -->
 
+        <!-- Most Viewed -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_most_viewed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal" />
     </LinearLayout>
 
 </ScrollView>
