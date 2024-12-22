@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.eziby.eziby_android_app.Models.Brand;
 import com.eziby.eziby_android_app.Models.CarouselImage;
 import com.eziby.eziby_android_app.Models.Category;
+import com.eziby.eziby_android_app.Models.Client;
 import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Models.Setup;
@@ -34,6 +35,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BRANDS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAROUSEL_IMAGES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENT);
         onCreate(db);
     }
 
@@ -45,12 +47,24 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_BRANDS);
         db.execSQL(CREATE_TABLE_CAROUSEL_IMAGES);
         db.execSQL(CREATE_TABLE_ITEMS);
+        db.execSQL(CREATE_TABLE_CLIENTS);
+
+
 
         db.execSQL(DataScript.INSERT_DATA_SETUPS);
         db.execSQL(DataScript.INSERT_DATA_CATEGORIES);
         db.execSQL(DataScript.INSERT_DATA_BRANDS);
         db.execSQL(DataScript.INSERT_DATA_CAROUSEL_IMAGES);
         db.execSQL(DataScript.INSERT_DATA_ITEMS);
+        db.execSQL(DataScript.INSERT_DATA_CLIENTS);
+        // db.execSQL(DataScript.INSERT_DATA_CLIENTS1);
+        // db.execSQL(DataScript.INSERT_DATA_CLIENTS2);
+        // db.execSQL(DataScript.INSERT_DATA_CLIENTS3);
+        // db.execSQL(DataScript.INSERT_DATA_CLIENTS4);
+        // db.execSQL(DataScript.INSERT_DATA_CLIENTS5);
+        // db.execSQL(DataScript.INSERT_DATA_CLIENTS6);
+        // db.execSQL(DataScript.INSERT_DATA_CLIENTS7);
+
     }
 
     //region DB and Table Names
@@ -61,6 +75,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TABLE_BRANDS = "Brands";
     public static final String TABLE_CAROUSEL_IMAGES = "CarouselImages";
     public static final String TABLE_ITEMS = "Items";
+    public static final String TABLE_CLIENT = "Clients";
     //endregion
 
     //region Common Properties
@@ -68,6 +83,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DELETED = "Deleted";
     public static final String COLUMN_ACTIVE = "Active";
     public static final String COLUMN_UPDATED_DATE = "UpdatedDate";
+    public static final String COLUMN_EMAIL_ADDRESS = "emailAddress";
     //endregion Common Properties
 
     //region CarouselImages table
@@ -164,7 +180,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_BACKGROUND_MUSIC = "backgroundMusic";
     public static final String COLUMN_CONTRIBUTION = "contribution";
     public static final String COLUMN_DISPLAY_NAME = "displayName";
-    public static final String COLUMN_EMAIL_ADDRESS = "emailAddress";
     public static final String COLUMN_MEMBER_SINCE = "memberSince";
     public static final String COLUMN_PROFILE_PICTURE_URI = "profilePictureUri";
     public static final String COLUMN_RATINGS = "ratings";
@@ -286,7 +301,40 @@ public class DbHelper extends SQLiteOpenHelper {
             ");";
     //endregion
 
+    //region Client table
+        public static final String COLUMN_CLIENT_ID = "ClientId";
+        public static final String COLUMN_IS_GUEST_MODE = "IsGuestMode";
+        public static final String COLUMN_GUEST_ID = "GuestId";
+        public static final String COLUMN_FULL_NAME = "FullName";
+        public static final String COLUMN_PHONE_NUMBER = "PhoneNumber";
+        public static final String COLUMN_PHONE_VERIFIED = "PhoneVerified";
+        public static final String COLUMN_EMAIL_VERIFIED = "EmailVerified";
+        public static final String COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS = "SubscribedForNewsLetters";
+        public static final String COLUMN_SUSPENDED = "Suspended";
+        public static final String COLUMN_SUSPENDED_REASON = "SuspendedReason";
+        public static final String COLUMN_DATE_CREATED = "DateCreated";
+        public static final String COLUMN_DATE_LAST_LOGGED = "DateLastLogged";
+
+        public static final String CREATE_TABLE_CLIENTS = "CREATE TABLE " + TABLE_CLIENT + " (" +
+                        COLUMN_CLIENT_ID + " INTEGER PRIMARY KEY, " +
+                        COLUMN_IS_GUEST_MODE + " INTEGER NOT NULL, " +
+                        COLUMN_EMAIL_ADDRESS + " TEXT NOT NULL, " +
+                        COLUMN_GUEST_ID + " TEXT NOT NULL, " +
+                        COLUMN_FULL_NAME + " TEXT NOT NULL, " +
+                        COLUMN_PHONE_NUMBER + " TEXT NOT NULL, " +
+                        COLUMN_PHONE_VERIFIED + " INTEGER NOT NULL, " +
+                        COLUMN_EMAIL_VERIFIED + " INTEGER NOT NULL, " +
+                        COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS + " INTEGER NOT NULL, " +
+                        COLUMN_SUSPENDED + " INTEGER NOT NULL, " +
+                        COLUMN_SUSPENDED_REASON + " TEXT NOT NULL, " +
+                        COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
+                        COLUMN_DATE_LAST_LOGGED + " TEXT NOT NULL, " +
+                        COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+                        ");";
+    //endregion
+
     //region New table
+
     //endregion
 
     @SuppressLint("Range")
@@ -442,6 +490,37 @@ public class DbHelper extends SQLiteOpenHelper {
         result.close();
         return brands;
     }
+
+    @SuppressLint("Range")
+    public List<Client> getClients() {
+        List<Client> clients = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_CLIENT;
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                Client client = new Client();
+                client.setClientId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_CLIENT_ID))));
+                client.setGuestMode(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_IS_GUEST_MODE))));
+                client.setEmailAddress(result.getString(result.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
+                client.setGuestId(result.getString(result.getColumnIndex(COLUMN_GUEST_ID)));
+                client.setFullName(result.getString(result.getColumnIndex(COLUMN_FULL_NAME)));
+                client.setPhoneNumber(result.getString(result.getColumnIndex(COLUMN_PHONE_NUMBER)));
+                client.setEmailVerified(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_EMAIL_VERIFIED))));
+                client.setSubscribedForNewsLetters(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS))));
+                client.setSuspended(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_SUSPENDED))));
+                client.setSuspendedReason(result.getString(result.getColumnIndex(COLUMN_SUSPENDED_REASON)));
+                client.setDateCreated(result.getString(result.getColumnIndex(COLUMN_DATE_CREATED)));
+                client.setDateLastLogged(result.getString(result.getColumnIndex(COLUMN_DATE_LAST_LOGGED)));
+                client.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
+                clients.add(client);
+            }
+        }
+        result.close();
+        return clients;
+    }
+
+
 
     private String getCurrentDate() {
         String dateFormat = "yyyy-MM-dd HH:mm:ss";
