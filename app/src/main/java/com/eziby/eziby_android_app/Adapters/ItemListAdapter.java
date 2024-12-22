@@ -65,7 +65,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ImageV
         String _sellingPrice = this.currencyMark + " " + decimalFormat.format(itemArray.get(position).getSellingPrice());
         holder.textViewProductPrice.setText(_sellingPrice);
         holder.textViewProductDescription.setText(_description);
-        if (itemArray.get(position).getQtyOnHand() <= 0){
+        if (itemArray.get(position).getQtyOnHand() <= 0) {
             holder.btnAddToCart.setEnabled(false);
             holder.btnAddToCart.setBackgroundColor(Color.GRAY);
         }
@@ -77,6 +77,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ImageV
             // intent.putExtra("item", item);
             context.startActivity(intent);
         });
+
     }
 
 
@@ -93,6 +94,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ImageV
         TextView textViewProductPrice;
         Button btnAddToCart;
 
+
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewProduct = itemView.findViewById(R.id.product_image);
@@ -100,8 +102,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ImageV
             textViewProductDescription = itemView.findViewById(R.id.product_description);
             textViewProductPrice = itemView.findViewById(R.id.product_price);
             btnAddToCart = itemView.findViewById(R.id.add_to_cart_button);
+
         }
-
-
     }
 }

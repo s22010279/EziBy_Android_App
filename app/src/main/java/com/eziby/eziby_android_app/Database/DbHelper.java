@@ -71,7 +71,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_SUB_CATEGORY);
 
 
-    //region Insert Data
+        //region Insert Data
         db.execSQL(DataScript.INSERT_DATA_SETUPS);
         db.execSQL(DataScript.INSERT_DATA_CATEGORIES);
         db.execSQL(DataScript.INSERT_DATA_BRANDS);
@@ -85,7 +85,7 @@ public class DbHelper extends SQLiteOpenHelper {
         // db.execSQL(DataScript.INSERT_DATA_CLIENTS5);
         // db.execSQL(DataScript.INSERT_DATA_CLIENTS6);
         // db.execSQL(DataScript.INSERT_DATA_CLIENTS7);
-    // endregion
+        // endregion
 
     }
 
@@ -275,14 +275,14 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_BRAND_NAME = "BrandName";
     public static final String COLUMN_BRAND_IMAGE = "BrandImage";
     public static final String CREATE_TABLE_BRANDS = "CREATE TABLE " + TABLE_BRANDS + " (" +
-                    COLUMN_BRAND_ID + " INTEGER PRIMARY KEY, " +
-                    COLUMN_BRAND_NAME + " TEXT NOT NULL, " +
-                    COLUMN_BRAND_IMAGE + " TEXT NOT NULL, " +
-                    COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
-                    COLUMN_ACTIVE + " INTEGER NOT NULL, " + // SQLite uses INTEGER for booleans (0 = false, 1 = true)
-                    COLUMN_DELETED + " INTEGER NOT NULL, " +
-                    COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates are typically stored as TEXT in ISO 8601 format
-                    ");";
+            COLUMN_BRAND_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_BRAND_NAME + " TEXT NOT NULL, " +
+            COLUMN_BRAND_IMAGE + " TEXT NOT NULL, " +
+            COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL, " + // SQLite uses INTEGER for booleans (0 = false, 1 = true)
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates are typically stored as TEXT in ISO 8601 format
+            ");";
     //endregion Brand table
 
     //region UOM table
@@ -409,12 +409,12 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_POINTS_REDEEMED = "PointsRedeemed";
     public static final String COLUMN_REDEEMED_DATE = "RedeemedDate";
     public static final String CREATE_TABLE_CUSTOMER_POINT_REDEEM = "CREATE TABLE " + TABLE_CUSTOMER_POINT_REDEEM + " (" +
-                    COLUMN_REDEEMED_ID + " INTEGER PRIMARY KEY, " +
-                    COLUMN_CUSTOMER_ID + " INTEGER NOT NULL, " +
-                    COLUMN_POINTS_REDEEMED + " INTEGER NOT NULL, " +
-                    COLUMN_REDEEMED_DATE + " TEXT NOT NULL, " +
-                    COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
-                    ");";
+            COLUMN_REDEEMED_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_CUSTOMER_ID + " INTEGER NOT NULL, " +
+            COLUMN_POINTS_REDEEMED + " INTEGER NOT NULL, " +
+            COLUMN_REDEEMED_DATE + " TEXT NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            ");";
     //endregion
 
     //region DeliveryCity table
@@ -632,12 +632,22 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public List<Item> getItems() {
+    public List<Item> getItems(int brandId, int categoryId, int itemId) {
         List<Item> items = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_ITEMS +
                 " WHERE " + COLUMN_DELETED + " = " + 0 +
                 " AND " + COLUMN_ACTIVE + " = " + 1;
+        if (itemId > 0) {//filter for brandID
+            query = query + " AND " + COLUMN_ITEM_ID + " = " + itemId;
+        }
+        if (brandId > 0) {//filter for brandID
+            query = query + " AND " + COLUMN_BRAND_ID + " = " + brandId;
+        }
+        if (categoryId > 0) {//filter for categoryID
+            query = query + " AND " + COLUMN_CATEGORY_ID + " = " + categoryId;
+        }
+
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
