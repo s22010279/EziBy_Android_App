@@ -45,9 +45,9 @@ public class HomeFragment extends Fragment {
             carouselImages = dbHelper.getCarouselImages();
             categoryList = dbHelper.getCategories();
             brandList = dbHelper.getBrands();
-            newArrivalItemList = dbHelper.getItems();
-            trendingItemList = dbHelper.getItems();
-            mostViewedItemList = dbHelper.getItems();
+            newArrivalItemList = dbHelper.getItems(0,0,0);
+            trendingItemList = dbHelper.getItems(0,0,0);
+            mostViewedItemList = dbHelper.getItems(0,0,0);
         }
 
         CarouselImagesAdapter adapter = new CarouselImagesAdapter(this.getContext(), carouselImages);
