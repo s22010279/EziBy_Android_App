@@ -1,25 +1,25 @@
 package com.eziby.eziby_android_app.Models;
 
+import java.math.BigDecimal;
+
 public class Item {
-    // Default constructor
     public Item() {
     }
 
     private int itemId;
-    private String itemName;
-    private String specification;
-    private String skuBarcode;
-    private String dimension;
-    private String itemImage1;
-    private String itemImage2;
-    private String itemImage3;
+    private String itemName = "";
+    private String specification = "";
+    private String skuBarcode = "";
+    private String dimension = "";
+    private String itemImage1 = "";
+    private String itemImage2 = "";
+    private String itemImage3 = "";
 
     private int brandId;
     private int categoryId;
     private int subCategoryId;
     private int deliveryTimeId;
     private int uomId;
-
     private boolean stopReOrder;
     private int reOrderLevel;
     private int reOrderQty;
@@ -27,6 +27,11 @@ public class Item {
     private boolean allowFractionInQty;
     private boolean nonExchangable;
     private int oneTimePurchasableQty;
+
+    private int qtyOnHand;
+    private BigDecimal mrp;
+    private BigDecimal sellingPrice;
+    private BigDecimal mobDiscountPercentage;
 
     private boolean isAvailableInMobileApp;
     private boolean isAvailableInPOS;
@@ -36,8 +41,7 @@ public class Item {
 
     private int totalSold;
     private int totalClicked;
-    private double averageRating;
-
+    private BigDecimal averageRating;
     private boolean active;
     private boolean deleted;
     private String updatedDate;
@@ -195,6 +199,38 @@ public class Item {
         this.oneTimePurchasableQty = oneTimePurchasableQty;
     }
 
+    public int getQtyOnHand() {
+        return qtyOnHand;
+    }
+
+    public void setQtyOnHand(int qtyOnHand) {
+        this.qtyOnHand = qtyOnHand;
+    }
+
+    public BigDecimal getMrp() {
+        return mrp;
+    }
+
+    public void setMrp(BigDecimal mrp) {
+        this.mrp = mrp;
+    }
+
+    public BigDecimal getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(BigDecimal sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
+    public BigDecimal getMobDiscountPercentage() {
+        return mobDiscountPercentage;
+    }
+
+    public void setMobDiscountPercentage(BigDecimal mobDiscountPercentage) {
+        this.mobDiscountPercentage = mobDiscountPercentage;
+    }
+
     public boolean isAvailableInMobileApp() {
         return isAvailableInMobileApp;
     }
@@ -251,11 +287,11 @@ public class Item {
         this.totalClicked = totalClicked;
     }
 
-    public double getAverageRating() {
+    public BigDecimal getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(double averageRating) {
+    public void setAverageRating(BigDecimal averageRating) {
         this.averageRating = averageRating;
     }
 
@@ -279,7 +315,7 @@ public class Item {
         return updatedDate;
     }
 
-    public void setUpdatedDate(String    updatedDate) {
+    public void setUpdatedDate(String updatedDate) {
         this.updatedDate = updatedDate;
     }
 }

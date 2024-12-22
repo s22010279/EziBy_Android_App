@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment {
                 container, false);
         ViewPager2 viewPagerCarousel = view.findViewById(R.id.viewPagerCarousel);
 
+
         List<CarouselImage> carouselImages;
         List<Category> categoryList;
         List<Brand> brandList;
@@ -71,7 +72,20 @@ public class HomeFragment extends Fragment {
         recyclerViewItem.setLayoutManager(layoutManager);
         recyclerViewItem.setAdapter(new ItemAdapter(this.getContext(), newArrivalItemList));
 
+        // Set up RecyclerView - Trending
+        RecyclerView recyclerViewItemTrending = view.findViewById(R.id.recycler_view_trending);
+        LinearLayoutManager layoutManagerTrending = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewItemTrending.setLayoutManager(layoutManagerTrending);
+        recyclerViewItemTrending.setAdapter(new ItemAdapter(this.getContext(), trendingItemList));
+
+        // Set up RecyclerView - Most Viewed
+        RecyclerView recyclerViewItemMostViewed = view.findViewById(R.id.recycler_view_most_viewed);
+        LinearLayoutManager layoutManagerMostViewed = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewItemMostViewed.setLayoutManager(layoutManagerMostViewed);
+        recyclerViewItemMostViewed.setAdapter(new ItemAdapter(this.getContext(), mostViewedItemList));
+
         return view;
+
     }
 
     @Override

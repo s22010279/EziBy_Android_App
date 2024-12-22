@@ -2,6 +2,7 @@ package com.eziby.eziby_android_app.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +15,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.eziby.eziby_android_app.Classes.EziByValues;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.R;
 import com.eziby.eziby_android_app.screens.Order_2_Review;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,8 +60,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ImageViewHolde
                 .into(holder.imageViewProduct); // Target ImageView
 
         holder.textViewProductName.setText(Optional.ofNullable(itemArray.get(position).getItemName()).orElse(""));
-        String _description = this.currencyMark + " " +  Optional.ofNullable( itemArray.get(position).getSpecification()).orElse("");
+        String _description = this.currencyMark + " " + Optional.ofNullable(itemArray.get(position).getSpecification()).orElse("");
+        DecimalFormat decimalFormat = new DecimalFormat(EziByValues.patternCurrency);
+        String _sellingPrice = this.currencyMark + " " + decimalFormat.format(itemArray.get(position).getSellingPrice());
+        holder.textViewProductPrice.setText(_sellingPrice);
         holder.textViewProductDescription.setText(_description);
+        if (itemArray.get(position).getQtyOnHand() <= 0){
+            holder.btnAddToCart.setEnabled(false);
+            holder.btnAddToCart.setBackgroundColor(Color.GRAY);
+        }
+
         holder.btnAddToCart.setOnClickListener(v -> {
             // Create an Intent to navigate to SecondActivity
             Intent intent = new Intent(context, Order_2_Review.class);
@@ -79,6 +90,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ImageViewHolde
         ImageView imageViewProduct;
         TextView textViewProductName;
         TextView textViewProductDescription;
+        TextView textViewProductPrice;
         Button btnAddToCart;
 
         public ImageViewHolder(@NonNull View itemView) {
@@ -86,6 +98,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ImageViewHolde
             imageViewProduct = itemView.findViewById(R.id.product_image);
             textViewProductName = itemView.findViewById(R.id.product_name);
             textViewProductDescription = itemView.findViewById(R.id.product_description);
+            textViewProductPrice = itemView.findViewById(R.id.product_price);
             btnAddToCart = itemView.findViewById(R.id.add_to_cart_button);
         }
 
