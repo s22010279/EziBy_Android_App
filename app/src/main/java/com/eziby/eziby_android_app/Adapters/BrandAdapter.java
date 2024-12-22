@@ -1,6 +1,7 @@
 package com.eziby.eziby_android_app.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.Models.Brand;
 import com.eziby.eziby_android_app.R;
+import com.eziby.eziby_android_app.screens.Item_List;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -64,6 +66,12 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ImageViewHol
                 .into(holder.imageView); // Target ImageView
 
         holder.textView.setText(Optional.ofNullable(nameList.get(position)).orElse(""));
+        holder.imageView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, Item_List.class);
+            // You can pass data with the intent if necessary
+            // intent.putExtra("item", item);
+            context.startActivity(intent);
+        });
     }
 
     @Override
