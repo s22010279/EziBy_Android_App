@@ -36,8 +36,19 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAROUSEL_IMAGES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMER_POINT_REDEEM);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DELIVERY_CITY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DELIVERY_TIME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHOPPING_CART);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WISH_LIST);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RATING);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_VIEWED_ITEM);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATUS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_UOM);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUB_CATEGORY);
         onCreate(db);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -48,8 +59,19 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CAROUSEL_IMAGES);
         db.execSQL(CREATE_TABLE_ITEMS);
         db.execSQL(CREATE_TABLE_CLIENTS);
+        db.execSQL(CREATE_TABLE_CUSTOMER_POINT_REDEEM);
+        db.execSQL(CREATE_TABLE_DELIVERY_CITY);
+        db.execSQL(CREATE_TABLE_DELIVERY_TIME);
+        db.execSQL(CREATE_TABLE_SHOPPING_CART);
+        db.execSQL(CREATE_TABLE_WISH_LIST);
+        db.execSQL(CREATE_TABLE_RATING);
+        db.execSQL(CREATE_TABLE_VIEWED_ITEM);
+        db.execSQL(CREATE_TABLE_STATUS);
+        db.execSQL(CREATE_TABLE_UOM);
+        db.execSQL(CREATE_TABLE_SUB_CATEGORY);
 
 
+    //region Insert Data
         db.execSQL(DataScript.INSERT_DATA_SETUPS);
         db.execSQL(DataScript.INSERT_DATA_CATEGORIES);
         db.execSQL(DataScript.INSERT_DATA_BRANDS);
@@ -63,8 +85,10 @@ public class DbHelper extends SQLiteOpenHelper {
         // db.execSQL(DataScript.INSERT_DATA_CLIENTS5);
         // db.execSQL(DataScript.INSERT_DATA_CLIENTS6);
         // db.execSQL(DataScript.INSERT_DATA_CLIENTS7);
+    // endregion
 
     }
+
 
     //region DB and Table Names
     public static final String DATABASE_NAME = "EziBy.db";
@@ -75,10 +99,21 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TABLE_CAROUSEL_IMAGES = "CarouselImages";
     public static final String TABLE_ITEMS = "Items";
     public static final String TABLE_CLIENT = "Clients";
+    public static final String TABLE_CUSTOMER_POINT_REDEEM = "CustomerPointRedeem";
+    public static final String TABLE_DELIVERY_CITY = "DeliveryCity";
+    public static final String TABLE_DELIVERY_TIME = "DeliveryTime";
+    public static final String TABLE_SHOPPING_CART = "ShoppingCart";
+    public static final String TABLE_WISH_LIST = "WishList";
+    public static final String TABLE_RATING = "Rating";
+    public static final String TABLE_VIEWED_ITEM = "ViewedItem";
+    public static final String TABLE_STATUS = "Status";
+    public static final String TABLE_UOM = "UOM";
+    public static final String TABLE_SUB_CATEGORY = "SubCategory";
     //endregion
 
     //region Common Properties
     public static final String COLUMN_DISPLAY_ORDER = "DisplayOrder";
+    public static final String COLUMN_DELIVERY_TIME_ID = "DeliveryTimeId";
     public static final String COLUMN_DELETED = "Deleted";
     public static final String COLUMN_ACTIVE = "Active";
     public static final String COLUMN_UPDATED_DATE = "UpdatedDate";
@@ -218,12 +253,28 @@ public class DbHelper extends SQLiteOpenHelper {
             "); ";
     //endregion Category table
 
+    //region SubCategory table
+    public static final String COLUMN_SUB_CATEGORY_ID = "SubCategoryId";
+    public static final String COLUMN_SUB_CATEGORY_NAME = "SubCategoryName";
+    public static final String COLUMN_SUB_CATEGORY_IMAGE = "SubCategoryImage";
+
+    public static final String CREATE_TABLE_SUB_CATEGORY = "CREATE TABLE " + TABLE_SUB_CATEGORY + " (" +
+            COLUMN_SUB_CATEGORY_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_CATEGORY_ID + " INTEGER NOT NULL, " +
+            COLUMN_SUB_CATEGORY_NAME + " TEXT NOT NULL, " +
+            COLUMN_SUB_CATEGORY_IMAGE + " TEXT NOT NULL, " +
+            COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL, " +
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            ");";
+    //endregion
+
     //region Brand table
     public static final String COLUMN_BRAND_ID = "BrandId";
     public static final String COLUMN_BRAND_NAME = "BrandName";
     public static final String COLUMN_BRAND_IMAGE = "BrandImage";
-    public static final String CREATE_TABLE_BRANDS =
-            "CREATE TABLE " + TABLE_BRANDS + " (" +
+    public static final String CREATE_TABLE_BRANDS = "CREATE TABLE " + TABLE_BRANDS + " (" +
                     COLUMN_BRAND_ID + " INTEGER PRIMARY KEY, " +
                     COLUMN_BRAND_NAME + " TEXT NOT NULL, " +
                     COLUMN_BRAND_IMAGE + " TEXT NOT NULL, " +
@@ -233,6 +284,21 @@ public class DbHelper extends SQLiteOpenHelper {
                     COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates are typically stored as TEXT in ISO 8601 format
                     ");";
     //endregion Brand table
+
+    //region UOM table
+    public static final String COLUMN_UOM_ID = "UOMId";
+    public static final String COLUMN_UOM_NAME = "UOMName";
+    public static final String COLUMN_UOM_FULL_NAME = "UOMFullName";
+
+    public static final String CREATE_TABLE_UOM = "CREATE TABLE " + TABLE_UOM + " (" +
+            COLUMN_UOM_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_UOM_NAME + " TEXT NOT NULL, " +
+            COLUMN_UOM_FULL_NAME + " TEXT NOT NULL, " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL, " +
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            ");";
+    //endregion
 
     //region Item table
     public static final String COLUMN_ITEM_ID = "ItemId";
@@ -244,11 +310,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ITEM_IMAGE_2 = "ItemImage2";
     public static final String COLUMN_ITEM_IMAGE_3 = "ItemImage3";
 
-    //    public static final String COLUMN_BRAND_ID = "BrandId";
-//    public static final String COLUMN_CATEGORY_ID = "CategoryId";
-    public static final String COLUMN_SUB_CATEGORY_ID = "SubCategoryId";
-    public static final String COLUMN_DELIVERY_TIME_ID = "DeliveryTimeId";
-    public static final String COLUMN_UOM_ID = "UOMId";
 
     public static final String COLUMN_STOP_REORDER = "StopReOrder";
     public static final String COLUMN_REORDER_LEVEL = "ReOrderLevel";
@@ -268,13 +329,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_IS_NEW_ARRIVAL = "IsNewArrival";
     public static final String COLUMN_IS_TRENDING = "IsTrending";
     public static final String COLUMN_IS_EXPRESS = "IsExpress";
-
     public static final String COLUMN_TOTAL_SOLD = "TotalSold";
     public static final String COLUMN_TOTAL_CLICKED = "TotalClicked";
     public static final String COLUMN_AVERAGE_RATING = "AverageRating";
-//    public static final String COLUMN_ACTIVE = "Active";
-//    public static final String COLUMN_DELETED = "Deleted";
-//    public static final String COLUMN_UPDATED_DATE = "UpdatedDate";
 
     public static final String CREATE_TABLE_ITEMS = "CREATE TABLE " + TABLE_ITEMS + " (" +
             COLUMN_ITEM_ID + " INTEGER PRIMARY KEY, " +
@@ -346,9 +403,129 @@ public class DbHelper extends SQLiteOpenHelper {
             ");";
     //endregion
 
-    //region New table
-
+    //region CustomerPointRedeem table
+    public static final String COLUMN_REDEEMED_ID = "RedeemedId";
+    public static final String COLUMN_CUSTOMER_ID = "CustomerId";
+    public static final String COLUMN_POINTS_REDEEMED = "PointsRedeemed";
+    public static final String COLUMN_REDEEMED_DATE = "RedeemedDate";
+    public static final String CREATE_TABLE_CUSTOMER_POINT_REDEEM = "CREATE TABLE " + TABLE_CUSTOMER_POINT_REDEEM + " (" +
+                    COLUMN_REDEEMED_ID + " INTEGER PRIMARY KEY, " +
+                    COLUMN_CUSTOMER_ID + " INTEGER NOT NULL, " +
+                    COLUMN_POINTS_REDEEMED + " INTEGER NOT NULL, " +
+                    COLUMN_REDEEMED_DATE + " TEXT NOT NULL, " +
+                    COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+                    ");";
     //endregion
+
+    //region DeliveryCity table
+    public static final String COLUMN_DELIVERY_CITY_ID = "DeliveryCityId";
+    public static final String COLUMN_DELIVERY_CITY_NAME = "DeliveryCityName";
+    public static final String COLUMN_DELIVERY_CHARGE = "DeliveryCharge";
+
+    public static final String CREATE_TABLE_DELIVERY_CITY = "CREATE TABLE " + TABLE_DELIVERY_CITY + " (" +
+            COLUMN_DELIVERY_CITY_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_DELIVERY_CITY_NAME + " TEXT NOT NULL, " +
+            COLUMN_DELIVERY_CHARGE + " INTEGER NOT NULL, " +
+            COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL, " +
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            ");";
+    //endregion
+
+    //region DeliveryTime table
+    public static final String COLUMN_DELIVERY_TIME_NAME = "DeliveryTimeName";
+
+    public static final String CREATE_TABLE_DELIVERY_TIME = "CREATE TABLE " + TABLE_DELIVERY_TIME + " (" +
+            COLUMN_DELIVERY_TIME_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_DELIVERY_TIME_NAME + " TEXT NOT NULL, " +
+            COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL, " +
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            ");";
+    //endregion
+
+    //region ShoppingCart table
+    public static final String COLUMN_SHOPPING_CART_ID = "ShoppingCartId";
+    public static final String COLUMN_ITEM_PRICE_VARIANT_ID = "ItemPriceVariantId";
+    public static final String COLUMN_QUANTITY = "Quantity";
+    public static final String COLUMN_DATE_UPDATED = "DateUpdated";
+
+    public static final String CREATE_TABLE_SHOPPING_CART = "CREATE TABLE " + TABLE_SHOPPING_CART + " (" +
+            COLUMN_SHOPPING_CART_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
+            COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
+            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
+            COLUMN_QUANTITY + " INTEGER NOT NULL, " +
+            COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_DATE_UPDATED + " TEXT NOT NULL" +
+            ");";
+    //endregion
+
+    //region WishList table
+    public static final String COLUMN_WISH_LIST_ID = "WishListId";
+
+    public static final String CREATE_TABLE_WISH_LIST = "CREATE TABLE " + TABLE_WISH_LIST + " (" +
+            COLUMN_WISH_LIST_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
+            COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
+            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
+            COLUMN_QUANTITY + " INTEGER NOT NULL, " +
+            COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_DATE_UPDATED + " TEXT NOT NULL" +
+            ");";
+    //endregion
+
+    //region Rating table
+    public static final String COLUMN_RATING_ID = "RatingId";
+    public static final String COLUMN_RATING_STAR = "RatingStar";
+    public static final String COLUMN_RATING_REVIEW = "RatingReview";
+
+    public static final String CREATE_TABLE_RATING = "CREATE TABLE " + TABLE_RATING + " (" +
+            COLUMN_RATING_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
+            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
+            COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
+            COLUMN_RATING_STAR + " INTEGER NOT NULL, " +
+            COLUMN_RATING_REVIEW + " TEXT NOT NULL, " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL, " +
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            ");";
+    //endregion
+
+    //region ViewedItem table
+    public static final String COLUMN_VIEW_ID = "ViewId";
+    public static final String COLUMN_VIEWED_COUNT = "ViewedCount";
+    public static final String COLUMN_DATE_LAST_VIEWED = "DateLastViewed";
+
+    public static final String CREATE_TABLE_VIEWED_ITEM = "CREATE TABLE " + TABLE_VIEWED_ITEM + " (" +
+            COLUMN_VIEW_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
+            COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
+            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
+            COLUMN_VIEWED_COUNT + " INTEGER NOT NULL, " +
+            COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
+            COLUMN_DATE_LAST_VIEWED + " TEXT NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            ");";
+    //endregion
+
+    //region Status table
+    public static final String COLUMN_STATUS_ID = "StatusId";
+    public static final String COLUMN_STATUS_NAME = "StatusName";
+
+    public static final String CREATE_TABLE_STATUS = "CREATE TABLE " + TABLE_STATUS + " (" +
+            COLUMN_STATUS_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_STATUS_NAME + " TEXT NOT NULL, " +
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            ");";
+    //endregion
+
 
     @SuppressLint("Range")
     public List<CarouselImage> getCarouselImages() {
