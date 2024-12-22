@@ -1,42 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_places2"
+    android:layout_height="wrap_content"
     android:contentDescription="@string/scroll_view_of_all_available_places"
-    android:scrollbarAlwaysDrawVerticalTrack="true"
-    tools:context=".fragments.HomeFragment">
+    android:fillViewport="true"
+    tools:context=".Fragments.HomeFragment">
 
     <LinearLayout
-        android:id="@+id/containerFragmentHome"
-        android:layout_width="match_parent"
+        android:id="@+id/linear_layout_fragment_home"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!--        <com.google.android.material.imageview.ShapeableImageView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:padding="20dp"-->
-        <!--            android:scaleType="centerInside"-->
-        <!--            android:src="@drawable/empty_box" />-->
-
-        <androidx.appcompat.widget.AppCompatTextView
+        <!-- Carousel -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerCarousel"
             android:layout_width="match_parent"
-            android:layout_marginTop="100dp"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Category Header -->
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="@string/no_shared_places"
-            android:textAlignment="center"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp">
 
-        <androidx.appcompat.widget.AppCompatTextView
+            <!-- ImageView as the background -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/header_image_description"
+                android:scaleType="centerCrop"
+                android:src="@drawable/header_background_images9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/cornerSize_10_percent" />
+
+            <!-- TextView on top of the ImageView -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/category_text"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+        </FrameLayout>
+
+        <!-- Categories -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_category"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="@string/please_share_places"
-            android:textAlignment="center"
-            android:textSize="22sp"
-            android:textStyle="italic|bold" />
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+        <!-- Brand Header -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp">
+
+            <!-- ImageView as the background -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/header_image_description"
+                android:scaleType="centerCrop"
+                android:src="@drawable/header_background_images9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/cornerSize_10_percent" />
+
+            <!-- TextView on top of the ImageView -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/text_brands"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+        </FrameLayout>
+
+        <!-- Brands -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_brand"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+        <!-- New Arrival Header -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp">
+
+            <!-- ImageView as the background -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/header_image_description"
+                android:scaleType="centerCrop"
+                android:src="@drawable/header_background_images9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/cornerSize_10_percent" />
+
+            <!-- TextView on top of the ImageView -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/text_new_arrivals"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+        </FrameLayout>
+
+        <!-- New Arrivals -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_new_arrivals"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal" />
+
+        <!-- Trending Header -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp">
+
+            <!-- ImageView as the background -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/header_image_description"
+                android:scaleType="centerCrop"
+                android:src="@drawable/header_background_images9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/cornerSize_10_percent" />
+
+            <!-- TextView on top of the ImageView -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/text_trending"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+        </FrameLayout>
+
+        <!-- Trending -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/includedLayout11113"
+                    layout="@layout/component_item" />
+
+                <include
+                    android:id="@+id/includedLayout22223"
+                    layout="@layout/component_item" />
+
+                <include
+                    android:id="@+id/includedLayout33333"
+                    layout="@layout/component_item" />
+
+                <include
+                    android:id="@+id/includedLayout44443"
+                    layout="@layout/component_item" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <!-- Most Viewed Header -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp">
+
+            <!-- ImageView as the background -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/header_image_description"
+                android:scaleType="centerCrop"
+                android:src="@drawable/header_background_images9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/cornerSize_10_percent" />
+
+            <!-- TextView on top of the ImageView -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/text_most_viewed"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+        </FrameLayout>
+        <!-- Most Viewed -->
 
     </LinearLayout>
+
 </ScrollView>

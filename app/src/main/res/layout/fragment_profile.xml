@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/image_background_profile"
-    tools:context=".fragments.ProfileFragment">
+    tools:context=".Fragments.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewNameKey"
@@ -61,7 +61,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewEmailKey"
@@ -85,7 +85,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewContributionKey"
@@ -109,7 +109,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewMemberSinceKey"
@@ -133,7 +133,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewRatingKey"
@@ -157,7 +157,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewNewsLetterKey"
@@ -182,7 +182,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.582"
-                app:shapeAppearanceOverlay="@style/roundedImageView">
+                app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
                 <TextView
                     android:id="@+id/textViewMusicKey"
@@ -210,14 +210,14 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_signOut"
-                    style="@style/MyGreenButton"
+                    style="@style/add_to_cart_button"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:stateListAnimator="@null"
-                    app:icon="@drawable/baseline_exit_to_app_24"
-                    app:iconSize="30dp"
-                    app:iconGravity="textEnd"
                     android:text="@string/sign_out"
+                    app:icon="@drawable/baseline_exit_to_app_24"
+                    app:iconGravity="textEnd"
+                    app:iconSize="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.33"
@@ -229,26 +229,25 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_change_image"
-            style="@style/MyGreenButton"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            app:icon="@drawable/outline_camera_enhance_24"
+            style="@style/add_to_cart_button"
+            android:layout_width="52dp"
+            android:layout_height="48dp"
+            android:stateListAnimator="@null"
+            app:icon="@drawable/icons8_camera_52"
             app:iconGravity="top"
             app:iconSize="30dp"
-            android:stateListAnimator="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintHorizontal_bias="0.383"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.13" />
+            app:layout_constraintVertical_bias="0.126" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_profile"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/outline_account_circle_24"
-            android:background="@color/white"
+            android:src="@drawable/icons8_user_account_80"
             android:thicknessRatio="2.0"
             android:useLevel="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -257,7 +256,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.093"
-            app:shapeAppearanceOverlay="@style/roundedImageView"
+            app:shapeAppearanceOverlay="@style/cornerSize_50_percent"
             app:strokeWidth="0dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

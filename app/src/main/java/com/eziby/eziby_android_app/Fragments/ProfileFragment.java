@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.eziby.eziby_android_app.Classes.MySharedPreferences;
-import com.eziby.eziby_android_app.screens.MainActivity;
+import com.eziby.eziby_android_app.screens.Main_Activity;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.R;
@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment {
         btn_signOut = myView.findViewById(R.id.btn_signOut);
         btn_change_image = myView.findViewById((R.id.btn_change_image));
 
-        if (MainActivity.mediaPlayer != null && MainActivity.mediaPlayer.isPlaying())
+        if (Main_Activity.mediaPlayer != null && Main_Activity.mediaPlayer.isPlaying())
             switchPlayMusic.setChecked(true);
 
         sharedPreferences = new MySharedPreferences(myView.getContext());
@@ -121,7 +121,7 @@ public class ProfileFragment extends Fragment {
         }
 
         if (switchPlayMusic.isChecked()) {
-            MainActivity.playMediaPlayer(this.getContext());
+            Main_Activity.playMediaPlayer(this.getContext());
         }
 
         btn_signOut.setOnClickListener(view -> {
@@ -154,10 +154,10 @@ public class ProfileFragment extends Fragment {
 
         switchPlayMusic.setOnClickListener(view -> {
             if (switchPlayMusic.isChecked()) {
-                MainActivity.playMediaPlayer(this.getContext());
+                Main_Activity.playMediaPlayer(this.getContext());
             } else {
-                if (MainActivity.mediaPlayer != null && MainActivity.mediaPlayer.isPlaying())
-                    MainActivity.mediaPlayer.pause();
+                if (Main_Activity.mediaPlayer != null && Main_Activity.mediaPlayer.isPlaying())
+                    Main_Activity.mediaPlayer.pause();
             }
 
             if (switchPlayMusic.isChecked()) {

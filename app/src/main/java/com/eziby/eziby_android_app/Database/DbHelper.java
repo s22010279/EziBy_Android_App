@@ -7,9 +7,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.eziby.eziby_android_app.Models.MyComment;
-import com.eziby.eziby_android_app.Models.MyPlace;
+import com.eziby.eziby_android_app.Models.Brand;
+import com.eziby.eziby_android_app.Models.CarouselImage;
+import com.eziby.eziby_android_app.Models.Category;
+import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.Models.MyUser;
+import com.eziby.eziby_android_app.Models.Setup;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,92 +22,425 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class DbHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "wander_lust.db";
-    public static final String TABLE_USER = "user_table";
-    public static final String TABLE_PLACE = "place_table";
-    public static final String TABLE_COMMENT = "comment_table";
-    public static final String TABLE_BOOKED_MARKED = "booked_marked_table";
-    public static final String COLUMN_BACKGROUND_MUSIC = "backgroundMusic";
-    public static final String COLUMN_BOOKED_MARKED_ID = "bookedMarkedId";
-    public static final String COLUMN_COMMENT = "comment";
-    public static final String COLUMN_COMMENT_ID = "commentId";
-    public static final String COLUMN_COMMENTED_DATE = "commentedDate";
-    public static final String COLUMN_CONTRIBUTION = "contribution";
-    public static final String COLUMN_COUNTRY = "country";
-    public static final String COLUMN_DATE_CREATED = "dateCreated";
-    public static final String COLUMN_DETAIL = "detail";
-    public static final String COLUMN_DISPLAY_NAME = "displayName";
-    public static final String COLUMN_EMAIL_ADDRESS = "emailAddress";
-    public static final String COLUMN_GOOGLE_DIRECTION = "googleDirection";
-    public static final String COLUMN_HEADER = "header";
-    public static final String COLUMN_IMAGE = "image";
-    public static final String COLUMN_MEMBER_SINCE = "memberSince";
-    public static final String COLUMN_PLACE_ID = "placeId";
-    public static final String COLUMN_PROFILE_PICTURE_URI = "profilePictureUri";
-    public static final String COLUMN_RATINGS = "ratings";
-    public static final String COLUMN_SHARED = "shared";
-    public static final String COLUMN_SUBSCRIBED_TO_NEWS_LETTER = "subscribedToNewsLetter";
-    public static final String COLUMN_TOKEN = "token";
-    public static final String COLUMN_USER_ID = "userId";
-
     public DbHelper(Context context) {
-        super(context, DATABASE_NAME, null, 5);
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETUP);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PLACE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENT);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKED_MARKED);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BRANDS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAROUSEL_IMAGES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMS);
         onCreate(db);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_USER + " (" +
-                COLUMN_USER_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_EMAIL_ADDRESS + " text, " +
-                COLUMN_TOKEN + " text, " +
-                COLUMN_DISPLAY_NAME + " text, " +
-                COLUMN_PROFILE_PICTURE_URI + " text, " +
-                COLUMN_SUBSCRIBED_TO_NEWS_LETTER + " text, " +
-                COLUMN_BACKGROUND_MUSIC + " text, " +
-                COLUMN_CONTRIBUTION + " text, " +
-                COLUMN_MEMBER_SINCE + " text, " +
-                COLUMN_RATINGS + " text " +
-                "); ");
+        db.execSQL(CREATE_TABLE_SETUP);
+        db.execSQL(CREATE_TABLE_USER);
+        db.execSQL(CREATE_TABLE_CATEGORIES);
+        db.execSQL(CREATE_TABLE_BRANDS);
+        db.execSQL(CREATE_TABLE_CAROUSEL_IMAGES);
+        db.execSQL(CREATE_TABLE_ITEMS);
 
-        db.execSQL("create table " + TABLE_PLACE + " (" +
-                COLUMN_PLACE_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_EMAIL_ADDRESS + " text, " +
-                COLUMN_HEADER + " text, " +
-                COLUMN_DETAIL + " text, " +
-                COLUMN_COUNTRY + " text, " +
-                COLUMN_IMAGE + " text, " +
-                COLUMN_GOOGLE_DIRECTION + " text, " +
-                COLUMN_DATE_CREATED + " text, " +
-                COLUMN_SHARED + " text, " +
-                "FOREIGN KEY (" + COLUMN_EMAIL_ADDRESS + ") REFERENCES " + TABLE_USER + "(" + COLUMN_EMAIL_ADDRESS + ") " +
-                "); ");
+        db.execSQL(DataScript.INSERT_DATA_SETUPS);
+        db.execSQL(DataScript.INSERT_DATA_CATEGORIES);
+        db.execSQL(DataScript.INSERT_DATA_BRANDS);
+        db.execSQL(DataScript.INSERT_DATA_CAROUSEL_IMAGES);
+        db.execSQL(DataScript.INSERT_DATA_ITEMS);
+    }
 
-        db.execSQL("create table " + TABLE_COMMENT + " (" +
-                COLUMN_COMMENT_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_PLACE_ID + " integer, " +
-                COLUMN_EMAIL_ADDRESS + " text, " +
-                COLUMN_COMMENT + " text, " +
-                COLUMN_COMMENTED_DATE + " text, " +
-                "FOREIGN KEY (" + COLUMN_EMAIL_ADDRESS + ") REFERENCES " + TABLE_USER + "(" + COLUMN_EMAIL_ADDRESS + "), " +
-                "FOREIGN KEY (" + COLUMN_PLACE_ID + ") REFERENCES " + TABLE_PLACE + "(" + COLUMN_PLACE_ID + ") " +
-                "); ");
+    //region DB and Table Names
+    public static final String DATABASE_NAME = "EziBy.db";
+    public static final String TABLE_SETUP = "Setups";
+    public static final String TABLE_USER = "user_table";
+    public static final String TABLE_CATEGORIES = "Categories";
+    public static final String TABLE_BRANDS = "Brands";
+    public static final String TABLE_CAROUSEL_IMAGES = "CarouselImages";
+    public static final String TABLE_ITEMS = "Items";
+    //endregion
 
-        db.execSQL("create table " + TABLE_BOOKED_MARKED + " (" +
-                COLUMN_BOOKED_MARKED_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_PLACE_ID + " integer, " +
-                COLUMN_EMAIL_ADDRESS + " text, " +
-                "FOREIGN KEY (" + COLUMN_EMAIL_ADDRESS + ") REFERENCES " + TABLE_USER + "(" + COLUMN_EMAIL_ADDRESS + "), " +
-                "FOREIGN KEY (" + COLUMN_PLACE_ID + ") REFERENCES " + TABLE_PLACE + "(" + COLUMN_PLACE_ID + ") " +
-                "); ");
+    //region Common Properties
+    public static final String COLUMN_DISPLAY_ORDER = "DisplayOrder";
+    public static final String COLUMN_DELETED = "Deleted";
+    public static final String COLUMN_ACTIVE = "Active";
+    public static final String COLUMN_UPDATED_DATE = "UpdatedDate";
+    //endregion Common Properties
+
+    //region CarouselImages table
+    public static final String COLUMN_CAROUSEL_ID = "carouselId";
+    public static final String COLUMN_CAROUSEL_DETAILS = "carouselDetails";
+    public static final String COLUMN_CAROUSEL_IMAGE_NAME = "carouselImageName";
+    public static final String COLUMN_CAROUSEL_LINK = "carouselLink";
+    public static final String COLUMN_CAROUSEL_TYPE = "carouselType";
+    public static final String CREATE_TABLE_CAROUSEL_IMAGES = "CREATE TABLE " + TABLE_CAROUSEL_IMAGES + " (" +
+            COLUMN_CAROUSEL_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_CAROUSEL_DETAILS + " TEXT NOT NULL, " +
+            COLUMN_CAROUSEL_IMAGE_NAME + " TEXT NOT NULL, " +
+            COLUMN_CAROUSEL_LINK + " TEXT NOT NULL, " +
+            COLUMN_CAROUSEL_TYPE + " TEXT NOT NULL, " +
+            COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL, " + // SQLite uses INTEGER for boolean values (0 = false, 1 = true)
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates can be stored as TEXT in ISO 8601 format (YYYY-MM-DD HH:MM:SS)
+            ");";
+    //endregion
+
+    //region Setup table
+    public static final String COLUMN_SETUP_ID = "SetupId";
+    public static final String COLUMN_BRANCH_NAME = "BranchName";
+    public static final String COLUMN_BRANCH_DESCRIPTION = "BranchDescription";
+    public static final String COLUMN_BRANCH_ADDRESS = "BranchAddress";
+    public static final String COLUMN_BRANCH_LAND_PHONE = "BranchLandPhone";
+    public static final String COLUMN_BRANCH_MOBILE = "BranchMobile";
+    public static final String COLUMN_CURRENCY_MARK = "CurrencyMark";
+    public static final String COLUMN_CURRENCY_DECIMALS = "CurrencyDecimals";
+    public static final String COLUMN_INITIAL_DELIVERY_DAYS = "InitialDeliveryDays";
+    public static final String COLUMN_MAXIMUM_DELIVERY_DAYS = "MaximumDeliveryDays";
+    public static final String COLUMN_ANDROID_ONGOING_MAINTENANCE = "Android_OnGoingMaintenance";
+    public static final String COLUMN_ANDROID_FORCE_UPDATE = "Android_ForceUpdate";
+    public static final String COLUMN_ANDROID_BUILD_NUMBER = "Android_BuildNumber";
+    public static final String COLUMN_MAIN_API_URI = "MainAPIUri";
+    public static final String COLUMN_MAIN_SLIDESHOW_IMAGES_URI = "MainSlideShowImagesUri";
+    public static final String COLUMN_CATEGORY_IMAGES_URI = "CategoryImagesUri";
+    public static final String COLUMN_CATEGORY_HEADER_URI = "CategoryHeaderUri";
+    public static final String COLUMN_SUBCATEGORY_IMAGES_URI = "SubCategoryImagesUri";
+    public static final String COLUMN_ITEMS_IMAGE_URI = "ItemsImageUri";
+    public static final String COLUMN_BRAND_IMAGE_URI = "BrandImageUri";
+    public static final String COLUMN_SOCIAL_MEDIA_URI = "SocialMediaUri";
+    public static final String COLUMN_ADVERTISEMENT_IMAGE_URI = "AdvertisementImageUri";
+    public static final String COLUMN_OTHER_IMAGE_URI = "OtherImageUri";
+    public static final String COLUMN_TERMS_AND_CONDITIONS_URI = "TermsAndConditionsUri";
+    public static final String COLUMN_PRIVACY_POLICY_URI = "PrivacyPolicyUri";
+    public static final String COLUMN_OUR_SERVICES_URI = "OurServicesUri";
+    public static final String COLUMN_CONTACT_US_URI = "ContactUsUri";
+    public static final String COLUMN_ABOUT_US_URI = "AboutUsUri";
+    public static final String COLUMN_SERVER_MAPPED_IMAGE_PATH = "ServerMappedImagePath";
+    public static final String COLUMN_NEW_ORDER_REFRESH_INTERVAL = "NewOrderRefreshInterval";
+    public static final String COLUMN_ALLOW_DISCOUNT_IN_POS = "AllowDiscountInPOS";
+    public static final String COLUMN_CRYSTAL_REPORT_PATH = "CrystalReportPath";
+
+    private static final String CREATE_TABLE_SETUP = "CREATE TABLE " + TABLE_SETUP + " (" +
+            COLUMN_SETUP_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_BRANCH_NAME + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_BRANCH_DESCRIPTION + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_BRANCH_ADDRESS + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_BRANCH_LAND_PHONE + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_BRANCH_MOBILE + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_CURRENCY_MARK + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_CURRENCY_DECIMALS + " INTEGER NOT NULL DEFAULT 0, " +
+            COLUMN_INITIAL_DELIVERY_DAYS + " INTEGER NOT NULL DEFAULT 0, " +
+            COLUMN_MAXIMUM_DELIVERY_DAYS + " INTEGER NOT NULL DEFAULT 0, " +
+            COLUMN_ANDROID_ONGOING_MAINTENANCE + " INTEGER NOT NULL DEFAULT 0, " +
+            COLUMN_ANDROID_FORCE_UPDATE + " INTEGER NOT NULL DEFAULT 0, " +
+            COLUMN_ANDROID_BUILD_NUMBER + " INTEGER NOT NULL DEFAULT 0, " +
+            COLUMN_MAIN_API_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_MAIN_SLIDESHOW_IMAGES_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_CATEGORY_IMAGES_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_CATEGORY_HEADER_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_SUBCATEGORY_IMAGES_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_ITEMS_IMAGE_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_BRAND_IMAGE_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_SOCIAL_MEDIA_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_ADVERTISEMENT_IMAGE_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_OTHER_IMAGE_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_TERMS_AND_CONDITIONS_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_PRIVACY_POLICY_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_OUR_SERVICES_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_CONTACT_US_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_ABOUT_US_URI + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_SERVER_MAPPED_IMAGE_PATH + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_NEW_ORDER_REFRESH_INTERVAL + " INTEGER NOT NULL DEFAULT 0, " +
+            COLUMN_ALLOW_DISCOUNT_IN_POS + " INTEGER NOT NULL DEFAULT 0, " +
+            COLUMN_CRYSTAL_REPORT_PATH + " TEXT NOT NULL DEFAULT '', " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL DEFAULT 0" +
+            ");";
+    //endregion Setup table
+
+    //region User table
+    public static final String COLUMN_BACKGROUND_MUSIC = "backgroundMusic";
+    public static final String COLUMN_CONTRIBUTION = "contribution";
+    public static final String COLUMN_DISPLAY_NAME = "displayName";
+    public static final String COLUMN_EMAIL_ADDRESS = "emailAddress";
+    public static final String COLUMN_MEMBER_SINCE = "memberSince";
+    public static final String COLUMN_PROFILE_PICTURE_URI = "profilePictureUri";
+    public static final String COLUMN_RATINGS = "ratings";
+    public static final String COLUMN_SUBSCRIBED_TO_NEWS_LETTER = "subscribedToNewsLetter";
+    public static final String COLUMN_TOKEN = "token";
+    public static final String COLUMN_USER_ID = "userId";
+    private static final String CREATE_TABLE_USER = "create table " + TABLE_USER + " (" +
+            COLUMN_USER_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_EMAIL_ADDRESS + " text, " +
+            COLUMN_TOKEN + " text, " +
+            COLUMN_DISPLAY_NAME + " text, " +
+            COLUMN_PROFILE_PICTURE_URI + " text, " +
+            COLUMN_SUBSCRIBED_TO_NEWS_LETTER + " text, " +
+            COLUMN_BACKGROUND_MUSIC + " text, " +
+            COLUMN_CONTRIBUTION + " text, " +
+            COLUMN_MEMBER_SINCE + " text, " +
+            COLUMN_RATINGS + " text " +
+            "); ";
+    //endregion User table
+
+    //region Category table
+    public static final String COLUMN_CATEGORY_ID = "CategoryId";
+    public static final String COLUMN_CATEGORY_NAME = "CategoryName";
+    public static final String COLUMN_CATEGORY_IMAGE = "CategoryImage";
+    public static final String COLUMN_CATEGORY_HEADER_IMAGE = "CategoryHeaderImage";
+    public static final String COLUMN_MAX_DISCOUNT = "MaxDiscount";
+    public static final String CREATE_TABLE_CATEGORIES = "create table " + TABLE_CATEGORIES + " (" +
+            COLUMN_CATEGORY_ID + " integer PRIMARY KEY, " +
+            COLUMN_CATEGORY_NAME + " text, " +
+            COLUMN_CATEGORY_IMAGE + " text, " +
+            COLUMN_CATEGORY_HEADER_IMAGE + " text, " +
+            COLUMN_DISPLAY_ORDER + " integer, " +
+            COLUMN_MAX_DISCOUNT + " text, " +
+            COLUMN_ACTIVE + " integer, " +
+            COLUMN_DELETED + " integer, " +
+            COLUMN_UPDATED_DATE + " text " +
+            "); ";
+    //endregion Category table
+
+    //region Brand table
+    public static final String COLUMN_BRAND_ID = "BrandId";
+    public static final String COLUMN_BRAND_NAME = "BrandName";
+    public static final String COLUMN_BRAND_IMAGE = "BrandImage";
+    public static final String CREATE_TABLE_BRANDS =
+            "CREATE TABLE " + TABLE_BRANDS + " (" +
+                    COLUMN_BRAND_ID + " INTEGER PRIMARY KEY, " +
+                    COLUMN_BRAND_NAME + " TEXT NOT NULL, " +
+                    COLUMN_BRAND_IMAGE + " TEXT NOT NULL, " +
+                    COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
+                    COLUMN_ACTIVE + " INTEGER NOT NULL, " + // SQLite uses INTEGER for booleans (0 = false, 1 = true)
+                    COLUMN_DELETED + " INTEGER NOT NULL, " +
+                    COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates are typically stored as TEXT in ISO 8601 format
+                    ");";
+    //endregion Brand table
+
+    //region Item table
+    public static final String COLUMN_ITEM_ID = "ItemId";
+    public static final String COLUMN_ITEM_NAME = "ItemName";
+    public static final String COLUMN_SPECIFICATION = "Specification";
+    public static final String COLUMN_SKU_BARCODE = "SKUBarcode";
+    public static final String COLUMN_DIMENSION = "Dimension";
+    public static final String COLUMN_ITEM_IMAGE_1 = "ItemImage1";
+    public static final String COLUMN_ITEM_IMAGE_2 = "ItemImage2";
+    public static final String COLUMN_ITEM_IMAGE_3 = "ItemImage3";
+
+    public static final String COLUMN_SUB_CATEGORY_ID = "SubCategoryId";
+    public static final String COLUMN_DELIVERY_TIME_ID = "DeliveryTimeId";
+    public static final String COLUMN_UOM_ID = "UOMId";
+
+    public static final String COLUMN_STOP_REORDER = "StopReOrder";
+    public static final String COLUMN_REORDER_LEVEL = "ReOrderLevel";
+    public static final String COLUMN_REORDER_QTY = "ReOrderQty";
+
+    public static final String COLUMN_ALLOW_FRACTION_IN_QTY = "AllowFractionInQty";
+    public static final String COLUMN_NON_EXCHANGABLE = "NonExchangable";
+    public static final String COLUMN_ONE_TIME_PURCHASABLE_QTY = "OneTimePurchasableQty";
+
+    public static final String COLUMN_IS_AVAILABLE_IN_MOBILE_APP = "IsAvailableInMobileApp";
+    public static final String COLUMN_IS_AVAILABLE_IN_POS = "IsAvailableInPOS";
+    public static final String COLUMN_IS_NEW_ARRIVAL = "IsNewArrival";
+    public static final String COLUMN_IS_TRENDING = "IsTrending";
+    public static final String COLUMN_IS_EXPRESS = "IsExpress";
+
+    public static final String COLUMN_TOTAL_SOLD = "TotalSold";
+    public static final String COLUMN_TOTAL_CLICKED = "TotalClicked";
+    public static final String COLUMN_AVERAGE_RATING = "AverageRating";
+
+    public static final String CREATE_TABLE_ITEMS = "CREATE TABLE " + TABLE_ITEMS + " (" +
+            COLUMN_ITEM_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_ITEM_NAME + " TEXT NOT NULL, " +
+            COLUMN_SPECIFICATION + " TEXT, " +
+            COLUMN_SKU_BARCODE + " TEXT, " +
+            COLUMN_DIMENSION + " TEXT, " +
+            COLUMN_ITEM_IMAGE_1 + " TEXT, " +
+            COLUMN_ITEM_IMAGE_2 + " TEXT, " +
+            COLUMN_ITEM_IMAGE_3 + " TEXT, " +
+            COLUMN_BRAND_ID + " INTEGER NOT NULL, " +
+            COLUMN_CATEGORY_ID + " INTEGER NOT NULL, " +
+            COLUMN_SUB_CATEGORY_ID + " INTEGER NOT NULL, " +
+            COLUMN_DELIVERY_TIME_ID + " INTEGER NOT NULL, " +
+            COLUMN_UOM_ID + " INTEGER NOT NULL, " +
+            COLUMN_STOP_REORDER + " INTEGER NOT NULL, " + // Boolean as INTEGER (0 = false, 1 = true)
+            COLUMN_REORDER_LEVEL + " INTEGER NOT NULL, " +
+            COLUMN_REORDER_QTY + " INTEGER NOT NULL, " +
+            COLUMN_ALLOW_FRACTION_IN_QTY + " INTEGER NOT NULL, " +
+            COLUMN_NON_EXCHANGABLE + " INTEGER NOT NULL, " +
+            COLUMN_ONE_TIME_PURCHASABLE_QTY + " INTEGER NOT NULL, " +
+            COLUMN_IS_AVAILABLE_IN_MOBILE_APP + " INTEGER NOT NULL, " +
+            COLUMN_IS_AVAILABLE_IN_POS + " INTEGER NOT NULL, " +
+            COLUMN_IS_NEW_ARRIVAL + " INTEGER NOT NULL, " +
+            COLUMN_IS_TRENDING + " INTEGER NOT NULL, " +
+            COLUMN_IS_EXPRESS + " INTEGER NOT NULL, " +
+            COLUMN_TOTAL_SOLD + " INTEGER NOT NULL, " +
+            COLUMN_TOTAL_CLICKED + " INTEGER NOT NULL, " +
+            COLUMN_AVERAGE_RATING + " REAL NOT NULL, " +
+            COLUMN_ACTIVE + " INTEGER NOT NULL, " +
+            COLUMN_DELETED + " INTEGER NOT NULL, " +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Date stored as TEXT (ISO 8601 format)
+            ");";
+    //endregion
+
+    //region New table
+    //endregion
+
+    @SuppressLint("Range")
+    public List<CarouselImage> getCarouselImages() {
+        List<CarouselImage> carouselImages = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_CAROUSEL_IMAGES +
+                " WHERE " + COLUMN_DELETED + " = " + 0 +
+                " AND " + COLUMN_ACTIVE + " = " + 1 +
+                " ORDER BY " + COLUMN_DISPLAY_ORDER + " ASC";
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                CarouselImage carouselImage = new CarouselImage();
+                carouselImage.setCarouselId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_ID))));
+                carouselImage.setCarouselDetails(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_DETAILS)));
+                carouselImage.setCarouselImageName(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_IMAGE_NAME)));
+                carouselImage.setCarouselLink(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_LINK)));
+                carouselImage.setCarouselType(result.getString(result.getColumnIndex(COLUMN_CAROUSEL_TYPE)));
+                carouselImage.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_DISPLAY_ORDER))));
+                carouselImage.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
+                carouselImage.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
+                carouselImage.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
+                carouselImages.add(carouselImage);
+            }
+        }
+        result.close();
+        return carouselImages;
+    }
+
+    @SuppressLint("Range")
+    public Setup getASetup() {
+        Setup setup = new Setup();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_SETUP;
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                setup.setSetupId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_SETUP_ID))));
+                setup.setBranchName(result.getString(result.getColumnIndex(COLUMN_BRANCH_NAME)));
+                setup.setBranchDescription(result.getString(result.getColumnIndex(COLUMN_BRANCH_DESCRIPTION)));
+                setup.setBranchAddress(result.getString(result.getColumnIndex(COLUMN_BRANCH_ADDRESS)));
+                setup.setBranchLandPhone(result.getString(result.getColumnIndex(COLUMN_BRANCH_LAND_PHONE)));
+                setup.setBranchMobile(result.getString(result.getColumnIndex(COLUMN_BRANCH_MOBILE)));
+                setup.setCurrencyMark(result.getString(result.getColumnIndex(COLUMN_CURRENCY_MARK)));
+                setup.setCurrencyDecimals(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_CURRENCY_DECIMALS))));
+                setup.setInitialDeliveryDays(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_INITIAL_DELIVERY_DAYS))));
+                setup.setMaximumDeliveryDays(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_MAXIMUM_DELIVERY_DAYS))));
+                setup.setAndroidOnGoingMaintenance(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ANDROID_ONGOING_MAINTENANCE))));
+                setup.setAndroidForceUpdate(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ANDROID_FORCE_UPDATE))));
+                setup.setAndroidBuildNumber(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_ANDROID_BUILD_NUMBER))));
+                setup.setMainAPIUri(result.getString(result.getColumnIndex(COLUMN_MAIN_API_URI)));
+                setup.setMainSlideShowImagesUri(result.getString(result.getColumnIndex(COLUMN_MAIN_SLIDESHOW_IMAGES_URI)));
+                setup.setCategoryImagesUri(result.getString(result.getColumnIndex(COLUMN_CATEGORY_IMAGES_URI)));
+                setup.setCategoryHeaderUri(result.getString(result.getColumnIndex(COLUMN_CATEGORY_HEADER_URI)));
+                setup.setSubCategoryImagesUri(result.getString(result.getColumnIndex(COLUMN_SUBCATEGORY_IMAGES_URI)));
+                setup.setItemsImageUri(result.getString(result.getColumnIndex(COLUMN_ITEMS_IMAGE_URI)));
+                setup.setBrandImageUri(result.getString(result.getColumnIndex(COLUMN_BRAND_IMAGE_URI)));
+                setup.setSocialMediaUri(result.getString(result.getColumnIndex(COLUMN_SOCIAL_MEDIA_URI)));
+                setup.setAdvertisementImageUri(result.getString(result.getColumnIndex(COLUMN_ADVERTISEMENT_IMAGE_URI)));
+                setup.setOtherImageUri(result.getString(result.getColumnIndex(COLUMN_OTHER_IMAGE_URI)));
+                setup.setTermsAndConditionsUri(result.getString(result.getColumnIndex(COLUMN_TERMS_AND_CONDITIONS_URI)));
+                setup.setPrivacyPolicyUri(result.getString(result.getColumnIndex(COLUMN_PRIVACY_POLICY_URI)));
+                setup.setOurServicesUri(result.getString(result.getColumnIndex(COLUMN_OUR_SERVICES_URI)));
+                setup.setContactUsUri(result.getString(result.getColumnIndex(COLUMN_CONTACT_US_URI)));
+                setup.setAboutUsUri(result.getString(result.getColumnIndex(COLUMN_ABOUT_US_URI)));
+                setup.setServerMappedImagePath(result.getString(result.getColumnIndex(COLUMN_SERVER_MAPPED_IMAGE_PATH)));
+                setup.setCrystalReportPath(result.getString(result.getColumnIndex(COLUMN_CRYSTAL_REPORT_PATH)));
+                setup.setNewOrderRefreshInterval(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_NEW_ORDER_REFRESH_INTERVAL))));
+                setup.setAllowDiscountInPOS(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ALLOW_DISCOUNT_IN_POS))));
+                setup.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
+            }
+        }
+        result.close();
+        return setup;
+    }
+
+    @SuppressLint("Range")
+    public List<Category> getCategories() {
+        List<Category> categories = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_CATEGORIES +
+                " WHERE " + COLUMN_DELETED + " = " + 0 +
+                " AND " + COLUMN_ACTIVE + " = " + 1 +
+                " ORDER BY " + COLUMN_DISPLAY_ORDER + " ASC";
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                Category category = new Category();
+                category.setCategoryId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_CATEGORY_ID))));
+                category.setCategoryName(result.getString(result.getColumnIndex(COLUMN_CATEGORY_NAME)));
+                category.setCategoryImage(result.getString(result.getColumnIndex(COLUMN_CATEGORY_IMAGE)));
+                category.setCategoryHeaderImage(result.getString(result.getColumnIndex(COLUMN_CATEGORY_HEADER_IMAGE)));
+                category.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_DISPLAY_ORDER))));
+                category.setMaxDiscount(Long.parseLong(result.getString(result.getColumnIndex(COLUMN_MAX_DISCOUNT))));
+                category.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
+                category.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
+                category.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
+                categories.add(category);
+            }
+        }
+        result.close();
+        return categories;
+    }
+
+    @SuppressLint("Range")
+    public List<Item> getItems() {
+        List<Item> items = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_ITEMS +
+                " WHERE " + COLUMN_DELETED + " = " + 0 +
+                " AND " + COLUMN_ACTIVE + " = " + 1;
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                Item item = new Item();
+                item.setItemId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_ITEM_ID))));
+                item.setItemImage1(result.getString(result.getColumnIndex(COLUMN_ITEM_IMAGE_1)));
+                item.setItemName(result.getString(result.getColumnIndex(COLUMN_ITEM_NAME)));
+                item.setSpecification(result.getString(result.getColumnIndex(COLUMN_SPECIFICATION)));
+                item.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
+                item.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
+                item.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
+                items.add(item);
+            }
+        }
+        result.close();
+        return items;
+    }
+
+    @SuppressLint("Range")
+    public List<Brand> getBrands() {
+        List<Brand> brands = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_BRANDS +
+                " WHERE " + COLUMN_DELETED + " = " + 0 +
+                " AND " + COLUMN_ACTIVE + " = " + 1 +
+                " ORDER BY " + COLUMN_DISPLAY_ORDER + " ASC";
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                Brand brand = new Brand();
+                brand.setBrandId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_BRAND_ID))));
+                brand.setBrandName(result.getString(result.getColumnIndex(COLUMN_BRAND_NAME)));
+                brand.setBrandImage(result.getString(result.getColumnIndex(COLUMN_BRAND_IMAGE)));
+                brand.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_DISPLAY_ORDER))));
+                brand.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
+                brand.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
+                brand.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
+                brands.add(brand);
+            }
+        }
+        result.close();
+        return brands;
     }
 
     private String getCurrentDate() {
@@ -114,145 +450,6 @@ public class DbHelper extends SQLiteOpenHelper {
         return simpleDateFormat.format(now);
     }
 
-    //comment table function
-    public boolean insertComment(MyComment myComment) {
-        myComment.setCommentedDate(getCurrentDate());
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_PLACE_ID, myComment.getPlaceId());
-        contentValues.put(COLUMN_EMAIL_ADDRESS, myComment.getEmailAddress());
-        contentValues.put(COLUMN_COMMENT, myComment.getComment());
-        contentValues.put(COLUMN_COMMENTED_DATE, myComment.getCommentedDate());
-        long result = db.insert(TABLE_COMMENT, null, contentValues);
-
-        return result != -1;
-    }
-
-    @SuppressLint("Range")
-    public List<MyComment> getComments(int placeId) {
-        List<MyComment> comments = new ArrayList<>();
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_COMMENT + " WHERE " + COLUMN_PLACE_ID + " = " + placeId + " ORDER BY commentId DESC";
-        Cursor result = db.rawQuery(query, null);
-        if (result.getCount() > 0) {
-            while (result.moveToNext()) {
-                MyComment myComment = new MyComment();
-                myComment.setCommentId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_COMMENT_ID))));
-                myComment.setPlaceId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_PLACE_ID))));
-                myComment.setEmailAddress(result.getString(result.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
-                myComment.setComment(result.getString(result.getColumnIndex(COLUMN_COMMENT)));
-                myComment.setCommentedDate(result.getString(result.getColumnIndex(COLUMN_COMMENTED_DATE)));
-                comments.add(myComment);
-            }
-        }
-        result.close();
-        return comments;
-    }
-
-    public Integer deleteComment(int commentId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_COMMENT, COLUMN_COMMENT_ID + " = ?", new String[]{String.valueOf(commentId)});
-    }
-
-    public void deleteComments(int placeId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_COMMENT, COLUMN_PLACE_ID + " = ?", new String[]{String.valueOf(placeId)});
-    }
-
-    //place table functions
-    public boolean insertPlace(MyPlace myPlace) {
-        myPlace.setDateCreated(getCurrentDate());
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_EMAIL_ADDRESS, myPlace.getEmailAddress());
-        contentValues.put(COLUMN_HEADER, myPlace.getHeader());
-        contentValues.put(COLUMN_DETAIL, myPlace.getDetail());
-        contentValues.put(COLUMN_COUNTRY, myPlace.getCountry());
-        contentValues.put(COLUMN_IMAGE, myPlace.getImage());
-        contentValues.put(COLUMN_GOOGLE_DIRECTION, myPlace.getGoogleDirection());
-        contentValues.put(COLUMN_DATE_CREATED, myPlace.getDateCreated()); //date field
-        contentValues.put(COLUMN_SHARED, myPlace.getShared());
-        long result = db.insert(TABLE_PLACE, null, contentValues);
-
-        return result != -1;
-    }
-
-
-    public boolean updatePlace(MyPlace myPlace) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_EMAIL_ADDRESS, myPlace.getEmailAddress());
-        contentValues.put(COLUMN_HEADER, myPlace.getHeader());
-        contentValues.put(COLUMN_DETAIL, myPlace.getDetail());
-        contentValues.put(COLUMN_COUNTRY, myPlace.getCountry());
-        contentValues.put(COLUMN_IMAGE, myPlace.getImage());
-        contentValues.put(COLUMN_GOOGLE_DIRECTION, myPlace.getGoogleDirection());
-        contentValues.put(COLUMN_SHARED, myPlace.getShared());
-        db.update(TABLE_PLACE, contentValues, COLUMN_PLACE_ID + " = ?", new String[]{String.valueOf(myPlace.getPlaceId())});
-        return true;
-    }
-
-    @SuppressLint("Range")
-    public List<MyPlace> getPlaces(String emailAddress) {
-        List<MyPlace> places = new ArrayList<>();
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query;
-        if (emailAddress == null) {
-            query = "SELECT * FROM " + TABLE_PLACE + " WHERE " + COLUMN_SHARED + " = 1 ORDER BY " + COLUMN_PLACE_ID + " desc";
-        } else {
-            query = "SELECT * FROM " + TABLE_PLACE + " WHERE " + COLUMN_EMAIL_ADDRESS + " = '" + emailAddress + "'  ORDER BY " + COLUMN_PLACE_ID + " DESC";
-        }
-        Cursor result = db.rawQuery(query, null);
-        if (result.getCount() > 0) {
-            while (result.moveToNext()) {
-                MyPlace myPlace = new MyPlace();
-                myPlace.setPlaceId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_PLACE_ID))));
-                myPlace.setEmailAddress(result.getString(result.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
-                myPlace.setHeader(result.getString(result.getColumnIndex(COLUMN_HEADER)));
-                myPlace.setDetail(result.getString(result.getColumnIndex(COLUMN_DETAIL)));
-                myPlace.setCountry(result.getString(result.getColumnIndex(COLUMN_COUNTRY)));
-                myPlace.setImage(result.getString(result.getColumnIndex(COLUMN_IMAGE)));
-                myPlace.setGoogleDirection(result.getString(result.getColumnIndex(COLUMN_GOOGLE_DIRECTION)));
-                myPlace.setDateCreated(result.getString(result.getColumnIndex(COLUMN_DATE_CREATED)));
-                myPlace.setShared(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_SHARED))));
-                places.add(myPlace);
-            }
-        }
-        result.close();
-        return places;
-    }
-
-    @SuppressLint("Range")
-    public MyPlace getAPlace(int placeId) {
-        MyPlace myPlace = new MyPlace();
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_PLACE + " WHERE " + COLUMN_PLACE_ID + " = " + placeId;
-        Cursor result = db.rawQuery(query, null);
-        if (result.getCount() > 0) {
-            while (result.moveToNext()) {
-                myPlace.setPlaceId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_PLACE_ID))));
-                myPlace.setEmailAddress(result.getString(result.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
-                myPlace.setHeader(result.getString(result.getColumnIndex(COLUMN_HEADER)));
-                myPlace.setDetail(result.getString(result.getColumnIndex(COLUMN_DETAIL)));
-                myPlace.setCountry(result.getString(result.getColumnIndex(COLUMN_COUNTRY)));
-                myPlace.setImage(result.getString(result.getColumnIndex(COLUMN_IMAGE)));
-                myPlace.setGoogleDirection(result.getString(result.getColumnIndex(COLUMN_GOOGLE_DIRECTION)));
-                myPlace.setDateCreated(result.getString(result.getColumnIndex(COLUMN_DATE_CREATED)));
-                myPlace.setShared(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_SHARED))));
-            }
-        }
-        result.close();
-        return myPlace;
-    }
-
-    public Integer deleteAPlace(int placeId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_PLACE, COLUMN_PLACE_ID + " = ?", new String[]{String.valueOf(placeId)});
-    }
-
-    //user table functions
     public boolean insertUser(MyUser myUser) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -316,3 +513,143 @@ public class DbHelper extends SQLiteOpenHelper {
         db.update(TABLE_USER, contentValues, COLUMN_USER_ID + " = ?", new String[]{String.valueOf(myUser.getUserId())});
     }
 }
+
+//    //comment table function
+//    public boolean insertComment(MyComment myComment) {
+//        myComment.setCommentedDate(getCurrentDate());
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(COLUMN_PLACE_ID, myComment.getPlaceId());
+//        contentValues.put(COLUMN_EMAIL_ADDRESS, myComment.getEmailAddress());
+//        contentValues.put(COLUMN_COMMENT, myComment.getComment());
+//        contentValues.put(COLUMN_COMMENTED_DATE, myComment.getCommentedDate());
+//        long result = db.insert(TABLE_COMMENT, null, contentValues);
+//
+//        return result != -1;
+//    }
+//
+//    @SuppressLint("Range")
+//    public List<MyComment> getComments(int placeId) {
+//        List<MyComment> comments = new ArrayList<>();
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        String query = "SELECT * FROM " + TABLE_COMMENT + " WHERE " + COLUMN_PLACE_ID + " = " + placeId + " ORDER BY commentId DESC";
+//        Cursor result = db.rawQuery(query, null);
+//        if (result.getCount() > 0) {
+//            while (result.moveToNext()) {
+//                MyComment myComment = new MyComment();
+//                myComment.setCommentId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_COMMENT_ID))));
+//                myComment.setPlaceId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_PLACE_ID))));
+//                myComment.setEmailAddress(result.getString(result.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
+//                myComment.setComment(result.getString(result.getColumnIndex(COLUMN_COMMENT)));
+//                myComment.setCommentedDate(result.getString(result.getColumnIndex(COLUMN_COMMENTED_DATE)));
+//                comments.add(myComment);
+//            }
+//        }
+//        result.close();
+//        return comments;
+//    }
+//
+//    public Integer deleteComment(int commentId) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        return db.delete(TABLE_COMMENT, COLUMN_COMMENT_ID + " = ?", new String[]{String.valueOf(commentId)});
+//    }
+//
+//    public void deleteComments(int placeId) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.delete(TABLE_COMMENT, COLUMN_PLACE_ID + " = ?", new String[]{String.valueOf(placeId)});
+//    }
+//
+//    //place table functions
+//    public boolean insertPlace(MyPlace myPlace) {
+//        myPlace.setDateCreated(getCurrentDate());
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(COLUMN_EMAIL_ADDRESS, myPlace.getEmailAddress());
+//        contentValues.put(COLUMN_HEADER, myPlace.getHeader());
+//        contentValues.put(COLUMN_DETAIL, myPlace.getDetail());
+//        contentValues.put(COLUMN_COUNTRY, myPlace.getCountry());
+//        contentValues.put(COLUMN_IMAGE, myPlace.getImage());
+//        contentValues.put(COLUMN_GOOGLE_DIRECTION, myPlace.getGoogleDirection());
+//        contentValues.put(COLUMN_DATE_CREATED, myPlace.getDateCreated()); //date field
+//        contentValues.put(COLUMN_SHARED, myPlace.getShared());
+//        long result = db.insert(TABLE_PLACE, null, contentValues);
+//
+//        return result != -1;
+//    }
+//
+//
+//    public boolean updatePlace(MyPlace myPlace) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(COLUMN_EMAIL_ADDRESS, myPlace.getEmailAddress());
+//        contentValues.put(COLUMN_HEADER, myPlace.getHeader());
+//        contentValues.put(COLUMN_DETAIL, myPlace.getDetail());
+//        contentValues.put(COLUMN_COUNTRY, myPlace.getCountry());
+//        contentValues.put(COLUMN_IMAGE, myPlace.getImage());
+//        contentValues.put(COLUMN_GOOGLE_DIRECTION, myPlace.getGoogleDirection());
+//        contentValues.put(COLUMN_SHARED, myPlace.getShared());
+//        db.update(TABLE_PLACE, contentValues, COLUMN_PLACE_ID + " = ?", new String[]{String.valueOf(myPlace.getPlaceId())});
+//        return true;
+//    }
+//
+//    @SuppressLint("Range")
+//    public List<MyPlace> getPlaces(String emailAddress) {
+//        List<MyPlace> places = new ArrayList<>();
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        String query;
+//        if (emailAddress == null) {
+//            query = "SELECT * FROM " + TABLE_PLACE + " WHERE " + COLUMN_SHARED + " = 1 ORDER BY " + COLUMN_PLACE_ID + " desc";
+//        } else {
+//            query = "SELECT * FROM " + TABLE_PLACE + " WHERE " + COLUMN_EMAIL_ADDRESS + " = '" + emailAddress + "'  ORDER BY " + COLUMN_PLACE_ID + " DESC";
+//        }
+//        Cursor result = db.rawQuery(query, null);
+//        if (result.getCount() > 0) {
+//            while (result.moveToNext()) {
+//                MyPlace myPlace = new MyPlace();
+//                myPlace.setPlaceId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_PLACE_ID))));
+//                myPlace.setEmailAddress(result.getString(result.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
+//                myPlace.setHeader(result.getString(result.getColumnIndex(COLUMN_HEADER)));
+//                myPlace.setDetail(result.getString(result.getColumnIndex(COLUMN_DETAIL)));
+//                myPlace.setCountry(result.getString(result.getColumnIndex(COLUMN_COUNTRY)));
+//                myPlace.setImage(result.getString(result.getColumnIndex(COLUMN_IMAGE)));
+//                myPlace.setGoogleDirection(result.getString(result.getColumnIndex(COLUMN_GOOGLE_DIRECTION)));
+//                myPlace.setDateCreated(result.getString(result.getColumnIndex(COLUMN_DATE_CREATED)));
+//                myPlace.setShared(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_SHARED))));
+//                places.add(myPlace);
+//            }
+//        }
+//        result.close();
+//        return places;
+//    }
+//
+//    @SuppressLint("Range")
+//    public MyPlace getAPlace(int placeId) {
+//        MyPlace myPlace = new MyPlace();
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        String query = "SELECT * FROM " + TABLE_PLACE + " WHERE " + COLUMN_PLACE_ID + " = " + placeId;
+//        Cursor result = db.rawQuery(query, null);
+//        if (result.getCount() > 0) {
+//            while (result.moveToNext()) {
+//                myPlace.setPlaceId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_PLACE_ID))));
+//                myPlace.setEmailAddress(result.getString(result.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
+//                myPlace.setHeader(result.getString(result.getColumnIndex(COLUMN_HEADER)));
+//                myPlace.setDetail(result.getString(result.getColumnIndex(COLUMN_DETAIL)));
+//                myPlace.setCountry(result.getString(result.getColumnIndex(COLUMN_COUNTRY)));
+//                myPlace.setImage(result.getString(result.getColumnIndex(COLUMN_IMAGE)));
+//                myPlace.setGoogleDirection(result.getString(result.getColumnIndex(COLUMN_GOOGLE_DIRECTION)));
+//                myPlace.setDateCreated(result.getString(result.getColumnIndex(COLUMN_DATE_CREATED)));
+//                myPlace.setShared(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_SHARED))));
+//            }
+//        }
+//        result.close();
+//        return myPlace;
+//    }
+//
+//    public Integer deleteAPlace(int placeId) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        return db.delete(TABLE_PLACE, COLUMN_PLACE_ID + " = ?", new String[]{String.valueOf(placeId)});
+//    }
+
+

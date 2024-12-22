@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="@string/scroll_view_of_all_available_places"
+    android:fillViewport="true"
     tools:context=".Fragments.WishListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_fragment_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <include
+                android:id="@+id/includedLayout777"
+                layout="@layout/component_wishlist_item" />
+
+            <include
+                android:id="@+id/includedLayout888"
+                layout="@layout/component_wishlist_item" />
+
+            <include
+                android:id="@+id/includedLayout999"
+                layout="@layout/component_wishlist_item" />
+
+            <include
+                android:id="@+id/includedLayout666"
+                layout="@layout/component_wishlist_item" />
+
+            <include
+                android:id="@+id/includedLayout6661"
+                layout="@layout/component_wishlist_item" />
+
+            <include
+                android:id="@+id/includedLayout6662"
+                layout="@layout/component_wishlist_item" />
+
+            <include
+                android:id="@+id/includedLayout6663"
+                layout="@layout/component_wishlist_item" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

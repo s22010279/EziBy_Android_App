@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -59,7 +60,8 @@
         android:layout_below="@+id/txtCountry"
         android:layout_marginBottom="5dp"
         android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/semiRoundedImageView" />
+        android:src="@drawable/loading_image_light_grey_100"
+        app:shapeAppearanceOverlay="@style/cornerSize_5_percent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLoadImage"
@@ -107,7 +109,7 @@
         android:layout_above="@+id/btnSetGoogleLocation"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        app:shapeAppearanceOverlay="@style/roundedImageView">
+        app:shapeAppearanceOverlay="@style/cornerSize_50_percent">
 
         <TextView
             android:id="@+id/textViewMusicKey"

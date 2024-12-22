@@ -51,8 +51,8 @@
                 android:layout_below="@+id/txt_comment"
                 android:layout_marginBottom="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mountain1"
-                app:shapeAppearanceOverlay="@style/semiRoundedImageView" />
+                android:src="@drawable/loading_image_light_grey_100"
+                app:shapeAppearanceOverlay="@style/cornerSize_5_percent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtCreatedBy"

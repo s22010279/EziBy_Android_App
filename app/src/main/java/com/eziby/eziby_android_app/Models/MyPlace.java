@@ -1,7 +1,10 @@
 package com.eziby.eziby_android_app.Models;
 
 public class MyPlace {
-    private int placeId;
+    // Default constructor
+    public MyPlace() {
+
+    } private int placeId;
     private String emailAddress;
     private String header;
     private String detail;
@@ -11,9 +14,6 @@ public class MyPlace {
     private String dateCreated;
     private int shared;
 
-    public MyPlace() {
-
-    }
 
     public int getPlaceId() {
         return placeId;

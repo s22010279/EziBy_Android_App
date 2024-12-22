@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="@string/scroll_view_of_all_available_places"
+    android:fillViewport="true"
     tools:context=".Fragments.ShoppingCartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:id="@+id/scroll_view_shopping_cart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-260dp">
 
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/linear_layout_fragment_shopping_cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/shopping_cart_item1"
+                layout="@layout/component_shopping_cart_item" />
+
+            <include
+                android:id="@+id/shopping_cart_item2"
+                layout="@layout/component_shopping_cart_item" />
+
+            <include
+                android:id="@+id/shopping_cart_item3"
+                layout="@layout/component_shopping_cart_item" />
+
+            <include
+                android:id="@+id/shopping_cart_item4"
+                layout="@layout/component_shopping_cart_item" />
+
+            <include
+                android:id="@+id/shopping_cart_item5"
+                layout="@layout/component_shopping_cart_item" />
+
+            <include
+                android:id="@+id/shopping_cart_item6"
+                layout="@layout/component_shopping_cart_item" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

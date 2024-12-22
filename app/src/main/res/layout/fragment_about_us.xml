@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/image_background_about"
-    tools:context=".fragments.AboutUsFragment">
+    tools:context=".Fragments.AboutUsFragment">
 
 
     <RelativeLayout
@@ -80,7 +80,7 @@
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/image_wanderlust_full"
+        android:src="@drawable/loading_image_light_grey_100"
         android:thicknessRatio="2.0"
         android:useLevel="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -89,6 +89,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.037"
-        app:shapeAppearanceOverlay="@style/roundedImageView"
+        app:shapeAppearanceOverlay="@style/cornerSize_50_percent"
         app:strokeWidth="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
