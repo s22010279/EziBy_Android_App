@@ -128,14 +128,14 @@
                 <TextView
                     android:id="@+id/product_description"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="40dp"
                     android:text="அரிசி மாவு\n250 grm"
                     android:autoSizeMaxTextSize="14sp"
                     android:autoSizeMinTextSize="12sp"
                     android:autoSizeStepGranularity="1sp"
                     android:autoSizeTextType="uniform"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:textColor="#808080"
                     android:textSize="14sp" />
 

@@ -95,4 +95,5 @@
     <string name="text_category">Category</string>
     <string name="description_image_of_category">Image of Category</string>
     <string name="description_image_of_a_brand">Image of a Brand</string>
+    <string name="text_most_viewed">Most Viewed</string>
 </resources>

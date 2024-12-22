@@ -34,15 +34,19 @@ public class HomeFragment extends Fragment {
         ViewPager2 viewPagerCarousel = view.findViewById(R.id.viewPagerCarousel);
 
         List<CarouselImage> carouselImages;
-        List<Category> categories;
-        List<Brand> brands;
-        List<Item> items;
+        List<Category> categoryList;
+        List<Brand> brandList;
+        List<Item> newArrivalItemList;
+        List<Item> trendingItemList;
+        List<Item> mostViewedItemList;
 
         try (DbHelper dbHelper = new DbHelper(view.getContext())) {
             carouselImages = dbHelper.getCarouselImages();
-            categories = dbHelper.getCategories();
-            brands = dbHelper.getBrands();
-            items = dbHelper.getItems();
+            categoryList = dbHelper.getCategories();
+            brandList = dbHelper.getBrands();
+            newArrivalItemList = dbHelper.getItems();
+            trendingItemList = dbHelper.getItems();
+            mostViewedItemList = dbHelper.getItems();
         }
 
         CarouselImagesAdapter adapter = new CarouselImagesAdapter(this.getContext(), carouselImages);
@@ -54,18 +58,18 @@ public class HomeFragment extends Fragment {
         // Set up RecyclerView - Category
         RecyclerView recyclerViewCategory = view.findViewById(R.id.recycler_view_category);
         recyclerViewCategory.setLayoutManager(new GridLayoutManager(this.getContext(), 2)); // 3 columns
-        recyclerViewCategory.setAdapter(new CategoryAdapter(this.getContext(), categories));
+        recyclerViewCategory.setAdapter(new CategoryAdapter(this.getContext(), categoryList));
 
         // Set up RecyclerView - Brand
         RecyclerView recyclerViewBrand = view.findViewById(R.id.recycler_view_brand);
         recyclerViewBrand.setLayoutManager(new GridLayoutManager(this.getContext(), 3)); // 4 columns
-        recyclerViewBrand.setAdapter(new BrandAdapter(this.getContext(), brands));
+        recyclerViewBrand.setAdapter(new BrandAdapter(this.getContext(), brandList));
 
-        // Set up RecyclerView - Items
+        // Set up RecyclerView - New Arrivals
         RecyclerView recyclerViewItem = view.findViewById(R.id.recycler_view_new_arrivals);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewItem.setLayoutManager(layoutManager);
-        recyclerViewItem.setAdapter(new ItemAdapter(this.getContext(), items));
+        recyclerViewItem.setAdapter(new ItemAdapter(this.getContext(), newArrivalItemList));
 
         return view;
     }

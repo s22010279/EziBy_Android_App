@@ -406,6 +406,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 item.setItemId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_ITEM_ID))));
                 item.setItemImage1(result.getString(result.getColumnIndex(COLUMN_ITEM_IMAGE_1)));
                 item.setItemName(result.getString(result.getColumnIndex(COLUMN_ITEM_NAME)));
+                item.setSpecification(result.getString(result.getColumnIndex(COLUMN_SPECIFICATION)));
                 item.setActive(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_ACTIVE))));
                 item.setDeleted(Boolean.parseBoolean(result.getString(result.getColumnIndex(COLUMN_DELETED))));
                 item.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
