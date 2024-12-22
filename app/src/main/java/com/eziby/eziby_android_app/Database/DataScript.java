@@ -140,4 +140,36 @@ public class DataScript {
             "(19, 'Coconut Oil Heathe', '**The first high-quality coconut oil to be produced in our areaoconut oil has many nutrients that can contribute to your health and to a good diet. Its full of fatty acids that your body needs and may help improve cognitive function, metabolism, and hair and skin health', '1900', '750', '0000019_1_ACPUEPUM2GG.jpg', '', '', 17, 2, 20, 0, 1, 0, 15, 10, 0, 0, 5, 1, 1, 0, 0, 0, 0, 74, 0.00, 1, 0, '2024-01-01')," +
             "(20, 'Sunsilk Shampoo Soft Smooth', 'Its just a good shampoo for cleaning your hair and it has a nice scent to it. It lathers up nicely so you get a deep clean. I have used thie sunsilk long and strong range for quite some time now. The range has a shampoo and conditioner, and comes in a black and purple sleek bottle in a range of sizes', '4792081031566', '80', '0000020_1_1PR0EPUM2GG.jpg', '', '', 14, 5, 10, 0, 1, 0, 15, 10, 0, 0, 999, 1, 1, 0, 0, 0, 0, 9, 0.00, 1, 0, '2024-01-01')," +
             "(21, 'Tikiri Marie', 'A smooth golden milk biscuit with subtle sweetness and a distinct crisp texture, baked according to a traditional recipe.', '8888101280208', '80', '0000021_1_C0J2EPUM2GG.png', '', '', 15, 11, 21, 0, 2, 0, 15, 10, 0, 0, 5, 1, 1, 0, 0, 0, 0, 79, 0.00, 1, 0, '2024-01-01');";
+
+
+    public static final String INSERT_DATA_CLIENTS = "INSERT INTO Clients (\n" +
+            " ClientId\n" +
+            ",FullName\n" +
+            ",PhoneNumber\n" +
+            ",PhoneVerified\n" +
+            ",EmailAddress\n" +
+            ",EmailVerified\n" +
+            ",Suspended\n" +
+            ",SuspendedReason\n" +
+            ",SubscribedForNewsLetters\n" +
+            ",DateCreated\n" +
+            ",DateLastLogged\n" +
+            ",IsGuestMode\n" +
+            ",GuestId\n" +
+            ",UpdatedDate)\n" +
+            "VALUES\n" +
+            "(4, 'Mohamed Anushath'   , '+94777701979', 0, 'hamzaanushath@gmail.com',     1, 0, 'No Reason', 0, '2022-05-19', '2022-10-22', 0, 'Guest Id', '2024-01-01'),\t\n" +
+            "(6, 'Ahamed Siras'       , '+97470066846', 0, 'saji.logistics@yahoo.com',    0, 0, 'No Reason', 0, '2022-04-08', '2022-05-05', 0, 'Guest Id', '2024-01-01'),\t\n" +
+            "(8, 'Jariya Ahamed lebbe', '+94765671894', 0, 'ahamedlebbejariya@gmail.com', 1, 0, 'No Reason', 0, '2022-06-02', '2022-09-07', 0, 'Guest Id', '2024-01-01'),\t\n" +
+            "(9, 'AL niyas'           , '+94750345657', 0, 'alniyas8425@gmail.com',       0, 0, 'No Reason', 0, '2022-06-08', '2022-06-27', 0, 'Guest Id', '2024-01-01');";
+
+
+    // public static final String INSERT_DATA_CLIENTS1 ="";
+    // public static final String INSERT_DATA_CLIENTS2 ="";
+    // public static final String INSERT_DATA_CLIENTS3 ="";
+    // public static final String INSERT_DATA_CLIENTS4 ="";
+    // public static final String INSERT_DATA_CLIENTS5 ="";
+    // public static final String INSERT_DATA_CLIENTS6 ="";
+    // public static final String INSERT_DATA_CLIENTS7 ="";
 }
+
