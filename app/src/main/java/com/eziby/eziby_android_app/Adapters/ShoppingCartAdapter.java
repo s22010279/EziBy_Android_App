@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eziby.eziby_android_app.Classes.EziByValues;
@@ -95,16 +96,33 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             }
         });
 
-        holder.delete_button.setOnClickListener(v -> {
-            try (DbHelper dbHelper = new DbHelper(context)) {
-                dbHelper.deleteShoppingCart(itemArray.get(position).getShoppingCartId());
-                // Remove the item from the list
-                itemArray.remove(position);
-                // Notify the adapter about the removed item
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, itemArray.size());
-            }
-        });
+        holder.delete_button.setOnClickListener(v -> new AlertDialog.Builder(context)
+                .setTitle("Delete")
+                .setMessage("Remove Item?")
+                .setIcon(android.R.drawable.ic_delete)
+                .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> {
+                    try (DbHelper dbHelper = new DbHelper(context)) {
+                        dbHelper.deleteShoppingCart(itemArray.get(position).getShoppingCartId());
+                        // Remove the item from the list
+                        itemArray.remove(position);
+                        // Notify the adapter about the removed item
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, itemArray.size());
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show());
+
+
+//        holder.delete_button.setOnClickListener(v -> {
+//            try (DbHelper dbHelper = new DbHelper(context)) {
+//                dbHelper.deleteShoppingCart(itemArray.get(position).getShoppingCartId());
+//                // Remove the item from the list
+//                itemArray.remove(position);
+//                // Notify the adapter about the removed item
+//                notifyItemRemoved(position);
+//                notifyItemRangeChanged(position, itemArray.size());
+//            }
+//        });
 
         holder.favorite_button.setOnClickListener(v -> {
 
