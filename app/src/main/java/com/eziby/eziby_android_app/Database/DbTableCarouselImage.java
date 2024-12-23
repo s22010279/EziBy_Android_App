@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.CarouselImage;
+
 public class DbTableCarouselImage {
     public static final String TABLE_CAROUSEL_IMAGE = "CarouselImage";
 
@@ -20,4 +25,19 @@ public class DbTableCarouselImage {
             DbFieldsCommon.COLUMN_DELETED + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates can be stored as TEXT in ISO 8601 format (YYYY-MM-DD HH:MM:SS)
             ");";
+
+    @SuppressLint("Range")
+    public static CarouselImage fetchData(Cursor result) {
+        CarouselImage carouselImage = new CarouselImage();
+        carouselImage.setCarouselId(Integer.parseInt(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_ID))));
+        carouselImage.setCarouselDetails(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_DETAILS)));
+        carouselImage.setCarouselImageName(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_IMAGE_NAME)));
+        carouselImage.setCarouselLink(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_LINK)));
+        carouselImage.setCarouselType(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_TYPE)));
+        carouselImage.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_DISPLAY_ORDER))));
+        carouselImage.setActive(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_ACTIVE)) == 1);
+        carouselImage.setDeleted(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_DELETED)) == 1);
+        carouselImage.setUpdatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UPDATED_DATE)));
+        return carouselImage;
+    }
 }

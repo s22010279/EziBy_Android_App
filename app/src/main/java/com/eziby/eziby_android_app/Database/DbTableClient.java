@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.Client;
+
 public class DbTableClient {
     public static final String TABLE_CLIENT = "Client";
 
@@ -31,4 +36,26 @@ public class DbTableClient {
             COLUMN_DATE_LAST_LOGGED + " TEXT NOT NULL, " +
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
+
+    @SuppressLint("Range")
+    public static Client fetchData(Cursor result) {
+        Client client = new Client();
+        client.setClientId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CLIENT_ID))));
+
+        client.setEmailAddress(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_EMAIL_ADDRESS)));
+        client.setGuestId(result.getString(result.getColumnIndex(DbTableClient.COLUMN_GUEST_ID)));
+        client.setFullName(result.getString(result.getColumnIndex(DbTableClient.COLUMN_FULL_NAME)));
+        client.setPhoneNumber(result.getString(result.getColumnIndex(DbTableClient.COLUMN_PHONE_NUMBER)));
+
+        client.setGuestMode(result.getInt(result.getColumnIndex(DbTableClient.COLUMN_IS_GUEST_MODE)) == 1);
+        client.setEmailVerified(result.getInt(result.getColumnIndex(DbTableClient.COLUMN_EMAIL_VERIFIED)) == 1);
+        client.setSubscribedForNewsLetters(result.getInt(result.getColumnIndex(DbTableClient.COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS)) == 1);
+        client.setSuspended(result.getInt(result.getColumnIndex(DbTableClient.COLUMN_SUSPENDED)) == 1);
+
+        client.setSuspendedReason(result.getString(result.getColumnIndex(DbTableClient.COLUMN_SUSPENDED_REASON)));
+        client.setDateCreated(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CREATED_DATE)));
+        client.setDateLastLogged(result.getString(result.getColumnIndex(DbTableClient.COLUMN_DATE_LAST_LOGGED)));
+        client.setUpdatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UPDATED_DATE)));
+        return client;
+    }
 }

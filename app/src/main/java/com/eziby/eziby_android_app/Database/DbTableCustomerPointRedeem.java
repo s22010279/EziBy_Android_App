@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.CustomerPointRedeem;
+
 public class DbTableCustomerPointRedeem {
     public static final String TABLE_CUSTOMER_POINT_REDEEM = "CustomerPointRedeem";
 
@@ -15,5 +20,10 @@ public class DbTableCustomerPointRedeem {
             COLUMN_REDEEMED_DATE + " TEXT NOT NULL, " +
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
+
+    @SuppressLint("Range")
+    public static CustomerPointRedeem fetchData(Cursor result) {
+        return null;
+    }
 
 }

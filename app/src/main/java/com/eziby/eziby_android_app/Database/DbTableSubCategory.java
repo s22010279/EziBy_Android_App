@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.SubCategory;
+
 public class DbTableSubCategory {
     public static final String TABLE_SUB_CATEGORY = "SubCategory";
 
@@ -17,4 +22,9 @@ public class DbTableSubCategory {
             DbFieldsCommon.COLUMN_DELETED + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
+
+    @SuppressLint("Range")
+    public static SubCategory fetchData(Cursor result) {
+        return null;
+    }
 }

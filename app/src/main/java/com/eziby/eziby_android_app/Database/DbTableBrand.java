@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.Brand;
+
 public class DbTableBrand {
     public static final String TABLE_BRAND = "Brand";
 
@@ -15,4 +20,19 @@ public class DbTableBrand {
             DbFieldsCommon.COLUMN_DELETED + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" + // Dates are typically stored as TEXT in ISO 8601 format
             ");";
+
+    @SuppressLint("Range")
+    public static Brand fetchData(Cursor result) {
+        Brand brand = new Brand();
+        brand.setBrandId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_BRAND_ID))));
+        brand.setBrandName(result.getString(result.getColumnIndex(DbTableBrand.COLUMN_BRAND_NAME)));
+        brand.setBrandImage(result.getString(result.getColumnIndex(DbTableBrand.COLUMN_BRAND_IMAGE)));
+        brand.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_DISPLAY_ORDER))));
+
+        brand.setActive(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_ACTIVE)) == 1);
+        brand.setDeleted(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_DELETED)) == 1);
+
+        brand.setUpdatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UPDATED_DATE)));
+        return brand;
+    }
 }

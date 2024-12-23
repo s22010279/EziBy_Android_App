@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.Category;
+
 public class DbTableCategory {
     public static final String TABLE_CATEGORY = "Category";
 
@@ -20,4 +25,18 @@ public class DbTableCategory {
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT " +
             "); ";
 
+    @SuppressLint("Range")
+    public static Category fetchData(Cursor result) {
+        Category category = new Category();
+        category.setCategoryId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CATEGORY_ID))));
+        category.setCategoryName(result.getString(result.getColumnIndex(DbTableCategory.COLUMN_CATEGORY_NAME)));
+        category.setCategoryImage(result.getString(result.getColumnIndex(DbTableCategory.COLUMN_CATEGORY_IMAGE)));
+        category.setCategoryHeaderImage(result.getString(result.getColumnIndex(DbTableCategory.COLUMN_CATEGORY_HEADER_IMAGE)));
+        category.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_DISPLAY_ORDER))));
+        category.setMaxDiscount(Long.parseLong(result.getString(result.getColumnIndex(DbTableCategory.COLUMN_MAX_DISCOUNT))));
+        category.setActive(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_ACTIVE)) == 1);
+        category.setDeleted(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_DELETED)) == 1);
+        category.setUpdatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UPDATED_DATE)));
+        return category;
+    }
 }

@@ -17,7 +17,6 @@ import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Models.Setup;
 import com.eziby.eziby_android_app.Models.ShoppingCartViewModel;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -97,17 +96,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                CarouselImage carouselImage = new CarouselImage();
-                carouselImage.setCarouselId(Integer.parseInt(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_ID))));
-                carouselImage.setCarouselDetails(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_DETAILS)));
-                carouselImage.setCarouselImageName(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_IMAGE_NAME)));
-                carouselImage.setCarouselLink(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_LINK)));
-                carouselImage.setCarouselType(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_TYPE)));
-                carouselImage.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_DISPLAY_ORDER))));
-                carouselImage.setActive(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_ACTIVE)) == 1);
-                carouselImage.setDeleted(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_DELETED)) == 1);
-                carouselImage.setUpdatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UPDATED_DATE)));
-                carouselImages.add(carouselImage);
+                carouselImages.add(DbTableCarouselImage.fetchData(result));
             }
         }
         result.close();
@@ -122,40 +111,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                setup.setSetupId(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_SETUP_ID))));
-                setup.setBranchName(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_NAME)));
-                setup.setBranchDescription(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_DESCRIPTION)));
-                setup.setBranchAddress(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_ADDRESS)));
-                setup.setBranchLandPhone(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_LAND_PHONE)));
-                setup.setBranchMobile(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_MOBILE)));
-                setup.setCurrencyMark(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CURRENCY_MARK)));
-                setup.setCurrencyDecimals(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CURRENCY_DECIMALS))));
-                setup.setInitialDeliveryDays(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_INITIAL_DELIVERY_DAYS))));
-                setup.setMaximumDeliveryDays(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_MAXIMUM_DELIVERY_DAYS))));
-                setup.setAndroidOnGoingMaintenance(result.getInt(result.getColumnIndex(DbTableSetup.COLUMN_ANDROID_ONGOING_MAINTENANCE)) == 1);
-                setup.setAndroidForceUpdate(result.getInt(result.getColumnIndex(DbTableSetup.COLUMN_ANDROID_FORCE_UPDATE)) == 1);
-                setup.setAndroidBuildNumber(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_ANDROID_BUILD_NUMBER))));
-                setup.setMainAPIUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_MAIN_API_URI)));
-                setup.setMainSlideShowImagesUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_MAIN_SLIDESHOW_IMAGES_URI)));
-                setup.setCategoryImagesUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CATEGORY_IMAGES_URI)));
-                setup.setCategoryHeaderUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CATEGORY_HEADER_URI)));
-                setup.setSubCategoryImagesUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_SUBCATEGORY_IMAGES_URI)));
-                setup.setItemsImageUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_ITEMS_IMAGE_URI)));
-                setup.setBrandImageUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRAND_IMAGE_URI)));
-                setup.setSocialMediaUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_SOCIAL_MEDIA_URI)));
-                setup.setAdvertisementImageUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_ADVERTISEMENT_IMAGE_URI)));
-                setup.setOtherImageUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_OTHER_IMAGE_URI)));
-                setup.setTermsAndConditionsUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_TERMS_AND_CONDITIONS_URI)));
-                setup.setPrivacyPolicyUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_PRIVACY_POLICY_URI)));
-                setup.setOurServicesUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_OUR_SERVICES_URI)));
-                setup.setContactUsUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CONTACT_US_URI)));
-                setup.setAboutUsUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_ABOUT_US_URI)));
-                setup.setServerMappedImagePath(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_SERVER_MAPPED_IMAGE_PATH)));
-                setup.setCrystalReportPath(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CRYSTAL_REPORT_PATH)));
-                setup.setNewOrderRefreshInterval(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_NEW_ORDER_REFRESH_INTERVAL))));
-                setup.setAllowDiscountInPOS(result.getInt(result.getColumnIndex(DbTableSetup.COLUMN_ALLOW_DISCOUNT_IN_POS)) == 1);
-                setup.setActive(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_ACTIVE)) == 1);
-
+                setup = DbTableSetup.fetchData(result);
             }
         }
         result.close();
@@ -173,17 +129,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                Category category = new Category();
-                category.setCategoryId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CATEGORY_ID))));
-                category.setCategoryName(result.getString(result.getColumnIndex(DbTableCategory.COLUMN_CATEGORY_NAME)));
-                category.setCategoryImage(result.getString(result.getColumnIndex(DbTableCategory.COLUMN_CATEGORY_IMAGE)));
-                category.setCategoryHeaderImage(result.getString(result.getColumnIndex(DbTableCategory.COLUMN_CATEGORY_HEADER_IMAGE)));
-                category.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_DISPLAY_ORDER))));
-                category.setMaxDiscount(Long.parseLong(result.getString(result.getColumnIndex(DbTableCategory.COLUMN_MAX_DISCOUNT))));
-                category.setActive(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_ACTIVE)) == 1);
-                category.setDeleted(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_DELETED)) == 1);
-                category.setUpdatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UPDATED_DATE)));
-                categories.add(category);
+                categories.add(DbTableCategory.fetchData(result));
             }
         }
         result.close();
@@ -223,18 +169,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                ShoppingCartViewModel shoppingCartViewModel = new ShoppingCartViewModel();
-                shoppingCartViewModel.setShoppingCartId(Integer.parseInt(result.getString(result.getColumnIndex(DbTableShoppingCart.COLUMN_SHOPPING_CART_ID))));
-                shoppingCartViewModel.setClientId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CLIENT_ID))));
-                shoppingCartViewModel.setItemId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_ITEM_ID))));
-                shoppingCartViewModel.setItemName(result.getString(result.getColumnIndex(DbTableItem.COLUMN_ITEM_NAME)));
-                shoppingCartViewModel.setItemImage1(result.getString(result.getColumnIndex(DbTableItem.COLUMN_ITEM_IMAGE_1)));
-                shoppingCartViewModel.setSellingPrice(new BigDecimal(result.getString(result.getColumnIndex(DbTableItem.COLUMN_SELLING_PRICE))));
-                shoppingCartViewModel.setQuantity(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_QUANTITY))));
-                shoppingCartViewModel.setCreatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CREATED_DATE)));
-                shoppingCartViewModel.setDeleted(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_DELETED)) == 1);
-                shoppingCartViewModel.setUpdatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UPDATED_DATE)));
-                shoppingCartViewModelList.add(shoppingCartViewModel);
+                shoppingCartViewModelList.add(DbTableShoppingCart.fetchData(result));
             }
         }
         result.close();
@@ -261,47 +196,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                Item item = new Item();
-                item.setItemId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_ITEM_ID))));
-                item.setItemName(result.getString(result.getColumnIndex(DbTableItem.COLUMN_ITEM_NAME)));
-                item.setItemImage1(result.getString(result.getColumnIndex(DbTableItem.COLUMN_ITEM_IMAGE_1)));
-                item.setItemImage2(result.getString(result.getColumnIndex(DbTableItem.COLUMN_ITEM_IMAGE_2)));
-                item.setItemImage3(result.getString(result.getColumnIndex(DbTableItem.COLUMN_ITEM_IMAGE_3)));
-                item.setSpecification(result.getString(result.getColumnIndex(DbTableItem.COLUMN_SPECIFICATION)));
-                item.setSkuBarcode(result.getString(result.getColumnIndex(DbTableItem.COLUMN_SKU_BARCODE)));
-                item.setDimension(result.getString(result.getColumnIndex(DbTableItem.COLUMN_DIMENSION)));
-
-                item.setStopReOrder(result.getInt(result.getColumnIndex(DbTableItem.COLUMN_STOP_REORDER)) == 1);
-                item.setTrending(result.getInt(result.getColumnIndex(DbTableItem.COLUMN_IS_TRENDING)) == 1);
-                item.setNewArrival(result.getInt(result.getColumnIndex(DbTableItem.COLUMN_IS_NEW_ARRIVAL)) == 1);
-                item.setExpress(result.getInt(result.getColumnIndex(DbTableItem.COLUMN_IS_EXPRESS)) == 1);
-                item.setAllowFractionInQty(result.getInt(result.getColumnIndex(DbTableItem.COLUMN_ALLOW_FRACTION_IN_QTY)) == 1);
-                item.setNonExchangeable(result.getInt(result.getColumnIndex(DbTableItem.COLUMN_NON_EXCHANGEABLE)) == 1);
-                item.setAvailableInMobileApp(result.getInt(result.getColumnIndex(DbTableItem.COLUMN_IS_AVAILABLE_IN_MOBILE_APP)) == 1);
-                item.setAvailableInPOS(result.getInt(result.getColumnIndex(DbTableItem.COLUMN_IS_AVAILABLE_IN_POS)) == 1);
-                item.setActive(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_ACTIVE)) == 1);
-                item.setDeleted(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_DELETED)) == 1);
-
-                item.setUpdatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UPDATED_DATE)));
-
-                item.setQtyOnHand(Integer.parseInt(result.getString(result.getColumnIndex(DbTableItem.COLUMN_QTY_ON_HAND))));
-                item.setBrandId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_BRAND_ID))));
-                item.setCategoryId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CATEGORY_ID))));
-                item.setSubCategoryId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_SUB_CATEGORY_ID))));
-                item.setDeliveryTimeId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_DELIVERY_TIME_ID))));
-                item.setUomId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UOM_ID))));
-                item.setReOrderLevel(Integer.parseInt(result.getString(result.getColumnIndex(DbTableItem.COLUMN_REORDER_LEVEL))));
-                item.setReOrderQty(Integer.parseInt(result.getString(result.getColumnIndex(DbTableItem.COLUMN_REORDER_QTY))));
-                item.setOneTimePurchasableQty(Integer.parseInt(result.getString(result.getColumnIndex(DbTableItem.COLUMN_ONE_TIME_PURCHASABLE_QTY))));
-                item.setTotalSold(Integer.parseInt(result.getString(result.getColumnIndex(DbTableItem.COLUMN_TOTAL_SOLD))));
-                item.setTotalClicked(Integer.parseInt(result.getString(result.getColumnIndex(DbTableItem.COLUMN_TOTAL_CLICKED))));
-
-                item.setMrp(new BigDecimal(result.getString(result.getColumnIndex(DbTableItem.COLUMN_MRP))));
-                item.setSellingPrice(new BigDecimal(result.getString(result.getColumnIndex(DbTableItem.COLUMN_SELLING_PRICE))));
-                item.setMobDiscountPercentage(new BigDecimal(result.getString(result.getColumnIndex(DbTableItem.COLUMN_MOB_DISCOUNT_PERCENTAGE))));
-                item.setAverageRating(new BigDecimal(result.getString(result.getColumnIndex(DbTableItem.COLUMN_AVERAGE_RATING))));
-
-                items.add(item);
+                items.add(DbTableItem.fetchData(result));
             }
         }
         result.close();
@@ -319,17 +214,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                Brand brand = new Brand();
-                brand.setBrandId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_BRAND_ID))));
-                brand.setBrandName(result.getString(result.getColumnIndex(DbTableBrand.COLUMN_BRAND_NAME)));
-                brand.setBrandImage(result.getString(result.getColumnIndex(DbTableBrand.COLUMN_BRAND_IMAGE)));
-                brand.setDisplayOrder(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_DISPLAY_ORDER))));
-
-                brand.setActive(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_ACTIVE)) == 1);
-                brand.setDeleted(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_DELETED)) == 1);
-
-                brand.setUpdatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UPDATED_DATE)));
-                brands.add(brand);
+                brands.add(DbTableBrand.fetchData(result));
             }
         }
         result.close();
@@ -344,24 +229,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                Client client = new Client();
-                client.setClientId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CLIENT_ID))));
-
-                client.setEmailAddress(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_EMAIL_ADDRESS)));
-                client.setGuestId(result.getString(result.getColumnIndex(DbTableClient.COLUMN_GUEST_ID)));
-                client.setFullName(result.getString(result.getColumnIndex(DbTableClient.COLUMN_FULL_NAME)));
-                client.setPhoneNumber(result.getString(result.getColumnIndex(DbTableClient.COLUMN_PHONE_NUMBER)));
-
-                client.setGuestMode(result.getInt(result.getColumnIndex(DbTableClient.COLUMN_IS_GUEST_MODE)) == 1);
-                client.setEmailVerified(result.getInt(result.getColumnIndex(DbTableClient.COLUMN_EMAIL_VERIFIED)) == 1);
-                client.setSubscribedForNewsLetters(result.getInt(result.getColumnIndex(DbTableClient.COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS)) == 1);
-                client.setSuspended(result.getInt(result.getColumnIndex(DbTableClient.COLUMN_SUSPENDED)) == 1);
-
-                client.setSuspendedReason(result.getString(result.getColumnIndex(DbTableClient.COLUMN_SUSPENDED_REASON)));
-                client.setDateCreated(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CREATED_DATE)));
-                client.setDateLastLogged(result.getString(result.getColumnIndex(DbTableClient.COLUMN_DATE_LAST_LOGGED)));
-                client.setUpdatedDate(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_UPDATED_DATE)));
-                clients.add(client);
+                clients.add(DbTableClient.fetchData(result));
             }
         }
         result.close();

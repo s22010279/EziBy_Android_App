@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.ViewedItem;
+
 public class DbTableViewedItem {
     public static final String TABLE_VIEWED_ITEM = "ViewedItem";
 
@@ -18,5 +23,8 @@ public class DbTableViewedItem {
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
 
-
+    @SuppressLint("Range")
+    public static ViewedItem fetchData(Cursor result) {
+        return null;
+    }
 }

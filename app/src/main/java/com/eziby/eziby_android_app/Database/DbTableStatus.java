@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.Status;
+
 public class DbTableStatus {
     public static final String TABLE_STATUS = "Status";
 
@@ -13,4 +18,9 @@ public class DbTableStatus {
             DbFieldsCommon.COLUMN_DELETED + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
+
+    @SuppressLint("Range")
+    public static Status fetchData(Cursor result) {
+        return null;
+    }
 }

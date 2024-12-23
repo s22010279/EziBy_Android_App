@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.DeliveryTime;
+
 public class DbTableDeliveryTime {
     public static final String TABLE_DELIVERY_TIME = "DeliveryTime";
 
@@ -14,4 +19,9 @@ public class DbTableDeliveryTime {
             DbFieldsCommon.COLUMN_DELETED + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
+
+    @SuppressLint("Range")
+    public static DeliveryTime fetchData(Cursor result) {
+        return null;
+    }
 }

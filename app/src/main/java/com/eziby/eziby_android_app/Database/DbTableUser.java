@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.google.firebase.firestore.auth.User;
+
 public class DbTableUser {
     public static final String TABLE_USER = "User";
 
@@ -26,5 +31,10 @@ public class DbTableUser {
             COLUMN_MEMBER_SINCE + " TEXT, " +
             COLUMN_RATINGS + " TEXT " +
             "); ";
+
+    @SuppressLint("Range")
+    public static User fetchData(Cursor result) {
+        return null;
+    }
 
 }

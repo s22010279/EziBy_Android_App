@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.UOM;
+
 public class DbTableUOM {
     public static final String TABLE_UOM = "UOM";
 
@@ -16,4 +21,8 @@ public class DbTableUOM {
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
 
+    @SuppressLint("Range")
+    public static UOM fetchData(Cursor result) {
+        return null;
+    }
 }

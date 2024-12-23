@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.DeliveryCity;
+
 public class DbTableDeliveryCity {
     public static final String TABLE_DELIVERY_CITY = "DeliveryCity";
 
@@ -18,4 +23,8 @@ public class DbTableDeliveryCity {
             DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
 
+    @SuppressLint("Range")
+    public static DeliveryCity fetchData(Cursor result) {
+        return null;
+    }
 }

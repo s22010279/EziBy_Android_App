@@ -1,5 +1,10 @@
 package com.eziby.eziby_android_app.Database;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+
+import com.eziby.eziby_android_app.Models.Setup;
+
 public class DbTableSetup {
     public static final String TABLE_SETUP = "Setup";
 
@@ -74,4 +79,42 @@ public class DbTableSetup {
             DbFieldsCommon.COLUMN_ACTIVE + " INTEGER NOT NULL DEFAULT 0" +
             ");";
 
+    @SuppressLint("Range")
+    public static Setup fetchData(Cursor result) {
+        Setup setup = new Setup();
+        setup.setSetupId(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_SETUP_ID))));
+        setup.setBranchName(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_NAME)));
+        setup.setBranchDescription(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_DESCRIPTION)));
+        setup.setBranchAddress(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_ADDRESS)));
+        setup.setBranchLandPhone(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_LAND_PHONE)));
+        setup.setBranchMobile(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_MOBILE)));
+        setup.setCurrencyMark(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CURRENCY_MARK)));
+        setup.setCurrencyDecimals(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CURRENCY_DECIMALS))));
+        setup.setInitialDeliveryDays(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_INITIAL_DELIVERY_DAYS))));
+        setup.setMaximumDeliveryDays(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_MAXIMUM_DELIVERY_DAYS))));
+        setup.setAndroidOnGoingMaintenance(result.getInt(result.getColumnIndex(DbTableSetup.COLUMN_ANDROID_ONGOING_MAINTENANCE)) == 1);
+        setup.setAndroidForceUpdate(result.getInt(result.getColumnIndex(DbTableSetup.COLUMN_ANDROID_FORCE_UPDATE)) == 1);
+        setup.setAndroidBuildNumber(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_ANDROID_BUILD_NUMBER))));
+        setup.setMainAPIUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_MAIN_API_URI)));
+        setup.setMainSlideShowImagesUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_MAIN_SLIDESHOW_IMAGES_URI)));
+        setup.setCategoryImagesUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CATEGORY_IMAGES_URI)));
+        setup.setCategoryHeaderUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CATEGORY_HEADER_URI)));
+        setup.setSubCategoryImagesUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_SUBCATEGORY_IMAGES_URI)));
+        setup.setItemsImageUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_ITEMS_IMAGE_URI)));
+        setup.setBrandImageUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRAND_IMAGE_URI)));
+        setup.setSocialMediaUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_SOCIAL_MEDIA_URI)));
+        setup.setAdvertisementImageUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_ADVERTISEMENT_IMAGE_URI)));
+        setup.setOtherImageUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_OTHER_IMAGE_URI)));
+        setup.setTermsAndConditionsUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_TERMS_AND_CONDITIONS_URI)));
+        setup.setPrivacyPolicyUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_PRIVACY_POLICY_URI)));
+        setup.setOurServicesUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_OUR_SERVICES_URI)));
+        setup.setContactUsUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CONTACT_US_URI)));
+        setup.setAboutUsUri(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_ABOUT_US_URI)));
+        setup.setServerMappedImagePath(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_SERVER_MAPPED_IMAGE_PATH)));
+        setup.setCrystalReportPath(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_CRYSTAL_REPORT_PATH)));
+        setup.setNewOrderRefreshInterval(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_NEW_ORDER_REFRESH_INTERVAL))));
+        setup.setAllowDiscountInPOS(result.getInt(result.getColumnIndex(DbTableSetup.COLUMN_ALLOW_DISCOUNT_IN_POS)) == 1);
+        setup.setActive(result.getInt(result.getColumnIndex(DbFieldsCommon.COLUMN_ACTIVE)) == 1);
+        return setup;
+    }
 }
