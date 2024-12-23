@@ -20,7 +20,8 @@ public class DbTableViewedItem {
             COLUMN_VIEWED_COUNT + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_CREATED_DATE + " TEXT NOT NULL, " +
             COLUMN_DATE_LAST_VIEWED + " TEXT NOT NULL, " +
-            DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL," +
+            "UNIQUE(" + DbFieldsCommon.COLUMN_CLIENT_ID + ", " + DbFieldsCommon.COLUMN_ITEM_ID + ")" +
             ");";
 
     @SuppressLint("Range")

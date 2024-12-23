@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:contentDescription="@string/scroll_view_of_all_available_places"
     android:fillViewport="true"
+    android:padding="4dp"
     tools:context=".Fragments.ShoppingCartFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -47,10 +48,8 @@
         style="@style/add_to_cart_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="true"
         android:text="@string/text_proceed_to_checkout"
         android:textAllCaps="false"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

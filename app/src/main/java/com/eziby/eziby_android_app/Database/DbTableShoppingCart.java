@@ -21,7 +21,8 @@ public class DbTableShoppingCart {
             DbFieldsCommon.COLUMN_QUANTITY + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_CREATED_DATE + " TEXT NOT NULL, " +
             DbFieldsCommon.COLUMN_DELETED + " INTEGER NOT NULL, " +
-            DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL, " +
+            "UNIQUE(" + DbFieldsCommon.COLUMN_CLIENT_ID + ", " + DbFieldsCommon.COLUMN_ITEM_ID + ")" +
             ");";
 
     @SuppressLint("Range")
