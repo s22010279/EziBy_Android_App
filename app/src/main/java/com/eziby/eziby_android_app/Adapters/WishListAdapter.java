@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eziby.eziby_android_app.Classes.EziByValues;
 import com.eziby.eziby_android_app.Database.DbHelper;
-import com.eziby.eziby_android_app.Models.ShoppingCartViewModel;
+import com.eziby.eziby_android_app.Models.WishListViewModel;
 import com.eziby.eziby_android_app.R;
 import com.squareup.picasso.Picasso;
 
@@ -22,16 +22,16 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
-public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapter.ImageViewHolder> {
+public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ImageViewHolder> {
     private final Context context;
     private final String mainUri;
-    private final List<ShoppingCartViewModel> itemArray;
+    private final List<WishListViewModel> itemArray;
     private final String currencyMark;
 
-    public ShoppingCartAdapter(Context context, List<ShoppingCartViewModel> itemArray) {
-        try (DbHelper setupNet = new DbHelper(context)) {
-            this.mainUri = setupNet.getASetup().getItemsImageUri();
-            this.currencyMark = setupNet.getASetup().getCurrencyMark();
+    public WishListAdapter(Context context, List<WishListViewModel> itemArray) {
+        try (DbHelper dbHelper = new DbHelper(context)) {
+            this.mainUri = dbHelper.getASetup().getItemsImageUri();
+            this.currencyMark = dbHelper.getASetup().getCurrencyMark();
         }
         this.itemArray = itemArray;
         this.context = context;
@@ -40,7 +40,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.component_shopping_cart_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.component_wishlist_item, parent, false);
         return new ImageViewHolder(view);
     }
 
@@ -49,7 +49,6 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         Uri imageUri = Uri.parse(this.mainUri + itemArray.get(position).getItemImage1());
         DecimalFormat decimalFormat = new DecimalFormat(EziByValues.patternCurrency);
         String _sellingPrice = this.currencyMark + " " + decimalFormat.format(itemArray.get(position).getSellingPrice());
-        int _quantity = itemArray.get(position).getQuantity();
         Picasso.get()
                 .load(imageUri) // Image URL
                 .placeholder(R.drawable.loading_image_light_grey_100) // Placeholder image while loading
@@ -58,46 +57,10 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
         holder.product_name.setText(Optional.ofNullable(itemArray.get(position).getItemName()).orElse(""));
         holder.product_price.setText(_sellingPrice);
-        holder.shopping_cart_quantity.setText(String.valueOf(_quantity));
-
-        if (itemArray.get(position).getQuantity() <= 1) {
-            holder.decrement_button.setEnabled(false);
-        } else {
-            holder.decrement_button.setEnabled(true);
-        }
-        holder.increment_button.setEnabled(true);
-
-        holder.increment_button.setOnClickListener(v -> {
-            holder.increment_button.setEnabled(false);
-            try (DbHelper dbHelper = new DbHelper(context)) {
-                dbHelper.increaseShoppingCart(itemArray.get(position).getItemId(), 1, 1);
-
-                // Update the item quantity in the local list
-                int currentQuantity = itemArray.get(position).getQuantity();
-                itemArray.get(position).setQuantity(currentQuantity + 1);
-
-                // Notify the adapter to update this specific item
-                notifyItemChanged(position);
-            }
-        });
-
-        holder.decrement_button.setOnClickListener(v -> {
-            holder.decrement_button.setEnabled(false);
-            try (DbHelper dbHelper = new DbHelper(context)) {
-                dbHelper.decreaseShoppingCart(itemArray.get(position).getItemId(), 1, 1);
-
-                // Update the item quantity in the local list
-                int currentQuantity = itemArray.get(position).getQuantity();
-                itemArray.get(position).setQuantity(currentQuantity - 1);
-
-                // Notify the adapter to update this specific item
-                notifyItemChanged(position);
-            }
-        });
 
         holder.delete_button.setOnClickListener(v -> {
             try (DbHelper dbHelper = new DbHelper(context)) {
-                dbHelper.deleteShoppingCart(itemArray.get(position).getShoppingCartId());
+                dbHelper.deleteWishList(itemArray.get(position).getWishListId());
                 // Remove the item from the list
                 itemArray.remove(position);
                 // Notify the adapter about the removed item
@@ -106,11 +69,10 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             }
         });
 
-        holder.favorite_button.setOnClickListener(v -> {
-
+        holder.add_to_shopping_cart_button.setOnClickListener(v -> {
             try (DbHelper dbHelper = new DbHelper(context)) {
-                dbHelper.insertWishList(itemArray.get(position).getItemId(), 1);
-                dbHelper.deleteShoppingCart(itemArray.get(position).getShoppingCartId());
+                dbHelper.increaseShoppingCart(itemArray.get(position).getItemId(), 1,1);
+                dbHelper.deleteWishList(itemArray.get(position).getWishListId());
                 // Remove the item from the list
                 itemArray.remove(position);
                 // Notify the adapter about the removed item
@@ -130,19 +92,16 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         ImageView product_image;
         TextView product_name;
         TextView product_price;
-        TextView shopping_cart_quantity;
-        Button increment_button, decrement_button, delete_button, favorite_button;
+        Button  delete_button, add_to_shopping_cart_button;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             product_image = itemView.findViewById(R.id.product_image);
             product_name = itemView.findViewById(R.id.product_name);
             product_price = itemView.findViewById(R.id.product_price);
-            shopping_cart_quantity = itemView.findViewById(R.id.shopping_cart_quantity);
-            increment_button = itemView.findViewById(R.id.increment_button);
-            decrement_button = itemView.findViewById(R.id.decrement_button);
+
             delete_button = itemView.findViewById(R.id.delete_button);
-            favorite_button = itemView.findViewById(R.id.favorite_button);
+            add_to_shopping_cart_button = itemView.findViewById(R.id.shopping_cart_button);
         }
     }
 }

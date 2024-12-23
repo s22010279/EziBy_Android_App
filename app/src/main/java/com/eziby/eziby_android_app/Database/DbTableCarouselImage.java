@@ -27,7 +27,7 @@ public class DbTableCarouselImage {
             ");";
 
     @SuppressLint("Range")
-    public static CarouselImage fetchData(Cursor result) {
+    public static CarouselImage readData(Cursor result) {
         CarouselImage carouselImage = new CarouselImage();
         carouselImage.setCarouselId(Integer.parseInt(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_ID))));
         carouselImage.setCarouselDetails(result.getString(result.getColumnIndex(DbTableCarouselImage.COLUMN_CAROUSEL_DETAILS)));

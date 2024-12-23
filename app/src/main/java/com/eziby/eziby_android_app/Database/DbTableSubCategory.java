@@ -24,7 +24,7 @@ public class DbTableSubCategory {
             ");";
 
     @SuppressLint("Range")
-    public static SubCategory fetchData(Cursor result) {
+    public static SubCategory readData(Cursor result) {
         return null;
     }
 }

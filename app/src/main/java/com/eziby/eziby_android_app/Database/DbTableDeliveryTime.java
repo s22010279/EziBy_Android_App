@@ -21,7 +21,7 @@ public class DbTableDeliveryTime {
             ");";
 
     @SuppressLint("Range")
-    public static DeliveryTime fetchData(Cursor result) {
+    public static DeliveryTime readData(Cursor result) {
         return null;
     }
 }

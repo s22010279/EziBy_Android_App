@@ -22,7 +22,7 @@ public class DbTableCustomerPointRedeem {
             ");";
 
     @SuppressLint("Range")
-    public static CustomerPointRedeem fetchData(Cursor result) {
+    public static CustomerPointRedeem readData(Cursor result) {
         return null;
     }
 

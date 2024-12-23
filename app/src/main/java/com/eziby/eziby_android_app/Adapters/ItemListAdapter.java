@@ -74,6 +74,12 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ImageV
             }
         });
 
+        holder.favorite_icon.setOnClickListener(v -> {
+
+            try (DbHelper dbHelper = new DbHelper(context)) {
+                dbHelper.insertWishList(itemArray.get(position).getItemId(), 1);
+            }
+        });
     }
 
 
@@ -84,7 +90,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ImageV
 
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageViewProduct;
+        ImageView imageViewProduct, favorite_icon;
         TextView textViewProductName;
         TextView textViewProductDescription;
         TextView textViewProductPrice;
@@ -94,6 +100,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ImageV
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewProduct = itemView.findViewById(R.id.product_image);
+            favorite_icon = itemView.findViewById(R.id.favorite_icon);
             textViewProductName = itemView.findViewById(R.id.product_name);
             textViewProductDescription = itemView.findViewById(R.id.product_description);
             textViewProductPrice = itemView.findViewById(R.id.product_price);

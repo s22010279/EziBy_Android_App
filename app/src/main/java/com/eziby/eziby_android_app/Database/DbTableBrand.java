@@ -22,7 +22,7 @@ public class DbTableBrand {
             ");";
 
     @SuppressLint("Range")
-    public static Brand fetchData(Cursor result) {
+    public static Brand readData(Cursor result) {
         Brand brand = new Brand();
         brand.setBrandId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_BRAND_ID))));
         brand.setBrandName(result.getString(result.getColumnIndex(DbTableBrand.COLUMN_BRAND_NAME)));

@@ -6,50 +6,40 @@
     android:layout_height="match_parent"
     android:contentDescription="@string/scroll_view_of_all_available_places"
     android:fillViewport="true"
+    android:padding="4dp"
     tools:context=".Fragments.WishListFragment">
 
 
-    <ScrollView
-        android:id="@+id/scrollView3"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_wish_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linear_layout_fragment_home"
+    <LinearLayout
+        android:id="@+id/linear_layout_no_item_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recycler_view_wish_list">
+
+        <ImageView
+            android:id="@+id/product_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="130dp"
+            android:contentDescription="@string/description_image_of_an_item"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty_box" />
 
-
-            <include
-                android:id="@+id/includedLayout777"
-                layout="@layout/component_wishlist_item" />
-
-            <include
-                android:id="@+id/includedLayout888"
-                layout="@layout/component_wishlist_item" />
-
-            <include
-                android:id="@+id/includedLayout999"
-                layout="@layout/component_wishlist_item" />
-
-            <include
-                android:id="@+id/includedLayout666"
-                layout="@layout/component_wishlist_item" />
-
-            <include
-                android:id="@+id/includedLayout6661"
-                layout="@layout/component_wishlist_item" />
-
-            <include
-                android:id="@+id/includedLayout6662"
-                layout="@layout/component_wishlist_item" />
-
-            <include
-                android:id="@+id/includedLayout6663"
-                layout="@layout/component_wishlist_item" />
-
-        </LinearLayout>
-
-    </ScrollView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/text_oops_empty_cart"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
