@@ -76,7 +76,7 @@ public class DbTableItem {
             ");";
 
     @SuppressLint("Range")
-    public static Item fetchData(Cursor result) {
+    public static Item readData(Cursor result) {
         Item item = new Item();
         item.setItemId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_ITEM_ID))));
         item.setItemName(result.getString(result.getColumnIndex(DbTableItem.COLUMN_ITEM_NAME)));

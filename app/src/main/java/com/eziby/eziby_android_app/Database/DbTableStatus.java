@@ -20,7 +20,7 @@ public class DbTableStatus {
             ");";
 
     @SuppressLint("Range")
-    public static Status fetchData(Cursor result) {
+    public static Status readData(Cursor result) {
         return null;
     }
 }

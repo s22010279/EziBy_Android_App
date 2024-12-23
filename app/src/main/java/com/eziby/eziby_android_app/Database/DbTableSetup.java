@@ -80,7 +80,7 @@ public class DbTableSetup {
             ");";
 
     @SuppressLint("Range")
-    public static Setup fetchData(Cursor result) {
+    public static Setup readData(Cursor result) {
         Setup setup = new Setup();
         setup.setSetupId(Integer.parseInt(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_SETUP_ID))));
         setup.setBranchName(result.getString(result.getColumnIndex(DbTableSetup.COLUMN_BRANCH_NAME)));

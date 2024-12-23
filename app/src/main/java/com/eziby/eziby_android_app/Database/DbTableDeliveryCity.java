@@ -24,7 +24,7 @@ public class DbTableDeliveryCity {
             ");";
 
     @SuppressLint("Range")
-    public static DeliveryCity fetchData(Cursor result) {
+    public static DeliveryCity readData(Cursor result) {
         return null;
     }
 }

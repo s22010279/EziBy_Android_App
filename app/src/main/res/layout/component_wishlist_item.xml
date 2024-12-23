@@ -17,7 +17,8 @@
             android:id="@+id/product_image"
             android:layout_width="150dp"
             android:layout_height="130dp"
-            android:contentDescription="Product Image"
+            android:contentDescription="@string/description_image_of_an_item"
+            android:padding="4dp"
             android:scaleType="centerCrop"
             android:src="@drawable/loading_image_light_grey_100"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +29,9 @@
             android:id="@+id/product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jaggery"
+            android:text="@string/text_product_name"
             android:textSize="18sp"
+            android:layout_marginStart="5dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/product_image"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,9 +41,10 @@
             android:id="@+id/product_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rs. 620.00"
+            android:text="@string/text_product_price"
             android:textColor="#333333"
             android:textSize="14sp"
+            android:layout_marginStart="5dp"
             app:layout_constraintStart_toEndOf="@id/product_image"
             app:layout_constraintTop_toBottomOf="@id/product_name" />
 
@@ -49,12 +52,13 @@
 
         <!-- Heart Button -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/favorite_button"
+            android:id="@+id/shopping_cart_button"
             style="@style/add_to_cart_button"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:textColor="@android:color/white"
             android:textSize="20sp"
+            android:layout_marginStart="5dp"
             app:icon="@drawable/baseline_add_shopping_cart_24"
             app:layout_constraintStart_toEndOf="@id/product_image"
             app:layout_constraintTop_toBottomOf="@id/product_price"  />
@@ -70,7 +74,7 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             app:icon="@drawable/outline_delete_outline_24"
-            app:layout_constraintStart_toEndOf="@id/favorite_button"
+            app:layout_constraintStart_toEndOf="@id/shopping_cart_button"
             app:layout_constraintTop_toBottomOf="@id/product_price" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

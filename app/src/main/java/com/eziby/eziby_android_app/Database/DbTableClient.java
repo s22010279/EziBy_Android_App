@@ -38,7 +38,7 @@ public class DbTableClient {
             ");";
 
     @SuppressLint("Range")
-    public static Client fetchData(Cursor result) {
+    public static Client readData(Cursor result) {
         Client client = new Client();
         client.setClientId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CLIENT_ID))));
 

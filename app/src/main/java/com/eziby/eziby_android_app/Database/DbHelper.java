@@ -17,6 +17,7 @@ import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Models.Setup;
 import com.eziby.eziby_android_app.Models.ShoppingCartViewModel;
+import com.eziby.eziby_android_app.Models.WishListViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                carouselImages.add(DbTableCarouselImage.fetchData(result));
+                carouselImages.add(DbTableCarouselImage.readData(result));
             }
         }
         result.close();
@@ -114,7 +115,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                setup = DbTableSetup.fetchData(result);
+                setup = DbTableSetup.readData(result);
             }
         }
         result.close();
@@ -132,11 +133,51 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                categories.add(DbTableCategory.fetchData(result));
+                categories.add(DbTableCategory.readData(result));
             }
         }
         result.close();
         return categories;
+    }
+
+    @SuppressLint("Range")
+    public List<WishListViewModel> getWishLists(int clientId) {
+        List<WishListViewModel> wishListViewModels = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " +
+                DbTableItem.TABLE_ITEM + "." + DbFieldsCommon.COLUMN_ITEM_ID + ", " +
+                DbTableItem.TABLE_ITEM + "." + DbTableItem.COLUMN_ITEM_NAME + ", " +
+                DbTableItem.TABLE_ITEM + "." + DbTableItem.COLUMN_ITEM_IMAGE_1 + ", " +
+                DbTableItem.TABLE_ITEM + "." + DbTableItem.COLUMN_SELLING_PRICE + ", " +
+
+                DbTableWishList.TABLE_WISH_LIST + "." + DbTableWishList.COLUMN_WISH_LIST_ID + ", " +
+                DbTableWishList.TABLE_WISH_LIST + "." + DbFieldsCommon.COLUMN_CLIENT_ID + ", " +
+                DbTableWishList.TABLE_WISH_LIST + "." + DbFieldsCommon.COLUMN_QUANTITY + ", " +
+                DbTableWishList.TABLE_WISH_LIST + "." + DbFieldsCommon.COLUMN_CREATED_DATE + ", " +
+                DbTableWishList.TABLE_WISH_LIST + "." + DbFieldsCommon.COLUMN_DELETED + ", " +
+                DbTableWishList.TABLE_WISH_LIST + "." + DbFieldsCommon.COLUMN_UPDATED_DATE +
+
+                " FROM " + DbTableWishList.TABLE_WISH_LIST +
+                " INNER JOIN " + DbTableItem.TABLE_ITEM +
+                " ON " +
+                DbTableItem.TABLE_ITEM + "." + DbFieldsCommon.COLUMN_ITEM_ID + " = " + DbTableWishList.TABLE_WISH_LIST + "." + DbFieldsCommon.COLUMN_ITEM_ID +
+                " WHERE " +
+                DbTableWishList.TABLE_WISH_LIST + "." + DbFieldsCommon.COLUMN_CLIENT_ID + " = " + clientId +
+                " AND " +
+                DbTableItem.TABLE_ITEM + "." + DbFieldsCommon.COLUMN_DELETED + " = " + 0 +
+                " AND " +
+                DbTableWishList.TABLE_WISH_LIST + "." + DbFieldsCommon.COLUMN_DELETED + " = " + 0;
+
+        Log.d("Query", query);
+
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                wishListViewModels.add(DbTableWishList.readData(result));
+            }
+        }
+        result.close();
+        return wishListViewModels;
     }
 
     @SuppressLint("Range")
@@ -172,7 +213,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                shoppingCartViewModelList.add(DbTableShoppingCart.fetchData(result));
+                shoppingCartViewModelList.add(DbTableShoppingCart.readData(result));
             }
         }
         result.close();
@@ -199,7 +240,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                items.add(DbTableItem.fetchData(result));
+                items.add(DbTableItem.readData(result));
             }
         }
         result.close();
@@ -217,7 +258,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                brands.add(DbTableBrand.fetchData(result));
+                brands.add(DbTableBrand.readData(result));
             }
         }
         result.close();
@@ -232,7 +273,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         if (result.getCount() > 0) {
             while (result.moveToNext()) {
-                clients.add(DbTableClient.fetchData(result));
+                clients.add(DbTableClient.readData(result));
             }
         }
         result.close();
@@ -247,10 +288,28 @@ public class DbHelper extends SQLiteOpenHelper {
         return simpleDateFormat.format(now);
     }
 
+    public void insertWishList(int itemId, int clientId) {
+        int quantity = 1;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryInsertOrUpdate = "INSERT INTO " + DbTableWishList.TABLE_WISH_LIST + " (" +
+                " ClientId" +
+                ",ItemId" +
+                ",Quantity" +
+                ",CreatedDate" +
+                ",Deleted" +
+                ",UpdatedDate)" +
+                "VALUES" +
+                "( " + clientId + ", " + itemId + ", " + quantity + ", '" + getCurrentDate() + "', 0, '" + getCurrentDate() + "')";
+
+        db.execSQL(queryInsertOrUpdate);
+
+        Toast.makeText(this.context, "Added to Cart", Toast.LENGTH_SHORT).show();
+    }
+
     public void increaseShoppingCart(int itemId, int clientId, int quantity) {
         quantity = quantity <= 0 ? 1 : quantity;
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryInsertOrUpdate = "INSERT INTO ShoppingCart (" +
+        String queryInsertOrUpdate = "INSERT INTO " + DbTableShoppingCart.TABLE_SHOPPING_CART + " (" +
                 " ClientId" +
                 ",ItemId" +
                 ",Quantity" +
@@ -271,7 +330,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void decreaseShoppingCart(int itemId, int clientId, int quantity) {
         quantity = quantity <= 0 ? 1 : quantity;
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryInsertOrUpdate = "INSERT INTO ShoppingCart (" +
+        String queryInsertOrUpdate = "INSERT INTO " + DbTableShoppingCart.TABLE_SHOPPING_CART + " (" +
                 " ClientId" +
                 ",ItemId" +
                 ",Quantity" +
@@ -292,6 +351,13 @@ public class DbHelper extends SQLiteOpenHelper {
     public Integer deleteShoppingCart(int shoppingCartId) {
         SQLiteDatabase db = this.getWritableDatabase();
         int affectedRows = db.delete(DbTableShoppingCart.TABLE_SHOPPING_CART, DbTableShoppingCart.COLUMN_SHOPPING_CART_ID + " = ?", new String[]{String.valueOf(shoppingCartId)});
+        Toast.makeText(this.context, "Removed from Cart", Toast.LENGTH_SHORT).show();
+        return affectedRows;
+    }
+
+    public Integer deleteWishList(int wishListId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int affectedRows = db.delete(DbTableWishList.TABLE_WISH_LIST, DbTableWishList.COLUMN_WISH_LIST_ID + " = ?", new String[]{String.valueOf(wishListId)});
         Toast.makeText(this.context, "Removed from Cart", Toast.LENGTH_SHORT).show();
         return affectedRows;
     }

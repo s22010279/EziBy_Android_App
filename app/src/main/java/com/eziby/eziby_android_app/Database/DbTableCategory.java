@@ -26,7 +26,7 @@ public class DbTableCategory {
             "); ";
 
     @SuppressLint("Range")
-    public static Category fetchData(Cursor result) {
+    public static Category readData(Cursor result) {
         Category category = new Category();
         category.setCategoryId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CATEGORY_ID))));
         category.setCategoryName(result.getString(result.getColumnIndex(DbTableCategory.COLUMN_CATEGORY_NAME)));

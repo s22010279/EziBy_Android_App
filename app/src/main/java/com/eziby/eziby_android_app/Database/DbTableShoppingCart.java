@@ -26,7 +26,7 @@ public class DbTableShoppingCart {
             ");";
 
     @SuppressLint("Range")
-    public static ShoppingCartViewModel fetchData(Cursor result) {
+    public static ShoppingCartViewModel readData(Cursor result) {
         ShoppingCartViewModel shoppingCartViewModel = new ShoppingCartViewModel();
         shoppingCartViewModel.setShoppingCartId(Integer.parseInt(result.getString(result.getColumnIndex(DbTableShoppingCart.COLUMN_SHOPPING_CART_ID))));
         shoppingCartViewModel.setClientId(Integer.parseInt(result.getString(result.getColumnIndex(DbFieldsCommon.COLUMN_CLIENT_ID))));

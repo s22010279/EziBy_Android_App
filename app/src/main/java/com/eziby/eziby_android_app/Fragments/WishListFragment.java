@@ -1,66 +1,50 @@
 package com.eziby.eziby_android_app.Fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.eziby.eziby_android_app.Adapters.WishListAdapter;
+import com.eziby.eziby_android_app.Database.DbHelper;
+import com.eziby.eziby_android_app.Models.WishListViewModel;
 import com.eziby.eziby_android_app.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WishListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
 public class WishListFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public WishListFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WishListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static WishListFragment newInstance(String param1, String param2) {
-        WishListFragment fragment = new WishListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_wish_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_wish_list, container, false);
+
+        List<WishListViewModel> wishListViewModels;
+
+        try (DbHelper dbHelper = new DbHelper(view.getContext())) {
+            wishListViewModels = dbHelper.getWishLists(1);
+        }
+
+        // Set up RecyclerView
+        RecyclerView recyclerViewCategory = view.findViewById(R.id.recycler_view_wish_list);
+        recyclerViewCategory.setLayoutManager(new GridLayoutManager(this.getContext(), 1)); // 3 columns
+        recyclerViewCategory.setAdapter(new WishListAdapter(this.getContext(), wishListViewModels));
+
+        //Visible / Invisible Empty Icon
+        LinearLayout linear_layout_no_item_found;
+        linear_layout_no_item_found = view.findViewById(R.id.linear_layout_no_item_found);
+        linear_layout_no_item_found.setVisibility(wishListViewModels.size() > 0 ? View.INVISIBLE : View.VISIBLE);
+
+        return view;
     }
 }

@@ -26,7 +26,7 @@ public class DbTableRating {
             ");";
 
     @SuppressLint("Range")
-    public static Rating fetchData(Cursor result) {
+    public static Rating readData(Cursor result) {
         return null;
     }
 }

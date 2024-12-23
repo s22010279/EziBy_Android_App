@@ -22,7 +22,7 @@ public class DbTableUOM {
             ");";
 
     @SuppressLint("Range")
-    public static UOM fetchData(Cursor result) {
+    public static UOM readData(Cursor result) {
         return null;
     }
 }

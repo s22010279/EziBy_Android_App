@@ -33,7 +33,7 @@ public class DbTableUser {
             "); ";
 
     @SuppressLint("Range")
-    public static User fetchData(Cursor result) {
+    public static User readData(Cursor result) {
         return null;
     }
 
