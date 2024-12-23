@@ -14,7 +14,7 @@ public class DbTableDeliveryCity {
     public static final String COLUMN_DELIVERY_CHARGE = "DeliveryCharge";
 
     public static final String CREATE_TABLE_DELIVERY_CITY = "CREATE TABLE " + TABLE_DELIVERY_CITY + " (" +
-            COLUMN_DELIVERY_CITY_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_DELIVERY_CITY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_DELIVERY_CITY_NAME + " TEXT NOT NULL, " +
             COLUMN_DELIVERY_CHARGE + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +

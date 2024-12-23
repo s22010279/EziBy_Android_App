@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.eziby.eziby_android_app.Models.Brand;
 import com.eziby.eziby_android_app.Models.CarouselImage;
@@ -25,9 +26,11 @@ import java.util.Locale;
 
 public class DbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "EziBy.db";
+    Context context;
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
+        this.context = context;
     }
 
     @Override
@@ -242,6 +245,55 @@ public class DbHelper extends SQLiteOpenHelper {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.getDefault());//dd/MM/yyyy
         Date now = new Date();
         return simpleDateFormat.format(now);
+    }
+
+    public void increaseShoppingCart(int itemId, int clientId, int quantity) {
+        quantity = quantity <= 0 ? 1 : quantity;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryInsertOrUpdate = "INSERT INTO ShoppingCart (" +
+                " ClientId" +
+                ",ItemId" +
+                ",Quantity" +
+                ",CreatedDate" +
+                ",Deleted" +
+                ",UpdatedDate)" +
+                "VALUES" +
+                "( " + clientId + ", " + itemId + ", " + quantity + ", '" + getCurrentDate() + "', 0, '" + getCurrentDate() + "')" +
+                "ON CONFLICT(" + DbFieldsCommon.COLUMN_CLIENT_ID + ", " + DbFieldsCommon.COLUMN_ITEM_ID + ") " +
+                "DO UPDATE SET " +
+                DbFieldsCommon.COLUMN_QUANTITY + " = " + DbFieldsCommon.COLUMN_QUANTITY + " + 1";
+
+        db.execSQL(queryInsertOrUpdate);
+
+        Toast.makeText(this.context, "Added to Cart", Toast.LENGTH_SHORT).show();
+    }
+
+    public void decreaseShoppingCart(int itemId, int clientId, int quantity) {
+        quantity = quantity <= 0 ? 1 : quantity;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryInsertOrUpdate = "INSERT INTO ShoppingCart (" +
+                " ClientId" +
+                ",ItemId" +
+                ",Quantity" +
+                ",CreatedDate" +
+                ",Deleted" +
+                ",UpdatedDate)" +
+                "VALUES" +
+                "( " + clientId + ", " + itemId + ", " + quantity + ", '" + getCurrentDate() + "', 0, '" + getCurrentDate() + "')" +
+                "ON CONFLICT(" + DbFieldsCommon.COLUMN_CLIENT_ID + ", " + DbFieldsCommon.COLUMN_ITEM_ID + ") " +
+                "DO UPDATE SET " +
+                DbFieldsCommon.COLUMN_QUANTITY + " = " + DbFieldsCommon.COLUMN_QUANTITY + " - 1";
+
+        db.execSQL(queryInsertOrUpdate);
+
+        Toast.makeText(this.context, "Cart Updated", Toast.LENGTH_SHORT).show();
+    }
+
+    public Integer deleteShoppingCart(int shoppingCartId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int affectedRows = db.delete(DbTableShoppingCart.TABLE_SHOPPING_CART, DbTableShoppingCart.COLUMN_SHOPPING_CART_ID + " = ?", new String[]{String.valueOf(shoppingCartId)});
+        Toast.makeText(this.context, "Removed from Cart", Toast.LENGTH_SHORT).show();
+        return affectedRows;
     }
 
     public boolean insertUser(MyUser myUser) {

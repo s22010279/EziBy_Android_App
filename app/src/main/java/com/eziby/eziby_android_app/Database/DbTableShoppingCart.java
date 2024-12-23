@@ -15,13 +15,14 @@ public class DbTableShoppingCart {
 
 
     public static final String CREATE_TABLE_SHOPPING_CART = "CREATE TABLE " + TABLE_SHOPPING_CART + " (" +
-            COLUMN_SHOPPING_CART_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_SHOPPING_CART_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             DbFieldsCommon.COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_QUANTITY + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_CREATED_DATE + " TEXT NOT NULL, " +
             DbFieldsCommon.COLUMN_DELETED + " INTEGER NOT NULL, " +
-            DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
+            DbFieldsCommon.COLUMN_UPDATED_DATE + " TEXT NOT NULL, " +
+            "UNIQUE(" + DbFieldsCommon.COLUMN_CLIENT_ID + ", " + DbFieldsCommon.COLUMN_ITEM_ID + ")" +
             ");";
 
     @SuppressLint("Range")

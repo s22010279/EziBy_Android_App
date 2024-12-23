@@ -14,7 +14,7 @@ public class DbTableCategory {
     public static final String COLUMN_CATEGORY_HEADER_IMAGE = "CategoryHeaderImage";
     public static final String COLUMN_MAX_DISCOUNT = "MaxDiscount";
     public static final String CREATE_TABLE_CATEGORY = "CREATE TABLE " + TABLE_CATEGORY + " (" +
-            DbFieldsCommon.COLUMN_CATEGORY_ID + " INTEGER PRIMARY KEY, " +
+            DbFieldsCommon.COLUMN_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_CATEGORY_NAME + " TEXT, " +
             COLUMN_CATEGORY_IMAGE + " TEXT, " +
             COLUMN_CATEGORY_HEADER_IMAGE + " TEXT, " +

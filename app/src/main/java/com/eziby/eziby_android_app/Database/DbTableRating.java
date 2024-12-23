@@ -15,7 +15,7 @@ public class DbTableRating {
 
 
     public static final String CREATE_TABLE_RATING = "CREATE TABLE " + TABLE_RATING + " (" +
-            COLUMN_RATING_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_RATING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             DbFieldsCommon.COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             COLUMN_RATING_STAR + " INTEGER NOT NULL, " +

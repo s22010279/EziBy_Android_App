@@ -14,7 +14,7 @@ public class DbTableCustomerPointRedeem {
     public static final String COLUMN_POINTS_REDEEMED = "PointsRedeemed";
     public static final String COLUMN_REDEEMED_DATE = "RedeemedDate";
     public static final String CREATE_TABLE_CUSTOMER_POINT_REDEEM = "CREATE TABLE " + TABLE_CUSTOMER_POINT_REDEEM + " (" +
-            COLUMN_REDEEMED_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_REDEEMED_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_CUSTOMER_ID + " INTEGER NOT NULL, " +
             COLUMN_POINTS_REDEEMED + " INTEGER NOT NULL, " +
             COLUMN_REDEEMED_DATE + " TEXT NOT NULL, " +

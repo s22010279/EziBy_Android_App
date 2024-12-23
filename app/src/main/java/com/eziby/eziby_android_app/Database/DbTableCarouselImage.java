@@ -15,7 +15,7 @@ public class DbTableCarouselImage {
     public static final String COLUMN_CAROUSEL_LINK = "CarouselLink";
     public static final String COLUMN_CAROUSEL_TYPE = "CarouselType";
     public static final String CREATE_TABLE_CAROUSEL_IMAGE = "CREATE TABLE " + TABLE_CAROUSEL_IMAGE + " (" +
-            COLUMN_CAROUSEL_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_CAROUSEL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_CAROUSEL_DETAILS + " TEXT NOT NULL, " +
             COLUMN_CAROUSEL_IMAGE_NAME + " TEXT NOT NULL, " +
             COLUMN_CAROUSEL_LINK + " TEXT NOT NULL, " +

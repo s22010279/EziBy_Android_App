@@ -34,8 +34,8 @@
     </style>
 
     <style name="add_to_cart_button">
-        <item name="android:textColor">@color/white</item>
-        <item name="backgroundTint">#009688</item>
+<!--        <item name="android:textColor">@color/white</item>-->
+<!--        <item name="backgroundTint">#009688</item>-->
         <item name="shapeAppearanceOverlay">@style/cornerSize_10_percent</item>
     </style>
 

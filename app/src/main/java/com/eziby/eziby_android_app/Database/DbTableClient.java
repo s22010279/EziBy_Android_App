@@ -21,7 +21,7 @@ public class DbTableClient {
     public static final String COLUMN_DATE_LAST_LOGGED = "DateLastLogged";
 
     public static final String CREATE_TABLE_CLIENT = "CREATE TABLE " + TABLE_CLIENT + " (" +
-            DbFieldsCommon.COLUMN_CLIENT_ID + " INTEGER PRIMARY KEY, " +
+            DbFieldsCommon.COLUMN_CLIENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_IS_GUEST_MODE + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_EMAIL_ADDRESS + " TEXT NOT NULL, " +
             COLUMN_GUEST_ID + " TEXT NOT NULL, " +

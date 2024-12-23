@@ -1,7 +1,6 @@
 package com.eziby.eziby_android_app.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
@@ -19,7 +18,6 @@ import com.eziby.eziby_android_app.Classes.EziByValues;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.R;
-import com.eziby.eziby_android_app.screens.Order_2_Review;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -65,17 +63,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ImageViewHolde
         String _sellingPrice = this.currencyMark + " " + decimalFormat.format(itemArray.get(position).getSellingPrice());
         holder.textViewProductPrice.setText(_sellingPrice);
         holder.textViewProductDescription.setText(_description);
-        if (itemArray.get(position).getQtyOnHand() <= 0){
+        if (itemArray.get(position).getQtyOnHand() <= 0) {
             holder.btnAddToCart.setEnabled(false);
             holder.btnAddToCart.setBackgroundColor(Color.GRAY);
         }
 
         holder.btnAddToCart.setOnClickListener(v -> {
-            // Create an Intent to navigate to SecondActivity
-            Intent intent = new Intent(context, Order_2_Review.class);
-            // You can pass data with the intent if necessary
-            // intent.putExtra("item", item);
-            context.startActivity(intent);
+            try (DbHelper dbHelper = new DbHelper(context)) {
+                dbHelper.increaseShoppingCart(itemArray.get(position).getItemId(), 1, 1);
+            }
         });
     }
 

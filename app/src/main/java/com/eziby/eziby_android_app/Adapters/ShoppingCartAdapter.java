@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +23,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapter.ImageViewHolder> {
-    public static final String TAG = "Image Path";
     private final Context context;
     private final String mainUri;
     private final List<ShoppingCartViewModel> itemArray;
@@ -49,16 +49,62 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         Uri imageUri = Uri.parse(this.mainUri + itemArray.get(position).getItemImage1());
         DecimalFormat decimalFormat = new DecimalFormat(EziByValues.patternCurrency);
         String _sellingPrice = this.currencyMark + " " + decimalFormat.format(itemArray.get(position).getSellingPrice());
-        String _quantity = String.valueOf(itemArray.get(position).getQuantity());
+        int _quantity = itemArray.get(position).getQuantity();
         Picasso.get()
                 .load(imageUri) // Image URL
                 .placeholder(R.drawable.loading_image_light_grey_100) // Placeholder image while loading
                 .error(R.drawable.error_image_30) // Error image if the URL fails to load
-                .into(holder.imageViewProduct); // Target ImageView
+                .into(holder.product_image); // Target ImageView
 
-        holder.textViewProductName.setText(Optional.ofNullable(itemArray.get(position).getItemName()).orElse(""));
-        holder.textViewProductPrice.setText(_sellingPrice);
-        holder.textViewQuantity.setText(_quantity);
+        holder.product_name.setText(Optional.ofNullable(itemArray.get(position).getItemName()).orElse(""));
+        holder.product_price.setText(_sellingPrice);
+        holder.shopping_cart_quantity.setText(String.valueOf(_quantity));
+
+        if (itemArray.get(position).getQuantity() <= 1) {
+            holder.decrement_button.setEnabled(false);
+        } else {
+            holder.decrement_button.setEnabled(true);
+        }
+        holder.increment_button.setEnabled(true);
+
+        holder.increment_button.setOnClickListener(v -> {
+            holder.increment_button.setEnabled(false);
+            try (DbHelper dbHelper = new DbHelper(context)) {
+                dbHelper.increaseShoppingCart(itemArray.get(position).getItemId(), 1, 1);
+
+                // Update the item quantity in the local list
+                int currentQuantity = itemArray.get(position).getQuantity();
+                itemArray.get(position).setQuantity(currentQuantity + 1);
+
+                // Notify the adapter to update this specific item
+                notifyItemChanged(position);
+            }
+        });
+
+        holder.decrement_button.setOnClickListener(v -> {
+            holder.decrement_button.setEnabled(false);
+            try (DbHelper dbHelper = new DbHelper(context)) {
+                dbHelper.decreaseShoppingCart(itemArray.get(position).getItemId(), 1, 1);
+
+                // Update the item quantity in the local list
+                int currentQuantity = itemArray.get(position).getQuantity();
+                itemArray.get(position).setQuantity(currentQuantity - 1);
+
+                // Notify the adapter to update this specific item
+                notifyItemChanged(position);
+            }
+        });
+
+        holder.delete_button.setOnClickListener(v -> {
+            try (DbHelper dbHelper = new DbHelper(context)) {
+                dbHelper.deleteShoppingCart(itemArray.get(position).getShoppingCartId());
+                // Remove the item from the list
+                itemArray.remove(position);
+                // Notify the adapter about the removed item
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, itemArray.size());
+            }
+        });
     }
 
     @Override
@@ -68,17 +114,22 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageViewProduct;
-        TextView textViewProductName;
-        TextView textViewProductPrice;
-        TextView textViewQuantity;
+        ImageView product_image;
+        TextView product_name;
+        TextView product_price;
+        TextView shopping_cart_quantity;
+        Button increment_button, decrement_button, delete_button, favorite_button;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewProduct = itemView.findViewById(R.id.product_image);
-            textViewProductName = itemView.findViewById(R.id.product_name);
-            textViewProductPrice = itemView.findViewById(R.id.product_price);
-            textViewQuantity = itemView.findViewById(R.id.shopping_cart_quantity);
+            product_image = itemView.findViewById(R.id.product_image);
+            product_name = itemView.findViewById(R.id.product_name);
+            product_price = itemView.findViewById(R.id.product_price);
+            shopping_cart_quantity = itemView.findViewById(R.id.shopping_cart_quantity);
+            increment_button = itemView.findViewById(R.id.increment_button);
+            decrement_button = itemView.findViewById(R.id.decrement_button);
+            delete_button = itemView.findViewById(R.id.delete_button);
+            favorite_button = itemView.findViewById(R.id.favorite_button);
         }
     }
 }
