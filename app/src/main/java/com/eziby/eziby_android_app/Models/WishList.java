@@ -4,11 +4,10 @@ public class WishList {
     private int wishListId;
     private int clientId;
     private int itemId;
-    private int itemPriceVariantId;
     private int quantity;
-    private String dateCreated;
+    private String createdDate;
     private boolean deleted;
-    private String dateUpdated;
+    private String updatedDate;
 
     // Getters and Setters
     public int getWishListId() {
@@ -35,14 +34,6 @@ public class WishList {
         this.itemId = itemId;
     }
 
-    public int getItemPriceVariantId() {
-        return itemPriceVariantId;
-    }
-
-    public void setItemPriceVariantId(int itemPriceVariantId) {
-        this.itemPriceVariantId = itemPriceVariantId;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -51,12 +42,12 @@ public class WishList {
         this.quantity = quantity;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
+    public String getCreatedDate() {
+        return createdDate;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 
     public boolean isDeleted() {
@@ -67,12 +58,12 @@ public class WishList {
         this.deleted = deleted;
     }
 
-    public String getDateUpdated() {
-        return dateUpdated;
+    public String getUpdatedDate() {
+        return updatedDate;
     }
 
-    public void setDateUpdated(String dateUpdated) {
-        this.dateUpdated = dateUpdated;
+    public void setUpdatedDate(String updatedDate) {
+        this.updatedDate = updatedDate;
     }
 }
 

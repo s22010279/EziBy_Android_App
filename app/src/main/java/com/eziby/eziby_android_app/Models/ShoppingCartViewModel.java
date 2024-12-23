@@ -1,9 +1,14 @@
 package com.eziby.eziby_android_app.Models;
 
-public class ShoppingCart {
+import java.math.BigDecimal;
+
+public class ShoppingCartViewModel {
     private int shoppingCartId;
     private int clientId; // Reference to Client
     private int itemId; // Reference to Item
+    private String itemName = "";
+    private String itemImage1 = "";
+    private BigDecimal sellingPrice;
     private int quantity;
     private String createdDate;
     private boolean deleted;
@@ -64,6 +69,30 @@ public class ShoppingCart {
 
     public void setUpdatedDate(String updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getItemImage1() {
+        return itemImage1;
+    }
+
+    public void setItemImage1(String itemImage1) {
+        this.itemImage1 = itemImage1;
+    }
+
+    public BigDecimal getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(BigDecimal sellingPrice) {
+        this.sellingPrice = sellingPrice;
     }
 }
 

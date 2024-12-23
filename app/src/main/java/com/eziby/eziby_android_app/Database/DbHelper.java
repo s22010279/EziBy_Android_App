@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.eziby.eziby_android_app.Models.Brand;
 import com.eziby.eziby_android_app.Models.CarouselImage;
@@ -14,6 +15,7 @@ import com.eziby.eziby_android_app.Models.Client;
 import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Models.Setup;
+import com.eziby.eziby_android_app.Models.ShoppingCartViewModel;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -448,19 +450,16 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //region ShoppingCart table
     public static final String COLUMN_SHOPPING_CART_ID = "ShoppingCartId";
-    public static final String COLUMN_ITEM_PRICE_VARIANT_ID = "ItemPriceVariantId";
     public static final String COLUMN_QUANTITY = "Quantity";
-    public static final String COLUMN_DATE_UPDATED = "DateUpdated";
 
     public static final String CREATE_TABLE_SHOPPING_CART = "CREATE TABLE " + TABLE_SHOPPING_CART + " (" +
             COLUMN_SHOPPING_CART_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
-            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
             COLUMN_QUANTITY + " INTEGER NOT NULL, " +
             COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
             COLUMN_DELETED + " INTEGER NOT NULL, " +
-            COLUMN_DATE_UPDATED + " TEXT NOT NULL" +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
     //endregion
 
@@ -471,11 +470,10 @@ public class DbHelper extends SQLiteOpenHelper {
             COLUMN_WISH_LIST_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
-            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
             COLUMN_QUANTITY + " INTEGER NOT NULL, " +
             COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
             COLUMN_DELETED + " INTEGER NOT NULL, " +
-            COLUMN_DATE_UPDATED + " TEXT NOT NULL" +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
     //endregion
 
@@ -487,7 +485,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String CREATE_TABLE_RATING = "CREATE TABLE " + TABLE_RATING + " (" +
             COLUMN_RATING_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
-            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
             COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             COLUMN_RATING_STAR + " INTEGER NOT NULL, " +
             COLUMN_RATING_REVIEW + " TEXT NOT NULL, " +
@@ -506,7 +503,6 @@ public class DbHelper extends SQLiteOpenHelper {
             COLUMN_VIEW_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
-            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
             COLUMN_VIEWED_COUNT + " INTEGER NOT NULL, " +
             COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
             COLUMN_DATE_LAST_VIEWED + " TEXT NOT NULL, " +
@@ -629,6 +625,55 @@ public class DbHelper extends SQLiteOpenHelper {
         }
         result.close();
         return categories;
+    }
+
+    @SuppressLint("Range")
+    public List<ShoppingCartViewModel> getShoppingCarts(int clientId) {
+        List<ShoppingCartViewModel> shoppingCartViewModelList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " +
+                TABLE_ITEMS + "." + COLUMN_ITEM_ID + ", " +
+                TABLE_ITEMS + "." + COLUMN_ITEM_NAME + ", " +
+                TABLE_ITEMS + "." + COLUMN_ITEM_IMAGE_1 + ", " +
+                TABLE_ITEMS + "." + COLUMN_SELLING_PRICE + ", " +
+
+                TABLE_SHOPPING_CART + "." + COLUMN_SHOPPING_CART_ID + ", " +
+                TABLE_SHOPPING_CART + "." + COLUMN_CLIENT_ID + ", " +
+                TABLE_SHOPPING_CART + "." + COLUMN_QUANTITY + ", " +
+                TABLE_SHOPPING_CART + "." + COLUMN_DATE_CREATED + ", " +
+                TABLE_SHOPPING_CART + "." + COLUMN_DELETED + ", " +
+                TABLE_SHOPPING_CART + "." + COLUMN_UPDATED_DATE +
+
+                " FROM " + TABLE_SHOPPING_CART +
+                " INNER JOIN " + TABLE_ITEMS +
+                " ON " +
+                TABLE_ITEMS + "." + COLUMN_ITEM_ID + " = " + TABLE_SHOPPING_CART + "." + COLUMN_ITEM_ID +
+                " WHERE " +
+                TABLE_SHOPPING_CART + "." + COLUMN_CLIENT_ID + " = " + clientId +
+                " AND " +
+                TABLE_SHOPPING_CART + "." + COLUMN_DELETED + " = " + 0;
+
+        Log.d("Query", query);
+
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                ShoppingCartViewModel shoppingCartViewModel = new ShoppingCartViewModel();
+                shoppingCartViewModel.setShoppingCartId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_SHOPPING_CART_ID))));
+                shoppingCartViewModel.setClientId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_CLIENT_ID))));
+                shoppingCartViewModel.setItemId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_ITEM_ID))));
+                shoppingCartViewModel.setItemName(result.getString(result.getColumnIndex(COLUMN_ITEM_NAME)));
+                shoppingCartViewModel.setItemImage1(result.getString(result.getColumnIndex(COLUMN_ITEM_IMAGE_1)));
+                shoppingCartViewModel.setSellingPrice(new BigDecimal(result.getString(result.getColumnIndex(COLUMN_SELLING_PRICE))));
+                shoppingCartViewModel.setQuantity(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_QUANTITY))));
+                shoppingCartViewModel.setCreatedDate(result.getString(result.getColumnIndex(COLUMN_DATE_CREATED)));
+                shoppingCartViewModel.setDeleted(result.getInt(result.getColumnIndex(COLUMN_DELETED)) == 1);
+                shoppingCartViewModel.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
+                shoppingCartViewModelList.add(shoppingCartViewModel);
+            }
+        }
+        result.close();
+        return shoppingCartViewModelList;
     }
 
     @SuppressLint("Range")

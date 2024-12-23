@@ -4,9 +4,8 @@ public class ViewedItem {
     private int viewId;
     private int clientId; // Reference to Client
     private int itemId; // Reference to Item
-    private int itemPriceVariantId; // Reference to ItemPriceVariant
     private int viewedCount;
-    private String dateCreated; // Using String for date
+    private String createdDate; // Using String for date
     private String dateLastViewed; // Using String for date
     private String updatedDate; // Using String for date
 
@@ -35,15 +34,7 @@ public class ViewedItem {
         this.itemId = itemId;
     }
 
-    public int getItemPriceVariantId() {
-        return itemPriceVariantId;
-    }
-
-    public void setItemPriceVariantId(int itemPriceVariantId) {
-        this.itemPriceVariantId = itemPriceVariantId;
-    }
-
-    public int getViewedCount() {
+     public int getViewedCount() {
         return viewedCount;
     }
 
@@ -51,12 +42,12 @@ public class ViewedItem {
         this.viewedCount = viewedCount;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
+    public String getCreatedDate() {
+        return createdDate;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getDateLastViewed() {
