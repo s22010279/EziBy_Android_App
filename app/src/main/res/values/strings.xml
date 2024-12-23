@@ -97,4 +97,11 @@
     <string name="description_image_of_a_brand">Image of a Brand</string>
     <string name="text_most_viewed">Most Viewed</string>
     <string name="text_no_items_found">No Items found</string>
+    <string name="text_product_name">Product Name</string>
+    <string name="text_product_price">Rs. 100.00</string>
+    <string name="text_minus_mark">-</string>
+    <string name="text_plus_mark">+</string>
+    <string name="text_quantity">99</string>
+    <string name="text_oops_empty_cart">Oops! Empty cart</string>
+    <string name="text_proceed_to_checkout">PROCEED TO CHECKOUT</string>
 </resources>

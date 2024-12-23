@@ -8,43 +8,49 @@
     android:fillViewport="true"
     tools:context=".Fragments.ShoppingCartFragment">
 
-    <ScrollView
-        android:id="@+id/scroll_view_shopping_cart"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_shopping_cart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-260dp">
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/add_to_cart_button"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linear_layout_fragment_shopping_cart"
+    <LinearLayout
+        android:id="@+id/linear_layout_no_item_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recycler_view_shopping_cart">
+
+        <ImageView
+            android:id="@+id/product_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="130dp"
+            android:contentDescription="@string/description_image_of_an_item"
+            android:scaleType="fitCenter"
+            android:src="@drawable/empty_box" />
 
-            <include
-                android:id="@+id/shopping_cart_item1"
-                layout="@layout/component_shopping_cart_item" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/text_oops_empty_cart"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+    </LinearLayout>
 
-            <include
-                android:id="@+id/shopping_cart_item2"
-                layout="@layout/component_shopping_cart_item" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_to_cart_button"
+        style="@style/add_to_cart_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="true"
+        android:text="@string/text_proceed_to_checkout"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-            <include
-                android:id="@+id/shopping_cart_item3"
-                layout="@layout/component_shopping_cart_item" />
-
-            <include
-                android:id="@+id/shopping_cart_item4"
-                layout="@layout/component_shopping_cart_item" />
-
-            <include
-                android:id="@+id/shopping_cart_item5"
-                layout="@layout/component_shopping_cart_item" />
-
-            <include
-                android:id="@+id/shopping_cart_item6"
-                layout="@layout/component_shopping_cart_item" />
-
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

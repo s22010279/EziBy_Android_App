@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.eziby.eziby_android_app.Models.Brand;
 import com.eziby.eziby_android_app.Models.CarouselImage;
@@ -14,6 +15,7 @@ import com.eziby.eziby_android_app.Models.Client;
 import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.Models.MyUser;
 import com.eziby.eziby_android_app.Models.Setup;
+import com.eziby.eziby_android_app.Models.ShoppingCartViewModel;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -31,10 +33,10 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETUP);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BRANDS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAROUSEL_IMAGES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BRAND);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAROUSEL_IMAGE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMER_POINT_REDEEM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DELIVERY_CITY);
@@ -54,11 +56,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_SETUP);
         db.execSQL(CREATE_TABLE_USER);
-        db.execSQL(CREATE_TABLE_CATEGORIES);
-        db.execSQL(CREATE_TABLE_BRANDS);
-        db.execSQL(CREATE_TABLE_CAROUSEL_IMAGES);
-        db.execSQL(CREATE_TABLE_ITEMS);
-        db.execSQL(CREATE_TABLE_CLIENTS);
+        db.execSQL(CREATE_TABLE_CATEGORY);
+        db.execSQL(CREATE_TABLE_BRAND);
+        db.execSQL(CREATE_TABLE_CAROUSEL_IMAGE);
+        db.execSQL(CREATE_TABLE_ITEM);
+        db.execSQL(CREATE_TABLE_CLIENT);
         db.execSQL(CREATE_TABLE_CUSTOMER_POINT_REDEEM);
         db.execSQL(CREATE_TABLE_DELIVERY_CITY);
         db.execSQL(CREATE_TABLE_DELIVERY_TIME);
@@ -78,7 +80,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(DataScript.INSERT_DATA_CAROUSEL_IMAGES);
         db.execSQL(DataScript.INSERT_DATA_ITEMS);
         db.execSQL(DataScript.INSERT_DATA_CLIENTS);
-        // db.execSQL(DataScript.INSERT_DATA_CLIENTS1);
+        db.execSQL(DataScript.INSERT_DATA_SHOPPING_CART);
         // db.execSQL(DataScript.INSERT_DATA_CLIENTS2);
         // db.execSQL(DataScript.INSERT_DATA_CLIENTS3);
         // db.execSQL(DataScript.INSERT_DATA_CLIENTS4);
@@ -92,13 +94,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //region DB and Table Names
     public static final String DATABASE_NAME = "EziBy.db";
-    public static final String TABLE_SETUP = "Setups";
-    public static final String TABLE_USER = "user_table";
-    public static final String TABLE_CATEGORIES = "Categories";
-    public static final String TABLE_BRANDS = "Brands";
-    public static final String TABLE_CAROUSEL_IMAGES = "CarouselImages";
-    public static final String TABLE_ITEMS = "Items";
-    public static final String TABLE_CLIENT = "Clients";
+    public static final String TABLE_SETUP = "Setup";
+    public static final String TABLE_USER = "User";
+    public static final String TABLE_CATEGORY = "Category";
+    public static final String TABLE_BRAND = "Brand";
+    public static final String TABLE_CAROUSEL_IMAGE = "CarouselImage";
+    public static final String TABLE_ITEM = "Item";
+    public static final String TABLE_CLIENT = "Client";
     public static final String TABLE_CUSTOMER_POINT_REDEEM = "CustomerPointRedeem";
     public static final String TABLE_DELIVERY_CITY = "DeliveryCity";
     public static final String TABLE_DELIVERY_TIME = "DeliveryTime";
@@ -113,20 +115,22 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //region Common Properties
     public static final String COLUMN_DISPLAY_ORDER = "DisplayOrder";
+    public static final String COLUMN_EMAIL_ADDRESS = "EmailAddress";
     public static final String COLUMN_DELIVERY_TIME_ID = "DeliveryTimeId";
     public static final String COLUMN_DELETED = "Deleted";
     public static final String COLUMN_ACTIVE = "Active";
     public static final String COLUMN_UPDATED_DATE = "UpdatedDate";
-    public static final String COLUMN_EMAIL_ADDRESS = "emailAddress";
+
+    public static final String COLUMN_CREATED_DATE = "CreatedDate";
     //endregion Common Properties
 
     //region CarouselImages table
-    public static final String COLUMN_CAROUSEL_ID = "carouselId";
-    public static final String COLUMN_CAROUSEL_DETAILS = "carouselDetails";
-    public static final String COLUMN_CAROUSEL_IMAGE_NAME = "carouselImageName";
-    public static final String COLUMN_CAROUSEL_LINK = "carouselLink";
-    public static final String COLUMN_CAROUSEL_TYPE = "carouselType";
-    public static final String CREATE_TABLE_CAROUSEL_IMAGES = "CREATE TABLE " + TABLE_CAROUSEL_IMAGES + " (" +
+    public static final String COLUMN_CAROUSEL_ID = "CarouselId";
+    public static final String COLUMN_CAROUSEL_DETAILS = "CarouselDetails";
+    public static final String COLUMN_CAROUSEL_IMAGE_NAME = "CarouselImageName";
+    public static final String COLUMN_CAROUSEL_LINK = "CarouselLink";
+    public static final String COLUMN_CAROUSEL_TYPE = "CarouselType";
+    public static final String CREATE_TABLE_CAROUSEL_IMAGE = "CREATE TABLE " + TABLE_CAROUSEL_IMAGE + " (" +
             COLUMN_CAROUSEL_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_CAROUSEL_DETAILS + " TEXT NOT NULL, " +
             COLUMN_CAROUSEL_IMAGE_NAME + " TEXT NOT NULL, " +
@@ -211,26 +215,26 @@ public class DbHelper extends SQLiteOpenHelper {
     //endregion Setup table
 
     //region User table
-    public static final String COLUMN_BACKGROUND_MUSIC = "backgroundMusic";
-    public static final String COLUMN_CONTRIBUTION = "contribution";
-    public static final String COLUMN_DISPLAY_NAME = "displayName";
-    public static final String COLUMN_MEMBER_SINCE = "memberSince";
-    public static final String COLUMN_PROFILE_PICTURE_URI = "profilePictureUri";
-    public static final String COLUMN_RATINGS = "ratings";
-    public static final String COLUMN_SUBSCRIBED_TO_NEWS_LETTER = "subscribedToNewsLetter";
-    public static final String COLUMN_TOKEN = "token";
-    public static final String COLUMN_USER_ID = "userId";
-    private static final String CREATE_TABLE_USER = "create table " + TABLE_USER + " (" +
-            COLUMN_USER_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
-            COLUMN_EMAIL_ADDRESS + " text, " +
-            COLUMN_TOKEN + " text, " +
-            COLUMN_DISPLAY_NAME + " text, " +
-            COLUMN_PROFILE_PICTURE_URI + " text, " +
-            COLUMN_SUBSCRIBED_TO_NEWS_LETTER + " text, " +
-            COLUMN_BACKGROUND_MUSIC + " text, " +
-            COLUMN_CONTRIBUTION + " text, " +
-            COLUMN_MEMBER_SINCE + " text, " +
-            COLUMN_RATINGS + " text " +
+    public static final String COLUMN_BACKGROUND_MUSIC = "BackgroundMusic";
+    public static final String COLUMN_CONTRIBUTION = "Contribution";
+    public static final String COLUMN_DISPLAY_NAME = "DisplayName";
+    public static final String COLUMN_MEMBER_SINCE = "MemberSince";
+    public static final String COLUMN_PROFILE_PICTURE_URI = "ProfilePictureUri";
+    public static final String COLUMN_RATINGS = "Ratings";
+    public static final String COLUMN_SUBSCRIBED_TO_NEWS_LETTER = "SubscribedToNewsLetter";
+    public static final String COLUMN_TOKEN = "Token";
+    public static final String COLUMN_USER_ID = "UserId";
+    private static final String CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USER + " (" +
+            COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_EMAIL_ADDRESS + " TEXT, " +
+            COLUMN_TOKEN + " TEXT, " +
+            COLUMN_DISPLAY_NAME + " TEXT, " +
+            COLUMN_PROFILE_PICTURE_URI + " TEXT, " +
+            COLUMN_SUBSCRIBED_TO_NEWS_LETTER + " TEXT, " +
+            COLUMN_BACKGROUND_MUSIC + " TEXT, " +
+            COLUMN_CONTRIBUTION + " TEXT, " +
+            COLUMN_MEMBER_SINCE + " TEXT, " +
+            COLUMN_RATINGS + " TEXT " +
             "); ";
     //endregion User table
 
@@ -240,16 +244,16 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CATEGORY_IMAGE = "CategoryImage";
     public static final String COLUMN_CATEGORY_HEADER_IMAGE = "CategoryHeaderImage";
     public static final String COLUMN_MAX_DISCOUNT = "MaxDiscount";
-    public static final String CREATE_TABLE_CATEGORIES = "create table " + TABLE_CATEGORIES + " (" +
-            COLUMN_CATEGORY_ID + " integer PRIMARY KEY, " +
-            COLUMN_CATEGORY_NAME + " text, " +
-            COLUMN_CATEGORY_IMAGE + " text, " +
-            COLUMN_CATEGORY_HEADER_IMAGE + " text, " +
-            COLUMN_DISPLAY_ORDER + " integer, " +
-            COLUMN_MAX_DISCOUNT + " text, " +
-            COLUMN_ACTIVE + " integer, " +
-            COLUMN_DELETED + " integer, " +
-            COLUMN_UPDATED_DATE + " text " +
+    public static final String CREATE_TABLE_CATEGORY = "CREATE TABLE " + TABLE_CATEGORY + " (" +
+            COLUMN_CATEGORY_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_CATEGORY_NAME + " TEXT, " +
+            COLUMN_CATEGORY_IMAGE + " TEXT, " +
+            COLUMN_CATEGORY_HEADER_IMAGE + " TEXT, " +
+            COLUMN_DISPLAY_ORDER + " INTEGER, " +
+            COLUMN_MAX_DISCOUNT + " TEXT, " +
+            COLUMN_ACTIVE + " INTEGER, " +
+            COLUMN_DELETED + " INTEGER, " +
+            COLUMN_UPDATED_DATE + " TEXT " +
             "); ";
     //endregion Category table
 
@@ -274,7 +278,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_BRAND_ID = "BrandId";
     public static final String COLUMN_BRAND_NAME = "BrandName";
     public static final String COLUMN_BRAND_IMAGE = "BrandImage";
-    public static final String CREATE_TABLE_BRANDS = "CREATE TABLE " + TABLE_BRANDS + " (" +
+    public static final String CREATE_TABLE_BRAND = "CREATE TABLE " + TABLE_BRAND + " (" +
             COLUMN_BRAND_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_BRAND_NAME + " TEXT NOT NULL, " +
             COLUMN_BRAND_IMAGE + " TEXT NOT NULL, " +
@@ -316,7 +320,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_REORDER_QTY = "ReOrderQty";
 
     public static final String COLUMN_ALLOW_FRACTION_IN_QTY = "AllowFractionInQty";
-    public static final String COLUMN_NON_EXCHANGABLE = "NonExchangable";
+    public static final String COLUMN_NON_EXCHANGEABLE = "NonExchangeable";
     public static final String COLUMN_ONE_TIME_PURCHASABLE_QTY = "OneTimePurchasableQty";
 
     public static final String COLUMN_QTY_ON_HAND = "QtyOnHand";
@@ -333,7 +337,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_TOTAL_CLICKED = "TotalClicked";
     public static final String COLUMN_AVERAGE_RATING = "AverageRating";
 
-    public static final String CREATE_TABLE_ITEMS = "CREATE TABLE " + TABLE_ITEMS + " (" +
+    public static final String CREATE_TABLE_ITEM = "CREATE TABLE " + TABLE_ITEM + " (" +
             COLUMN_ITEM_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_ITEM_NAME + " TEXT NOT NULL, " +
             COLUMN_SPECIFICATION + " TEXT, " +
@@ -351,7 +355,7 @@ public class DbHelper extends SQLiteOpenHelper {
             COLUMN_REORDER_LEVEL + " INTEGER NOT NULL, " +
             COLUMN_REORDER_QTY + " INTEGER NOT NULL, " +
             COLUMN_ALLOW_FRACTION_IN_QTY + " INTEGER NOT NULL, " +
-            COLUMN_NON_EXCHANGABLE + " INTEGER NOT NULL, " +
+            COLUMN_NON_EXCHANGEABLE + " INTEGER NOT NULL, " +
             COLUMN_ONE_TIME_PURCHASABLE_QTY + " INTEGER NOT NULL, " +
             COLUMN_QTY_ON_HAND + " INTEGER NOT NULL, " +
             COLUMN_MRP + " REAL NOT NULL, " +
@@ -382,10 +386,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS = "SubscribedForNewsLetters";
     public static final String COLUMN_SUSPENDED = "Suspended";
     public static final String COLUMN_SUSPENDED_REASON = "SuspendedReason";
-    public static final String COLUMN_DATE_CREATED = "DateCreated";
     public static final String COLUMN_DATE_LAST_LOGGED = "DateLastLogged";
 
-    public static final String CREATE_TABLE_CLIENTS = "CREATE TABLE " + TABLE_CLIENT + " (" +
+    public static final String CREATE_TABLE_CLIENT = "CREATE TABLE " + TABLE_CLIENT + " (" +
             COLUMN_CLIENT_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_IS_GUEST_MODE + " INTEGER NOT NULL, " +
             COLUMN_EMAIL_ADDRESS + " TEXT NOT NULL, " +
@@ -397,7 +400,7 @@ public class DbHelper extends SQLiteOpenHelper {
             COLUMN_SUBSCRIBED_FOR_NEWS_LETTERS + " INTEGER NOT NULL, " +
             COLUMN_SUSPENDED + " INTEGER NOT NULL, " +
             COLUMN_SUSPENDED_REASON + " TEXT NOT NULL, " +
-            COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
+            COLUMN_CREATED_DATE + " TEXT NOT NULL, " +
             COLUMN_DATE_LAST_LOGGED + " TEXT NOT NULL, " +
             COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
@@ -448,19 +451,16 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //region ShoppingCart table
     public static final String COLUMN_SHOPPING_CART_ID = "ShoppingCartId";
-    public static final String COLUMN_ITEM_PRICE_VARIANT_ID = "ItemPriceVariantId";
     public static final String COLUMN_QUANTITY = "Quantity";
-    public static final String COLUMN_DATE_UPDATED = "DateUpdated";
 
     public static final String CREATE_TABLE_SHOPPING_CART = "CREATE TABLE " + TABLE_SHOPPING_CART + " (" +
             COLUMN_SHOPPING_CART_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
-            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
             COLUMN_QUANTITY + " INTEGER NOT NULL, " +
-            COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
+            COLUMN_CREATED_DATE + " TEXT NOT NULL, " +
             COLUMN_DELETED + " INTEGER NOT NULL, " +
-            COLUMN_DATE_UPDATED + " TEXT NOT NULL" +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
     //endregion
 
@@ -471,11 +471,10 @@ public class DbHelper extends SQLiteOpenHelper {
             COLUMN_WISH_LIST_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
-            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
             COLUMN_QUANTITY + " INTEGER NOT NULL, " +
-            COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
+            COLUMN_CREATED_DATE + " TEXT NOT NULL, " +
             COLUMN_DELETED + " INTEGER NOT NULL, " +
-            COLUMN_DATE_UPDATED + " TEXT NOT NULL" +
+            COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
     //endregion
 
@@ -487,7 +486,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String CREATE_TABLE_RATING = "CREATE TABLE " + TABLE_RATING + " (" +
             COLUMN_RATING_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
-            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
             COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             COLUMN_RATING_STAR + " INTEGER NOT NULL, " +
             COLUMN_RATING_REVIEW + " TEXT NOT NULL, " +
@@ -506,9 +504,8 @@ public class DbHelper extends SQLiteOpenHelper {
             COLUMN_VIEW_ID + " INTEGER PRIMARY KEY, " +
             COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
-            COLUMN_ITEM_PRICE_VARIANT_ID + " INTEGER NOT NULL, " +
             COLUMN_VIEWED_COUNT + " INTEGER NOT NULL, " +
-            COLUMN_DATE_CREATED + " TEXT NOT NULL, " +
+            COLUMN_CREATED_DATE + " TEXT NOT NULL, " +
             COLUMN_DATE_LAST_VIEWED + " TEXT NOT NULL, " +
             COLUMN_UPDATED_DATE + " TEXT NOT NULL" +
             ");";
@@ -531,7 +528,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public List<CarouselImage> getCarouselImages() {
         List<CarouselImage> carouselImages = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_CAROUSEL_IMAGES +
+        String query = "SELECT * FROM " + TABLE_CAROUSEL_IMAGE +
                 " WHERE " + COLUMN_DELETED + " = " + 0 +
                 " AND " + COLUMN_ACTIVE + " = " + 1 +
                 " ORDER BY " + COLUMN_DISPLAY_ORDER + " ASC";
@@ -607,7 +604,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public List<Category> getCategories() {
         List<Category> categories = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_CATEGORIES +
+        String query = "SELECT * FROM " + TABLE_CATEGORY +
                 " WHERE " + COLUMN_DELETED + " = " + 0 +
                 " AND " + COLUMN_ACTIVE + " = " + 1 +
                 " ORDER BY " + COLUMN_DISPLAY_ORDER + " ASC";
@@ -632,10 +629,61 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
+    public List<ShoppingCartViewModel> getShoppingCarts(int clientId) {
+        List<ShoppingCartViewModel> shoppingCartViewModelList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " +
+                TABLE_ITEM + "." + COLUMN_ITEM_ID + ", " +
+                TABLE_ITEM + "." + COLUMN_ITEM_NAME + ", " +
+                TABLE_ITEM + "." + COLUMN_ITEM_IMAGE_1 + ", " +
+                TABLE_ITEM + "." + COLUMN_SELLING_PRICE + ", " +
+
+                TABLE_SHOPPING_CART + "." + COLUMN_SHOPPING_CART_ID + ", " +
+                TABLE_SHOPPING_CART + "." + COLUMN_CLIENT_ID + ", " +
+                TABLE_SHOPPING_CART + "." + COLUMN_QUANTITY + ", " +
+                TABLE_SHOPPING_CART + "." + COLUMN_CREATED_DATE + ", " +
+                TABLE_SHOPPING_CART + "." + COLUMN_DELETED + ", " +
+                TABLE_SHOPPING_CART + "." + COLUMN_UPDATED_DATE +
+
+                " FROM " + TABLE_SHOPPING_CART +
+                " INNER JOIN " + TABLE_ITEM +
+                " ON " +
+                TABLE_ITEM + "." + COLUMN_ITEM_ID + " = " + TABLE_SHOPPING_CART + "." + COLUMN_ITEM_ID +
+                " WHERE " +
+                TABLE_SHOPPING_CART + "." + COLUMN_CLIENT_ID + " = " + clientId +
+                " AND " +
+                TABLE_ITEM + "." + COLUMN_DELETED + " = " + 0 +
+                " AND " +
+                TABLE_SHOPPING_CART + "." + COLUMN_DELETED + " = " + 0;
+
+        Log.d("Query", query);
+
+        Cursor result = db.rawQuery(query, null);
+        if (result.getCount() > 0) {
+            while (result.moveToNext()) {
+                ShoppingCartViewModel shoppingCartViewModel = new ShoppingCartViewModel();
+                shoppingCartViewModel.setShoppingCartId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_SHOPPING_CART_ID))));
+                shoppingCartViewModel.setClientId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_CLIENT_ID))));
+                shoppingCartViewModel.setItemId(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_ITEM_ID))));
+                shoppingCartViewModel.setItemName(result.getString(result.getColumnIndex(COLUMN_ITEM_NAME)));
+                shoppingCartViewModel.setItemImage1(result.getString(result.getColumnIndex(COLUMN_ITEM_IMAGE_1)));
+                shoppingCartViewModel.setSellingPrice(new BigDecimal(result.getString(result.getColumnIndex(COLUMN_SELLING_PRICE))));
+                shoppingCartViewModel.setQuantity(Integer.parseInt(result.getString(result.getColumnIndex(COLUMN_QUANTITY))));
+                shoppingCartViewModel.setCreatedDate(result.getString(result.getColumnIndex(COLUMN_CREATED_DATE)));
+                shoppingCartViewModel.setDeleted(result.getInt(result.getColumnIndex(COLUMN_DELETED)) == 1);
+                shoppingCartViewModel.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
+                shoppingCartViewModelList.add(shoppingCartViewModel);
+            }
+        }
+        result.close();
+        return shoppingCartViewModelList;
+    }
+
+    @SuppressLint("Range")
     public List<Item> getItems(int brandId, int categoryId, int itemId) {
         List<Item> items = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_ITEMS +
+        String query = "SELECT * FROM " + TABLE_ITEM +
                 " WHERE " + COLUMN_DELETED + " = " + 0 +
                 " AND " + COLUMN_ACTIVE + " = " + 1;
         if (itemId > 0) {//filter for brandID
@@ -666,7 +714,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 item.setNewArrival(result.getInt(result.getColumnIndex(COLUMN_IS_NEW_ARRIVAL)) == 1);
                 item.setExpress(result.getInt(result.getColumnIndex(COLUMN_IS_EXPRESS)) == 1);
                 item.setAllowFractionInQty(result.getInt(result.getColumnIndex(COLUMN_ALLOW_FRACTION_IN_QTY)) == 1);
-                item.setNonExchangable(result.getInt(result.getColumnIndex(COLUMN_NON_EXCHANGABLE)) == 1);
+                item.setNonExchangeable(result.getInt(result.getColumnIndex(COLUMN_NON_EXCHANGEABLE)) == 1);
                 item.setAvailableInMobileApp(result.getInt(result.getColumnIndex(COLUMN_IS_AVAILABLE_IN_MOBILE_APP)) == 1);
                 item.setAvailableInPOS(result.getInt(result.getColumnIndex(COLUMN_IS_AVAILABLE_IN_POS)) == 1);
                 item.setActive(result.getInt(result.getColumnIndex(COLUMN_ACTIVE)) == 1);
@@ -702,7 +750,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public List<Brand> getBrands() {
         List<Brand> brands = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_BRANDS +
+        String query = "SELECT * FROM " + TABLE_BRAND +
                 " WHERE " + COLUMN_DELETED + " = " + 0 +
                 " AND " + COLUMN_ACTIVE + " = " + 1 +
                 " ORDER BY " + COLUMN_DISPLAY_ORDER + " ASC";
@@ -748,7 +796,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 client.setSuspended(result.getInt(result.getColumnIndex(COLUMN_SUSPENDED)) == 1);
 
                 client.setSuspendedReason(result.getString(result.getColumnIndex(COLUMN_SUSPENDED_REASON)));
-                client.setDateCreated(result.getString(result.getColumnIndex(COLUMN_DATE_CREATED)));
+                client.setDateCreated(result.getString(result.getColumnIndex(COLUMN_CREATED_DATE)));
                 client.setDateLastLogged(result.getString(result.getColumnIndex(COLUMN_DATE_LAST_LOGGED)));
                 client.setUpdatedDate(result.getString(result.getColumnIndex(COLUMN_UPDATED_DATE)));
                 clients.add(client);

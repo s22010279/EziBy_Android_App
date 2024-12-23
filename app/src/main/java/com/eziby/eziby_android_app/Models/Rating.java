@@ -3,7 +3,6 @@ package com.eziby.eziby_android_app.Models;
 public class Rating {
     private int ratingId;
     private int itemId; // Reference to Item
-    private int itemPriceVariantId; // Reference to ItemPriceVariant
     private int clientId; // Reference to Client
     private int ratingStar;
     private String ratingReview = "";
@@ -26,14 +25,6 @@ public class Rating {
 
     public void setItemId(int itemId) {
         this.itemId = itemId;
-    }
-
-    public int getItemPriceVariantId() {
-        return itemPriceVariantId;
-    }
-
-    public void setItemPriceVariantId(int itemPriceVariantId) {
-        this.itemPriceVariantId = itemPriceVariantId;
     }
 
     public int getClientId() {
