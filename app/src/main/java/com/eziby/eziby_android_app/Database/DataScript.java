@@ -1,7 +1,7 @@
 package com.eziby.eziby_android_app.Database;
 
 public class DataScript {
-    public static final String INSERT_DATA_SETUPS = "INSERT INTO Setups(" +
+    public static final String INSERT_DATA_SETUPS = "INSERT INTO Setup (" +
             " SetupId" +
             ",BranchName" +
             ",BranchDescription" +
@@ -70,7 +70,7 @@ public class DataScript {
             ",1" +
             ",'C:\\EziBy_Reports\\');";
 
-    public static final String INSERT_DATA_CATEGORIES = "INSERT INTO Categories (" +
+    public static final String INSERT_DATA_CATEGORIES = "INSERT INTO Category (" +
             " CategoryId" +
             ",CategoryName" +
             ",CategoryImage" +
@@ -95,7 +95,7 @@ public class DataScript {
             "(15, 'Egg Meat & Fish',                   '0000015_1_I298ODEM2GG.jpg', '0000015_2_I298ODEM2GG.jpg', 12, 14, 1, 0, '2024-01-01')," +
             "(16, 'Stationer',                         '0000016_1_ZULYLTEM2GG.jpg', '0000016_2_7RBZLTEM2GG.jpg', 13, 15, 1, 0, '2025-01-01');";
 
-    public static final String INSERT_DATA_BRANDS = "INSERT INTO Brands (" +
+    public static final String INSERT_DATA_BRANDS = "INSERT INTO Brand (" +
             " BrandId" +
             ",BrandName" +
             ",BrandImage" +
@@ -114,7 +114,7 @@ public class DataScript {
             "(21, 'Maliban', '0000021_1_AJE999WM2GG.jpg', 8, 1, 0, '2023-01-01')," +
             "(22, 'Atlas',   '0000022_1_XA3D59WM2GG.jpg', 9, 1, 0, '2024-01-01');";
 
-    public static final String INSERT_DATA_CAROUSEL_IMAGES = "INSERT INTO CarouselImages(" +
+    public static final String INSERT_DATA_CAROUSEL_IMAGES = "INSERT INTO CarouselImage (" +
             " CarouselId" +
             ",CarouselDetails" +
             ",CarouselImageName" +
@@ -131,8 +131,8 @@ public class DataScript {
             "( 9, 'Free Delivery Ramazan 2023',       '0000009_1_SEUZBQ8O2WG.jpg', 'No Link', 'HomeCarousel',  9, 0, 0, '2024-01-01')," +
             "(10, '2024 Ram',                         '0000010_1_EVZUAV1A3AG.jpg', 'No Link', 'HomeCarousel', 10, 1, 0, '2025-01-01');";
 
-    public static final String INSERT_DATA_ITEMS = "INSERT INTO Items (" +
-            "ItemId, ItemName, Specification, SKUBarcode, Dimension, ItemImage1, ItemImage2, ItemImage3, BrandId, CategoryId, SubCategoryId, DeliveryTimeId, UOMId, StopReOrder, ReOrderLevel, ReOrderQty, AllowFractionInQty, NonExchangable, OneTimePurchasableQty, IsAvailableInMobileApp, IsAvailableInPOS, IsNewArrival, IsTrending, IsExpress, TotalSold, TotalClicked, AverageRating, Active, Deleted, UpdatedDate, QtyOnHand, MRP, SellingPrice, MOB_DiscountPercentage) " +
+    public static final String INSERT_DATA_ITEMS = "INSERT INTO Item (" +
+            "ItemId, ItemName, Specification, SKUBarcode, Dimension, ItemImage1, ItemImage2, ItemImage3, BrandId, CategoryId, SubCategoryId, DeliveryTimeId, UOMId, StopReOrder, ReOrderLevel, ReOrderQty, AllowFractionInQty, NonExchangeable, OneTimePurchasableQty, IsAvailableInMobileApp, IsAvailableInPOS, IsNewArrival, IsTrending, IsExpress, TotalSold, TotalClicked, AverageRating, Active, Deleted, UpdatedDate, QtyOnHand, MRP, SellingPrice, MOB_DiscountPercentage) " +
             "VALUES " +
             "(16, 'Sugar - Brown', 'Brown sugar is a sucrose sugar product with a distinctive brown color due to the presence of molasses. It is either an unrefined or partially refined soft sugar consisting of sugar crystals with some residual molasses content (natural brown sugar', '1001', '1', '0000016_1_BNRKEPUM2GG.jpg', '', '', 16, 1, 2, 0, 4, 0, 15, 10, 1, 0, 10, 1, 1, 0, 1, 1, 0, 78, 0.00, 1, 0, '2024-01-01', 10, 190, 250, 15)," +
             "(17, 'Salt Lanka', 'Salt is a mineral composed primarily of sodium chloride (NaCl), a chemical compound belonging to the larger class of salts; salt in the form of a natural crystalline mineral is known as rock salt or halite. Salt is present in vast quantities in seawater. The open ocean has about 35 g (1.2 oz) of solids per liter of seawater, a salinity of 3.5%', '4796019630012', '1', '0000017_1_RNHQEPUM2GG.jpg', '', '', 0, 1, 3, 0, 4, 0, 15, 10, 0, 0, 10, 1, 1, 0, 0, 0, 0, 21, 0.00, 1, 0, '2024-01-01', 0, 190, 250, 15)," +
@@ -142,7 +142,7 @@ public class DataScript {
             "(21, 'Tikiri Marie', 'A smooth golden milk biscuit with subtle sweetness and a distinct crisp texture, baked according to a traditional recipe.', '8888101280208', '80', '0000021_1_C0J2EPUM2GG.png', '', '', 15, 11, 21, 0, 2, 0, 15, 10, 0, 0, 5, 1, 1, 0, 0, 0, 0, 79, 0.00, 1, 0, '2024-01-01', 15, 190, 250, 15);";
 
 
-    public static final String INSERT_DATA_CLIENTS = "INSERT INTO Clients (" +
+    public static final String INSERT_DATA_CLIENTS = "INSERT INTO Client (" +
             " ClientId" +
             ",FullName" +
             ",PhoneNumber" +
@@ -152,7 +152,7 @@ public class DataScript {
             ",Suspended" +
             ",SuspendedReason" +
             ",SubscribedForNewsLetters" +
-            ",DateCreated" +
+            ",CreatedDate" +
             ",DateLastLogged" +
             ",IsGuestMode" +
             ",GuestId" +
@@ -164,7 +164,28 @@ public class DataScript {
             "(9, 'AL niyas'           , '+94750345657', 0, 'alniyas8425@gmail.com',       0, 0, 'No Reason', 0, '2022-06-08', '2022-06-27', 0, 'Guest Id', '2024-01-01');";
 
 
-    // public static final String INSERT_DATA_CLIENTS1 ="";
+    public static final String INSERT_DATA_SHOPPING_CART = "INSERT INTO ShoppingCart (" +
+            " ShoppingCartId" +
+            ",ClientId" +
+            ",ItemId" +
+            ",Quantity" +
+            ",CreatedDate" +
+            ",Deleted" +
+            ",UpdatedDate)" +
+            "VALUES" +
+            "( 228, 1, 16, 1, '2022-09-05', 0, '2022-09-05 15:25:30.060')," +
+            "( 229, 1, 18, 3, '2022-09-05', 0, '2022-09-05 15:11:38.350')," +
+            "( 234, 1, 17, 7, '2022-09-05', 0, '2022-09-05 15:20:02.680')," +
+            "( 251, 1, 19, 2, '2022-09-05', 0, '2022-09-05 16:04:13.923')," +
+            "( 252, 1, 20, 5, '2022-09-05', 0, '2022-09-05 16:04:30.243')," +
+            "( 256, 1, 21, 1, '2022-09-05', 0, '2022-09-05 16:12:34.383')," +
+            "(1395, 2, 16, 1, '2022-09-16', 0, '2022-09-16 21:58:28.460')," +
+            "(1396, 2, 18, 1, '2022-09-16', 0, '2022-09-16 21:58:28.460')," +
+            "(1397, 2, 17, 1, '2022-09-16', 0, '2022-09-16 21:58:28.477')," +
+            "(1398, 2, 19, 1, '2022-09-16', 0, '2022-09-16 21:58:28.477')," +
+            "(1399, 2, 20, 1, '2022-09-16', 0, '2022-09-16 21:58:28.477')," +
+            "(1400, 2, 21, 2, '2022-09-16', 0, '2022-09-16 21:58:28.477');";
+
     // public static final String INSERT_DATA_CLIENTS2 ="";
     // public static final String INSERT_DATA_CLIENTS3 ="";
     // public static final String INSERT_DATA_CLIENTS4 ="";

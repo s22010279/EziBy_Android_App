@@ -40,7 +40,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.component_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.component_shopping_cart_item, parent, false);
         return new ImageViewHolder(view);
     }
 
@@ -49,6 +49,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         Uri imageUri = Uri.parse(this.mainUri + itemArray.get(position).getItemImage1());
         DecimalFormat decimalFormat = new DecimalFormat(EziByValues.patternCurrency);
         String _sellingPrice = this.currencyMark + " " + decimalFormat.format(itemArray.get(position).getSellingPrice());
+        String _quantity = String.valueOf(itemArray.get(position).getQuantity());
         Picasso.get()
                 .load(imageUri) // Image URL
                 .placeholder(R.drawable.loading_image_light_grey_100) // Placeholder image while loading
@@ -57,7 +58,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
         holder.textViewProductName.setText(Optional.ofNullable(itemArray.get(position).getItemName()).orElse(""));
         holder.textViewProductPrice.setText(_sellingPrice);
-        holder.textViewQuantity.setText(itemArray.get(position).getQuantity());
+        holder.textViewQuantity.setText(_quantity);
     }
 
     @Override

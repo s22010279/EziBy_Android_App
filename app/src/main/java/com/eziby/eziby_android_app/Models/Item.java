@@ -25,7 +25,7 @@ public class Item {
     private int reOrderQty;
 
     private boolean allowFractionInQty;
-    private boolean nonExchangable;
+    private boolean nonExchangeable;
     private int oneTimePurchasableQty;
 
     private int qtyOnHand;
@@ -183,12 +183,12 @@ public class Item {
         this.allowFractionInQty = allowFractionInQty;
     }
 
-    public boolean isNonExchangable() {
-        return nonExchangable;
+    public boolean isNonExchangeable() {
+        return nonExchangeable;
     }
 
-    public void setNonExchangable(boolean nonExchangable) {
-        this.nonExchangable = nonExchangable;
+    public void setNonExchangeable(boolean nonExchangeable) {
+        this.nonExchangeable = nonExchangeable;
     }
 
     public int getOneTimePurchasableQty() {
