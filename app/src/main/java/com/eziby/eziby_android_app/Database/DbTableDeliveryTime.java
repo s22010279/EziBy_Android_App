@@ -12,7 +12,7 @@ public class DbTableDeliveryTime {
     public static final String COLUMN_DELIVERY_TIME_NAME = "DeliveryTimeName";
 
     public static final String CREATE_TABLE_DELIVERY_TIME = "CREATE TABLE " + TABLE_DELIVERY_TIME + " (" +
-            DbFieldsCommon.COLUMN_DELIVERY_TIME_ID + " INTEGER PRIMARY KEY, " +
+            DbFieldsCommon.COLUMN_DELIVERY_TIME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_DELIVERY_TIME_NAME + " TEXT NOT NULL, " +
             DbFieldsCommon.COLUMN_DISPLAY_ORDER + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_ACTIVE + " INTEGER NOT NULL, " +

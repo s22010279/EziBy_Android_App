@@ -244,6 +244,22 @@ public class DbHelper extends SQLiteOpenHelper {
         return simpleDateFormat.format(now);
     }
 
+    public boolean insertShoppingCart(int itemId, int clientId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DbTableShoppingCart.COLUMN_SHOPPING_CART_ID, "");
+        contentValues.put(DbFieldsCommon.COLUMN_CLIENT_ID, clientId);
+        contentValues.put(DbFieldsCommon.COLUMN_ITEM_ID, itemId);
+        contentValues.put(DbFieldsCommon.COLUMN_QUANTITY, "");
+        contentValues.put(DbFieldsCommon.COLUMN_CREATED_DATE, "");
+        contentValues.put(DbFieldsCommon.COLUMN_DELETED, "");
+        contentValues.put(DbFieldsCommon.COLUMN_UPDATED_DATE, "");
+
+        long result = db.insert(DbTableUser.TABLE_USER, null, contentValues);
+
+        return result != -1;
+    }
+
     public boolean insertUser(MyUser myUser) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

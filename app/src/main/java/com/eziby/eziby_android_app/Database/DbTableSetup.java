@@ -44,7 +44,7 @@ public class DbTableSetup {
 
 
     public static final String CREATE_TABLE_SETUP = "CREATE TABLE " + TABLE_SETUP + " (" +
-            COLUMN_SETUP_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_SETUP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_BRANCH_NAME + " TEXT NOT NULL DEFAULT '', " +
             COLUMN_BRANCH_DESCRIPTION + " TEXT NOT NULL DEFAULT '', " +
             COLUMN_BRANCH_ADDRESS + " TEXT NOT NULL DEFAULT '', " +

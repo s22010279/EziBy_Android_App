@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,11 +55,14 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 .load(imageUri) // Image URL
                 .placeholder(R.drawable.loading_image_light_grey_100) // Placeholder image while loading
                 .error(R.drawable.error_image_30) // Error image if the URL fails to load
-                .into(holder.imageViewProduct); // Target ImageView
+                .into(holder.product_image); // Target ImageView
 
-        holder.textViewProductName.setText(Optional.ofNullable(itemArray.get(position).getItemName()).orElse(""));
-        holder.textViewProductPrice.setText(_sellingPrice);
-        holder.textViewQuantity.setText(_quantity);
+        holder.product_name.setText(Optional.ofNullable(itemArray.get(position).getItemName()).orElse(""));
+        holder.product_price.setText(_sellingPrice);
+        holder.shopping_cart_quantity.setText(_quantity);
+        holder.increment_button.setOnClickListener(v -> {
+
+        });
     }
 
     @Override
@@ -68,17 +72,19 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageViewProduct;
-        TextView textViewProductName;
-        TextView textViewProductPrice;
-        TextView textViewQuantity;
+        ImageView product_image;
+        TextView product_name;
+        TextView product_price;
+        TextView shopping_cart_quantity;
+        Button increment_button;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewProduct = itemView.findViewById(R.id.product_image);
-            textViewProductName = itemView.findViewById(R.id.product_name);
-            textViewProductPrice = itemView.findViewById(R.id.product_price);
-            textViewQuantity = itemView.findViewById(R.id.shopping_cart_quantity);
+            product_image = itemView.findViewById(R.id.product_image);
+            product_name = itemView.findViewById(R.id.product_name);
+            product_price = itemView.findViewById(R.id.product_price);
+            shopping_cart_quantity = itemView.findViewById(R.id.shopping_cart_quantity);
+            increment_button = itemView.findViewById(R.id.increment_button);
         }
     }
 }

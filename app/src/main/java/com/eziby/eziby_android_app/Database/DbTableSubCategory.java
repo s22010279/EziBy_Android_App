@@ -13,7 +13,7 @@ public class DbTableSubCategory {
     public static final String COLUMN_SUB_CATEGORY_IMAGE = "SubCategoryImage";
 
     public static final String CREATE_TABLE_SUB_CATEGORY = "CREATE TABLE " + TABLE_SUB_CATEGORY + " (" +
-            DbFieldsCommon.COLUMN_SUB_CATEGORY_ID + " INTEGER PRIMARY KEY, " +
+            DbFieldsCommon.COLUMN_SUB_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             DbFieldsCommon.COLUMN_CATEGORY_ID + " INTEGER NOT NULL, " +
             COLUMN_SUB_CATEGORY_NAME + " TEXT NOT NULL, " +
             COLUMN_SUB_CATEGORY_IMAGE + " TEXT NOT NULL, " +

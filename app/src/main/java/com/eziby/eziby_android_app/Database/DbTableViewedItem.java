@@ -14,7 +14,7 @@ public class DbTableViewedItem {
     public static final String COLUMN_DATE_LAST_VIEWED = "DateLastViewed";
 
     public static final String CREATE_TABLE_VIEWED_ITEM = "CREATE TABLE " + TABLE_VIEWED_ITEM + " (" +
-            COLUMN_VIEW_ID + " INTEGER PRIMARY KEY, " +
+            COLUMN_VIEW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             DbFieldsCommon.COLUMN_CLIENT_ID + " INTEGER NOT NULL, " +
             DbFieldsCommon.COLUMN_ITEM_ID + " INTEGER NOT NULL, " +
             COLUMN_VIEWED_COUNT + " INTEGER NOT NULL, " +

@@ -39,7 +39,7 @@ public class DbTableItem {
 
 
     public static final String CREATE_TABLE_ITEM = "CREATE TABLE " + TABLE_ITEM + " (" +
-            DbFieldsCommon.COLUMN_ITEM_ID + " INTEGER PRIMARY KEY, " +
+            DbFieldsCommon.COLUMN_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_ITEM_NAME + " TEXT NOT NULL, " +
             COLUMN_SPECIFICATION + " TEXT, " +
             COLUMN_SKU_BARCODE + " TEXT, " +
