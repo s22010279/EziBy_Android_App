@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eziby.eziby_android_app.Classes.EziByValues;
+import com.eziby.eziby_android_app.Classes.EziByUtility;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.Models.ShoppingCartViewModel;
 import com.eziby.eziby_android_app.R;
@@ -48,13 +48,13 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         Uri imageUri = Uri.parse(this.mainUri + itemArray.get(position).getItemImage1());
-        DecimalFormat decimalFormat = new DecimalFormat(EziByValues.patternCurrency);
+        DecimalFormat decimalFormat = new DecimalFormat(EziByUtility.patternCurrency);
         String _sellingPrice = this.currencyMark + " " + decimalFormat.format(itemArray.get(position).getSellingPrice());
         int _quantity = itemArray.get(position).getQuantity();
         Picasso.get()
                 .load(imageUri) // Image URL
                 .placeholder(R.drawable.loading_image_light_grey_100) // Placeholder image while loading
-                .error(R.drawable.error_image_30) // Error image if the URL fails to load
+//                .error(R.drawable.error_image_30) // Error image if the URL fails to load
                 .into(holder.product_image); // Target ImageView
 
         holder.product_name.setText(Optional.ofNullable(itemArray.get(position).getItemName()).orElse(""));

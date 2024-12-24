@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eziby.eziby_android_app.Classes.EziByValues;
+import com.eziby.eziby_android_app.Classes.EziByUtility;
 import com.eziby.eziby_android_app.Database.DbHelper;
 import com.eziby.eziby_android_app.Models.Item;
 import com.eziby.eziby_android_app.R;
@@ -59,7 +59,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ImageV
 
         holder.textViewProductName.setText(Optional.ofNullable(itemArray.get(position).getItemName()).orElse(""));
         String _description = this.currencyMark + " " + Optional.ofNullable(itemArray.get(position).getSpecification()).orElse("");
-        DecimalFormat decimalFormat = new DecimalFormat(EziByValues.patternCurrency);
+        DecimalFormat decimalFormat = new DecimalFormat(EziByUtility.patternCurrency);
         String _sellingPrice = this.currencyMark + " " + decimalFormat.format(itemArray.get(position).getSellingPrice());
         holder.textViewProductPrice.setText(_sellingPrice);
         holder.textViewProductDescription.setText(_description);
