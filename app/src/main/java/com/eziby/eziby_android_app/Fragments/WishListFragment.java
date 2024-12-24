@@ -37,7 +37,7 @@ public class WishListFragment extends Fragment {
 
         // Set up RecyclerView
         RecyclerView recyclerViewCategory = view.findViewById(R.id.recycler_view_wish_list);
-        recyclerViewCategory.setLayoutManager(new GridLayoutManager(this.getContext(), 1)); // 3 columns
+        recyclerViewCategory.setLayoutManager(new GridLayoutManager(this.getContext(), 1));
         recyclerViewCategory.setAdapter(new WishListAdapter(this.getContext(), wishListViewModels));
 
         //Visible / Invisible Empty Icon
