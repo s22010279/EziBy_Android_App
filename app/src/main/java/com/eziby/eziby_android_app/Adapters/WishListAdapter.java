@@ -77,7 +77,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ImageV
 
         holder.add_to_shopping_cart_button.setOnClickListener(v -> {
             try (DbHelper dbHelper = new DbHelper(context)) {
-                dbHelper.increaseShoppingCart(itemArray.get(position).getItemId(), 1,1);
+                dbHelper.increaseShoppingCart(itemArray.get(position).getItemId(), 1,1, true);
                 dbHelper.deleteWishList(itemArray.get(position).getWishListId());
                 // Remove the item from the list
                 itemArray.remove(position);

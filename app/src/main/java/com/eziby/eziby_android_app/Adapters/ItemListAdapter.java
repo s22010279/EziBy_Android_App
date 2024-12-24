@@ -70,7 +70,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ImageV
 
         holder.btnAddToCart.setOnClickListener(v -> {
             try (DbHelper dbHelper = new DbHelper(context)) {
-                dbHelper.increaseShoppingCart(itemArray.get(position).getItemId(), 1, 1);
+                dbHelper.increaseShoppingCart(itemArray.get(position).getItemId(), 1, 1, false);
             }
         });
 
