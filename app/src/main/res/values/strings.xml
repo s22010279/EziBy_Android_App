@@ -104,4 +104,10 @@
     <string name="text_quantity">99</string>
     <string name="text_oops_empty_cart">Oops! Empty cart</string>
     <string name="text_proceed_to_checkout">PROCEED TO CHECKOUT</string>
+    <string name="value_name">Mohamed Anushath</string>
+    <string name="value_delivery_city">Nawala</string>
+    <string name="value_pickup_method">Pick up method</string>
+    <string name="value_phone_number">0777701979</string>
+    <string name="value_email">hamzaanushath@gmail.com</string>
+    <string name="value_delivery_date_and_time">(On or before) 17-Dec-2024 19:24:22 PM</string>
 </resources>

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.eziby.eziby_android_app.Classes.EziByUtility;
 import com.eziby.eziby_android_app.Models.Brand;
 import com.eziby.eziby_android_app.Models.CarouselImage;
 import com.eziby.eziby_android_app.Models.Category;
@@ -280,10 +281,8 @@ public class DbHelper extends SQLiteOpenHelper {
         return clients;
     }
 
-
     private String getCurrentDate() {
-        String dateFormat = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.getDefault());//dd/MM/yyyy
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(EziByUtility.dateFormat, Locale.getDefault());
         Date now = new Date();
         return simpleDateFormat.format(now);
     }
@@ -299,7 +298,10 @@ public class DbHelper extends SQLiteOpenHelper {
                 ",Deleted" +
                 ",UpdatedDate)" +
                 "VALUES" +
-                "( " + clientId + ", " + itemId + ", " + quantity + ", '" + getCurrentDate() + "', 0, '" + getCurrentDate() + "')";
+                "( " + clientId + ", " + itemId + ", " + quantity + ", '" + getCurrentDate() + "', 0, '" + getCurrentDate() + "')" +
+                "ON CONFLICT(" + DbFieldsCommon.COLUMN_CLIENT_ID + ", " + DbFieldsCommon.COLUMN_ITEM_ID + ") " +
+                "DO UPDATE SET " +
+                DbFieldsCommon.COLUMN_QUANTITY + " = + 1";
 
         db.execSQL(queryInsertOrUpdate);
 

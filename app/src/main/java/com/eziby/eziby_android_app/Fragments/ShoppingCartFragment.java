@@ -39,7 +39,7 @@ public class ShoppingCartFragment extends Fragment {
 
         // Set up RecyclerView
         RecyclerView recyclerViewCategory = view.findViewById(R.id.recycler_view_shopping_cart);
-        recyclerViewCategory.setLayoutManager(new GridLayoutManager(this.getContext(), 1)); // 3 columns
+        recyclerViewCategory.setLayoutManager(new GridLayoutManager(this.getContext(), 1));
         recyclerViewCategory.setAdapter(new ShoppingCartAdapter(this.getContext(), shoppingCartViewModelList));
 
         //Visible / Invisible Empty Icon

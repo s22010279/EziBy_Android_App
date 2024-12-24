@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="4dp"
     tools:context=".screens.Order_2_Review">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="4dp">
 
         <!-- Progress Bar Section -->
         <LinearLayout
@@ -99,35 +104,35 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nawas boss"
+            android:text="@string/value_name"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nintavur 18"
+            android:text="@string/value_delivery_city"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvPickupType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Self Pickup at Store"
+            android:text="@string/value_pickup_method"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvPhoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0773201706"
+            android:text="@string/value_phone_number"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="shabrin36@gmail.com"
+            android:text="@string/value_email"
             android:textSize="16sp" />
 
         <View
@@ -154,7 +159,7 @@
             android:id="@+id/tvEstimatedDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(On or before) 17-Dec-2024 19:24:22 PM"
+            android:text="@string/value_delivery_date_and_time"
             android:textSize="16sp" />
 
         <View
@@ -177,47 +182,28 @@
             android:text="@string/text_order_includes"
             android:textSize="18sp"
             android:textStyle="bold" />
-
-        <!-- Progress Bar Section -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/shopping_cart_item1"
-                layout="@layout/component_order_review_item" />
-
-            <include
-                android:id="@+id/shopping_cart_item2"
-                layout="@layout/component_order_review_item" />
-
-            <include
-                android:id="@+id/shopping_cart_item3"
-                layout="@layout/component_order_review_item" />
-
-            <include
-                android:id="@+id/shopping_cart_item4"
-                layout="@layout/component_order_review_item" />
-
-            <include
-                android:id="@+id/shopping_cart_item5"
-                layout="@layout/component_order_review_item" />
-
-            <include
-                android:id="@+id/shopping_cart_item6"
-                layout="@layout/component_order_review_item" />
-
-        </LinearLayout>
-
-        <!-- Place Order Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_proceed_to_payment"
-            style="@style/add_to_cart_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/text_proceed_to_payment" />
-
     </LinearLayout>
-</ScrollView>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_review_item"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/btn_proceed_to_payment"
+        tools:layout_editor_absoluteX="4dp" />
+
+    <!-- Place Order Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_proceed_to_payment"
+        style="@style/add_to_cart_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_proceed_to_payment"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="4dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
