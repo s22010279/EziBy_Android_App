@@ -71,7 +71,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         holder.increment_button.setOnClickListener(v -> {
             holder.increment_button.setEnabled(false);
             try (DbHelper dbHelper = new DbHelper(context)) {
-                dbHelper.increaseShoppingCart(itemArray.get(position).getItemId(), 1, 1);
+                dbHelper.increaseShoppingCart(itemArray.get(position).getItemId(), 1, 1, false);
 
                 // Update the item quantity in the local list
                 int currentQuantity = itemArray.get(position).getQuantity();

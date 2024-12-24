@@ -301,14 +301,14 @@ public class DbHelper extends SQLiteOpenHelper {
                 "( " + clientId + ", " + itemId + ", " + quantity + ", '" + getCurrentDate() + "', 0, '" + getCurrentDate() + "')" +
                 "ON CONFLICT(" + DbFieldsCommon.COLUMN_CLIENT_ID + ", " + DbFieldsCommon.COLUMN_ITEM_ID + ") " +
                 "DO UPDATE SET " +
-                DbFieldsCommon.COLUMN_QUANTITY + " = + 1";
+                DbFieldsCommon.COLUMN_QUANTITY + " = + " + 1;
 
         db.execSQL(queryInsertOrUpdate);
 
         Toast.makeText(this.context, "Added to Cart", Toast.LENGTH_SHORT).show();
     }
 
-    public void increaseShoppingCart(int itemId, int clientId, int quantity) {
+    public void increaseShoppingCart(int itemId, int clientId, int quantity, boolean fromWishLIst) {
         quantity = quantity <= 0 ? 1 : quantity;
         SQLiteDatabase db = this.getWritableDatabase();
         String queryInsertOrUpdate = "INSERT INTO " + DbTableShoppingCart.TABLE_SHOPPING_CART + " (" +
@@ -322,7 +322,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "( " + clientId + ", " + itemId + ", " + quantity + ", '" + getCurrentDate() + "', 0, '" + getCurrentDate() + "')" +
                 "ON CONFLICT(" + DbFieldsCommon.COLUMN_CLIENT_ID + ", " + DbFieldsCommon.COLUMN_ITEM_ID + ") " +
                 "DO UPDATE SET " +
-                DbFieldsCommon.COLUMN_QUANTITY + " = " + DbFieldsCommon.COLUMN_QUANTITY + " + 1";
+                DbFieldsCommon.COLUMN_QUANTITY + " = " + DbFieldsCommon.COLUMN_QUANTITY + " + " + (fromWishLIst ? 0 : quantity);
 
         db.execSQL(queryInsertOrUpdate);
 
@@ -343,7 +343,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "( " + clientId + ", " + itemId + ", " + quantity + ", '" + getCurrentDate() + "', 0, '" + getCurrentDate() + "')" +
                 "ON CONFLICT(" + DbFieldsCommon.COLUMN_CLIENT_ID + ", " + DbFieldsCommon.COLUMN_ITEM_ID + ") " +
                 "DO UPDATE SET " +
-                DbFieldsCommon.COLUMN_QUANTITY + " = " + DbFieldsCommon.COLUMN_QUANTITY + " - 1";
+                DbFieldsCommon.COLUMN_QUANTITY + " = " + DbFieldsCommon.COLUMN_QUANTITY + " - " + 1;
 
         db.execSQL(queryInsertOrUpdate);
 
